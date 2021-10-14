@@ -1,9 +1,11 @@
 Manifest-Version: 1.0.1
 Bundle-SymbolicName: fullcalendarcomponent
 Bundle-Name: Fullcalendar Component
-Bundle-Version: 1.2.0
+Bundle-Version: 2.0.0
+Entry-Point: dist/servoy/fullcalendarcomponent
+NPM-PackageName: @servoy/fullcalendarcomponent
+NG2-Module: FullCalendarComponentModule
 Package-Type: Web-Component
 
 Name: fullcalendar/fullcalendar.spec
 Web-Component: True
-

@@ -2,9 +2,9 @@
 	"name": "svy-fullcalendar",
 	"displayName": "FullCalendar",
 	"categoryName": "Visualization",
-	"icon" : "fullcalendarcomponent/fullcalendar/fullcalendar.png",
-	"definition": "fullcalendarcomponent/fullcalendar/fullcalendar.js",
-	"serverscript": "fullcalendarcomponent/fullcalendar/fullcalendar_server.js",
+	"icon" : "fullcalendarcomponent2/fullcalendar/fullcalendar.png",
+	"definition": "fullcalendarcomponent2/fullcalendar/fullcalendar.js",
+	"serverscript": "fullcalendarcomponent2/fullcalendar/fullcalendar_server.js",
 	"ng2Config": {
        "packageName": "@servoy/fullcalendarcomponent",
        "moduleName": "FullCalendarComponentModule",
@@ -51,7 +51,7 @@
 					"name": "endStr"
 				 }, {
 				 	"type": "JSEvent",
-				 	"name": "event"
+				 	"name": "jsEvent"
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
@@ -64,7 +64,7 @@
 		"onUnselectMethodID": {
 			"parameters" : [{
 				 	"type": "JSEvent",
-				 	"name": "event"
+				 	"name": "jsEvent"
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
@@ -82,7 +82,7 @@
 				 	"name": "dayEl"
 				 },{
 				 	"type": "JSEvent",
-				 	"name": "event"
+				 	"name": "jsEvent"
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
@@ -98,7 +98,7 @@
 				 	"name": "date"
 				 }, {
 				 	"type": "JSEvent",
-				 	"name": "event"
+				 	"name": "jsEvent"
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
@@ -111,10 +111,10 @@
 		"onEventClickMethodID": {
 			"parameters" : [{
 					"type": "EventObject",
-				 	"name": "eventObject"
+				 	"name": "event"
 				 }, {
 				 	"type": "JSEvent",
-				 	"name": "event"
+				 	"name": "jsEvent"
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
@@ -123,25 +123,79 @@
 		"onEventRightClickMethodID": {
 			"parameters" : [{
 					"type": "EventObject",
-				 	"name": "eventObject"
+				 	"name": "event"
 				 }, {
 				 	"type": "JSEvent",
-				 	"name": "event"
+				 	"name": "jsEvent"
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
 				}]
 		},
+		"onEventAddMethodID": {
+			"parameters" : [{
+					"type": "EventObject",
+				 	"name": "event"
+				 }, {
+					"type": "EventObject[]",
+				 	"name": "relatedEvents"
+				 }, {
+				 	"type": "Function",
+				 	"name": "revert"
+				}]
+		},
+		"onEventRemoveMethodID": {
+			"parameters" : [{
+					"type": "EventObject",
+				 	"name": "event"
+				 }, {
+					"type": "EventObject[]",
+				 	"name": "relatedEvents"
+				 }, {
+				 	"type": "Function",
+				 	"name": "revert"
+				}]
+		},
+		"onEventChangeMethodID": {
+			"parameters" : [{
+					"type": "EventObject",
+				 	"name": "event"
+				 }, {
+					"type": "EventObject",
+				 	"name": "oldEvent"
+				 }, {
+					"type": "EventObject[]",
+				 	"name": "relatedEvents"
+				 }, {
+				 	"type": "Function",
+				 	"name": "revert"
+				}]
+		},
+		"onEventsSetMethodID": {
+			"parameters" : [{
+					"type": "EventObject[]",
+				 	"name": "events"
+				 }]
+		},
+		"onWindowResizeMethodID": {
+			"parameters" : [{
+					"type": "ViewType",
+				 	"name": "view"
+				 }]
+		},
 		"onEventResizeMethodID": {
 			"parameters" : [{
 					"type": "EventObject",
-				 	"name": "eventObject"
+				 	"name": "event"
+				 }, {
+					"type": "EventObject[]",
+				 	"name": "relatedEvents"
 				 }, {
 					"type": "int",
 					"name": "delta"
 				 }, {
 				 	"type": "JSEvent",
-				 	"name": "event"
+				 	"name": "jsEvent"
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
@@ -150,13 +204,100 @@
 		"onEventDropMethodID": {
 			"parameters" : [{
 					"type": "EventObject",
-				 	"name": "eventObject"
+				 	"name": "event"
 				 }, {
-					"type": "int",
+					"type": "EventObject[]",
+				 	"name": "relatedEvents"
+				 }, {
+					"type": "EventObject",
+				 	"name": "oldEvent"
+				 }, {
+					"type": "ResourceType",
+				 	"name": "oldResource"
+				 }, {
+					"type": "ResourceType",
+				 	"name": "newResource"
+				 }, {
+					"type": "object",
 					"name": "delta"
 				 }, {
+					"type": "object",
+					"name": "element"
+				 }, {
 				 	"type": "JSEvent",
+				 	"name": "jsEvent"
+				 }, {
+				 	"type": "ViewType",
+				 	"name": "view"
+				}]
+		},
+		"onDropMethodID": {
+			"parameters" : [{
+					"type": "boolean",
+				 	"name": "allDay"
+				 }, {
+					"type": "date",
+					"name": "date"
+				 }, {
+					"type": "string",
+					"name": "dateStr"
+				 }, {
+					"type": "object",
+					"name": "draggedElement"
+				 }, {
+				 	"type": "JSEvent",
+				 	"name": "jsEvent"
+				 }, {
+				 	"type": "ResourceType",
+				 	"name": "resource"
+				 }, {
+				 	"type": "ViewType",
+				 	"name": "view"
+				}]
+		},
+		"onEventDragStartMethodID": {
+			"parameters" : [{
+					"type": "EventObject",
 				 	"name": "event"
+				 }, {
+				 	"type": "JSEvent",
+				 	"name": "jsEvent"
+				 }, {
+				 	"type": "ViewType",
+				 	"name": "view"
+				}]
+		},
+		"onEventResizeStartMethodID": {
+			"parameters" : [{
+					"type": "EventObject",
+				 	"name": "event"
+				 }, {
+				 	"type": "JSEvent",
+				 	"name": "jsEvent"
+				 }, {
+				 	"type": "ViewType",
+				 	"name": "view"
+				}]
+		},
+		"onEventDragStopMethodID": {
+			"parameters" : [{
+					"type": "EventObject",
+				 	"name": "event"
+				 }, {
+				 	"type": "JSEvent",
+				 	"name": "jsEvent"
+				 }, {
+				 	"type": "ViewType",
+				 	"name": "view"
+				}]
+		},
+		"onEventResizeStopMethodID": {
+			"parameters" : [{
+					"type": "EventObject",
+				 	"name": "event"
+				 }, {
+				 	"type": "JSEvent",
+				 	"name": "jsEvent"
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
@@ -171,7 +312,7 @@
 					"name": "eventObject"
 				 }, {
 				 	"type": "JSEvent",
-				 	"name": "event"
+				 	"name": "jsEvent"
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
@@ -219,6 +360,36 @@
 				 	"name": "view"
 				}]
 		},
+		"onEventReceiveMethodID": {
+			"parameters" : [{
+					"type": "EventObject",
+				 	"name": "event"
+				 }, {
+					"type": "EventObject[]",
+				 	"name": "relatedEvents"
+				 }, {
+				 	"type": "object",
+					"name": "draggedElement"
+				 }, {
+				 	"type": "ViewType",
+				 	"name": "view"
+				}]
+		},
+		"onEventLeaveMethodID": {
+			"parameters" : [{
+					"type": "EventObject",
+				 	"name": "event"
+				 }, {
+					"type": "EventObject[]",
+				 	"name": "relatedEvents"
+				 }, {
+				 	"type": "object",
+					"name": "draggedElement"
+				 }, {
+				 	"type": "ViewType",
+				 	"name": "view"
+				}]
+		}
 	},
 	"api": {
 		"fullCalendar" : {
