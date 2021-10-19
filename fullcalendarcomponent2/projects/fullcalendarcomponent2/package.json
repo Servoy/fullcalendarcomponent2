@@ -1,5 +1,5 @@
 {
-    "name": "@servoy/fullcalendarcomponent",
+    "name": "@servoy/fullcalendarcomponent2",
     "version": "2.0.0",
     "peerDependencies": {
       "@angular/animations": ">=12",
@@ -10,11 +10,18 @@
     },
     "dependencies": {
       "@fullcalendar/angular": ">=5",
+      "@fullcalendar/interaction": ">=5",
+      "@fullcalendar/list": ">=5",
+      "@fullcalendar/luxon": ">=5",
+      "@fullcalendar/moment": ">=5",
+      "@fullcalendar/resource-timegrid": ">=5",
+      "@fullcalendar/resource-timeline": ">=5",
+      "@fullcalendar/timegrid": ">=5",
       "tslib": "*"
     },
     "license": "MIT",
     "repository": {
       "type": "git",
-      "url": "https://github.com/Servoy/fullcalendarcomponent"
+      "url": "https://github.com/fbandrei/fullcalendarcomponent2"
     }
   }

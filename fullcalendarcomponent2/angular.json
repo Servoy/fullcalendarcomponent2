@@ -6,24 +6,24 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-      "@servoy/fullcalendarcomponent": {
+      "@servoy/fullcalendarcomponent2": {
         "projectType": "library",
-        "root": "projects/fullcalendarcomponent",
-        "sourceRoot": "projects/fullcalendarcomponent/src",
+        "root": "projects/fullcalendarcomponent2",
+        "sourceRoot": "projects/fullcalendarcomponent2/src",
         "prefix": "lib",
         "architect": {
           "build": {
             "builder": "@angular-devkit/build-angular:ng-packagr",
             "options": {
-              "tsConfig": "projects/fullcalendarcomponent/tsconfig.lib.json",
-              "project": "projects/fullcalendarcomponent/ng-package.json",
+              "tsConfig": "projects/fullcalendarcomponent2/tsconfig.lib.json",
+              "project": "projects/fullcalendarcomponent2/ng-package.json",
               "styles": [
                 "node_modules/ngx-toastr/toastr.css"
               ]
             },
             "configurations": {
               "production": {
-                "tsConfig": "projects/fullcalendarcomponent/tsconfig.lib.prod.json"
+                "tsConfig": "projects/fullcalendarcomponent2/tsconfig.lib.prod.json"
               }
             }
           },
@@ -31,9 +31,9 @@
             "builder": "@angular-devkit/build-angular:karma",
             "options": {
               "preserveSymlinks": true,
-              "main": "projects/fullcalendarcomponent/src/test.ts",
-              "tsConfig": "projects/fullcalendarcomponent/tsconfig.spec.json",
-              "karmaConfig": "projects/fullcalendarcomponent/karma.conf.js"
+              "main": "projects/fullcalendarcomponent2/src/test.ts",
+              "tsConfig": "projects/fullcalendarcomponent/2tsconfig.spec.json",
+              "karmaConfig": "projects/fullcalendarcomponent2/karma.conf.js"
             }
           },
           "lint": {
@@ -41,13 +41,13 @@
             "options": {
               "preserveSymlinks": true,
               "lintFilePatterns": [
-                "projects/fullcalendarcomponent/src/**/*.ts",
-                "projects/fullcalendarcomponent/src/**/*.html"
+                "projects/fullcalendarcomponent2/src/**/*.ts",
+                "projects/fullcalendarcomponent2/src/**/*.html"
               ]
             }
           }
         }
       }
     },
-    "defaultProject": "@servoy/fullcalendarcomponent"
+    "defaultProject": "@servoy/fullcalendarcomponent2"
   }

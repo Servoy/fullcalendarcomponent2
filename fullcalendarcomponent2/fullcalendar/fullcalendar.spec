@@ -5,13 +5,7 @@
 	"icon" : "fullcalendarcomponent2/fullcalendar/fullcalendar.png",
 	"definition": "fullcalendarcomponent2/fullcalendar/fullcalendar.js",
 	"serverscript": "fullcalendarcomponent2/fullcalendar/fullcalendar_server.js",
-	"ng2Config": {
-       "packageName": "@servoy/fullcalendarcomponent",
-       "moduleName": "FullCalendarComponentModule",
-       "entryPoint": "projects/fullcalendarcomponent",
-    },
 	"version": 1,
-	
 	"model":
 	{
 		"hasToDraw": {"type":"boolean", "pushToServer" : "shallow", "tags": {"scope": "private"}},
@@ -451,7 +445,7 @@
 							},
 							{
 							"name":"value",
-							"type":"object",
+							"type":"object"
 							}
 			]
 		}, 
@@ -466,7 +460,7 @@
 							},
 							{
 							"name":"value",
-							"type":"object",
+							"type":"object"
 							}
 			]
 		}, 
@@ -494,7 +488,7 @@
 							{                                                                
 							"name":"date",
 							"type":"object"
-							},
+							}
 			]
 		},
 		"setDates": {
@@ -684,10 +678,10 @@
 							"name":"viewName",
 							"type":"string"
 							},
-							"name":"dateOrRange",
+							{"name":"dateOrRange",
 							"type":"object",
 							"optional" : "true"
-							},
+							}
 							],
 			"delayUntilFormLoads": true
 		},
@@ -732,7 +726,7 @@
 		"incrementDate": {
 			"parameters":[{                                                                
 							"name":"delta",
-							"type":"object",
+							"type":"object"
 							}],
 			"delayUntilFormLoads": true
 		},
@@ -791,8 +785,8 @@
 							"name":"name",
 							"type":"string"
 							},
-							"name":"value",
-							"type":"object",
+							{"name":"value",
+							"type":"object"
 							}
 			]
 		},
@@ -803,7 +797,7 @@
 							},
 							{
 							"name":"value",
-							"type":"object",
+							"type":"object"
 							}
 			]
 		},
@@ -864,7 +858,7 @@
 							"type":"object"
 							}
 			]
-		},
+		}
 	},
 	"types": {
 		"DateSelectedArg" : {
@@ -875,7 +869,7 @@
 			"event" : "JSEvent",
 			"view" : "ViewType",
 			"resource" : "ResourceType"
-		}
+		},
 		"EventParsing": {
 			"id" : "object", 
 			"title": "tagstring", 
@@ -1096,12 +1090,9 @@
 			"firstDay": {"type" :"int"},
 			"fixedWeekCount": {"type" :"boolean"},
 			"forceEventDuration": {"type" :"boolean"},
-        	"handleWindowResize": {"type" :"boolean"},       	
-        	"hiddenDays" : {"type" : "int[]"},
         	"lazyFetching": {"type" :"boolean"},
         	"isRTL": {"type" :"boolean"},
         	"longPressDelay" : {"type" : "int"},
-			"nowIndicator": {"type" :"boolean"},
 			"unselectAuto": {"type" :"boolean"},
 			"unselectCancel": {"type" :"string"},
 			"scrollTime": {"type" :"object"},
@@ -1132,7 +1123,6 @@
 			"footerToolbar": {"type": "object"},
 			"defaultRangeSeparator": {"type": "string"},
 			"titleRangeSeparator": {"type": "string"},
-			"forceEventDuration": {"type": "boolean"},
 			"dayHeaders": {"type": "boolean"},
 			"dayHeaderFormat": {"type": "object"},
 			"dayHeaderClassNames": {"type": "object"},
@@ -1169,7 +1159,6 @@
 			"eventOrder": {"type": "object"},
 			"eventOrderStrict": {"type": "boolean"},
 			"handleWindowResize": {"type": "boolean"},
-			"windowResizeDelay": {"type": "int"},
 			"eventDragMinDistance": {"type": "int"},
 			"expandRows": {"type": "int"},
 			"windowResizeDelay": {"type": "int"},
@@ -1189,7 +1178,6 @@
 			"defaultAllDay": {"type": "boolean"},
 			"eventSourceFailure": {"type": "object"},
 			"eventSourceSuccess": {"type": "object"},
-			"eventDisplay": {"type": "string"},
 			"eventAllow": {"type": "object"},
 			"eventDisplay": {"type": "string"},
 			"eventBackgroundColor": {"type": "string"},
@@ -1200,7 +1188,6 @@
 			"eventContent": {"type": "object"},
 			"eventDidMount": {"type": "object"},
 			"eventWillUnmount": {"type": "object"},
-			"eventClassNames": {"type": "object"},
 			"selectAllow": {"type": "object"},
 			"droppable": {"type": "boolean"},
 			"slotLaneClassNames": {"type": "object"},
@@ -1229,7 +1216,6 @@
 			"eventMinHeight": {"type": "int"},
 			"eventMinWidth": {"type": "int"},
 			"eventShortHeight": {"type": "int"},
-			"slotEventOverlap": {"type": "boolean"},
 			"plugins": {"type": "object"},
 			"dateAlignment": {"type": "string"},
 			"dateIncrement": {"type": "object"},
@@ -1242,7 +1228,7 @@
 			"moreLinkClassNames": {"type": "object"},
 			"moreLinkContent": {"type": "object"},
 			"moreLinkDidMount": {"type": "object"},
-			"moreLinkWillUnmount": {"type": "object"},
+			"moreLinkWillUnmount": {"type": "object"}
         }
 	}
 }

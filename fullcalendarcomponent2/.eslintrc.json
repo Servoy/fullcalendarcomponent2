@@ -40,7 +40,7 @@
           {
             "type": "element",
             "prefix": [
-              "fullcalendarcomponent"
+              "fullcalendarcomponent2"
             ],
             "style": "kebab-case"
           }
@@ -50,7 +50,7 @@
           {
             "type": "attribute",
             "prefix": [
-              "fullcalendarcomponent"
+              "fullcalendarcomponent2"
             ],
             "style": "camelCase"
           }
