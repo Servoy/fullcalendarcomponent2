@@ -3,10 +3,11 @@
  * @enum
  * */
  var EVENTSOURCE_TYPE = {
-	FUNCTION_SOURCE: "ArrayEventSource",
+	FUNCTION_SOURCE: "FunctionEventSource",
 	ARRAY_SOURCE: 'ArrayEventSource',
 	GCALENDAR_SOURCE: 'GoogleCalendarEventSource',
-    JSON_SOURCE: 'JSONEventSource'
+    JSON_SOURCE: 'JSONEventSource',
+	ICALENDAR_SOURCE: 'iCalendarSource'
 }
 
 /**
@@ -16,8 +17,8 @@
  *  */
 function getEventSourceType(eventSource) {
 	// this is a workaround for object issue in 8.0.3
-	var events
-	var googleCalendarId
+	var events;
+	var googleCalendarId;
 	if (eventSource instanceof java.util.HashMap) {
 		events = eventSource.get("events");
 		googleCalendarId = eventSource.get("googleCalendarId");
@@ -25,15 +26,18 @@ function getEventSourceType(eventSource) {
 		events = eventSource.events;
 		googleCalendarId = eventSource.googleCalendarId;
 	}
-	
-	// console.log(typeof(events));
-	
 	if (events instanceof Function) { // remove it from function eventSources
 		return EVENTSOURCE_TYPE.FUNCTION_SOURCE;
 	} else if (events instanceof Array) {
 		return EVENTSOURCE_TYPE.ARRAY_SOURCE
 	} else if (googleCalendarId instanceof String) {
 		return EVENTSOURCE_TYPE.GCALENDAR_SOURCE
+	} else if (eventSource.url) {
+		if (eventSource.format == 'ics') {
+			return EVENTSOURCE_TYPE.ICALENDAR_SOURCE;
+		} else {
+			return EVENTSOURCE_TYPE.JSON_SOURCE;
+		}
 	} else {
 		// is not a valid resource
 		return null;
@@ -88,15 +92,16 @@ function getEventSourceIndexById(eventSources, id) {
  * */
 $scope.api.fullCalendar = function(options, renderOnCurrentView) {
 
-	var copy;
 	var functionEventSources = [];
 	var arrayEventSources = [];
 	var gcalEventSources = [];
     var jsonEventSources = [];
+	var iCalendarEventSources = [];
+
+	if ($scope.model.eventSources == null) $scope.model.eventSources = [];
 
 	// parse event sources
 	if (options) {
-		copy = new Object();
         var eventSources = options["eventSources"];
         if (eventSources instanceof Array) {
             for (var i = 0; i < eventSources.length; i++) {
@@ -114,10 +119,14 @@ $scope.api.fullCalendar = function(options, renderOnCurrentView) {
                     break;
                 case EVENTSOURCE_TYPE.JSON_SOURCE:
                     jsonEventSources.push(eventSourceCopy);
-                    break;
+					break;
+				case EVENTSOURCE_TYPE.ICALENDAR_SOURCE:
+					iCalendarEventSources.push(eventSourceCopy);
+					break;
                 default:
                     throw "Wrong events " + eventSource.events + " provided in eventSources.\nevents should be of type Function, Array<EventType> or URL feed.";
                 }
+				$scope.model.eventSources.push(eventSource);
             }
         } else if (eventSources) {
             throw "Wrong eventSources provided\neventSources should be of type Array.";
@@ -130,6 +139,7 @@ $scope.api.fullCalendar = function(options, renderOnCurrentView) {
 	$scope.model.arrayEventSources = arrayEventSources;
 	$scope.model.gcalEventSources = gcalEventSources;
 	$scope.model.jsonEventSources = jsonEventSources;
+	$scope.model.iCalendarEventSources = iCalendarEventSources;
 	$scope.model.hasToDraw = true;
 	$scope.model.renderOnCurrentView = renderOnCurrentView;
 }
@@ -208,21 +218,15 @@ $scope.api.addEventSource = function(eventSource) {
 	case EVENTSOURCE_TYPE.JSON_SOURCE:
 		$scope.model.jsonEventSources.push(eventSource);
 		break;
+	case EVENTSOURCE_TYPE.ICALENDAR_SOURCE:
+		$scope.model.iCalendarEventSources.push(eventSource);
+		break;
 	default:
 		throw "Wrong events " + eventSource.events + " provided in eventSources.\nevents should be of type Function, Array<EventType> or URL feed.";
 	}
-	
-	// push eventSource in options object
-	var options = $scope.api.getFullCalendarOptions();
-	if (!options) {	// option was undefined
-		throw "Illegal State calendarOptions is undefined";
-	} else {	
-		if (options.eventSources) {	// eventSource was already existing
-			options.eventSources.push(eventSource);
-		} else {	// eventSource was undefined
-			options.eventSources = [eventSource];
-		}
-	}
+
+	if ($scope.model.eventSources == null) $scope.model.eventSources = [];
+	$scope.model.eventSources.push(eventSource);
 }
 
 /**
@@ -233,11 +237,10 @@ $scope.removeEventSource = function(id) {
 		throw "Illegal argument id " + id;
 	}
 	
-	var options = $scope.api.getFullCalendarOptions();
-	if (options && options.eventSources && options.eventSources.length) {
+	if ($scope.model.eventSources && $scope.model.eventSources.length > 0) {
 
 		/** @type {Array} */
-		var eventSources = options.eventSources;
+		var eventSources = $scope.model.eventSources;
 
 		// find eventSource index
 		var index = getEventSourceIndexById(eventSources, id);
@@ -263,12 +266,16 @@ $scope.removeEventSource = function(id) {
 				indexTyped = getEventSourceIndexById($scope.model.jsonEventSources, id);
 				$scope.model.jsonEventSources.splice(indexTyped,1)
 				break;
+			case EVENTSOURCE_TYPE.ICALENDAR_SOURCE:
+				indexTyped = getEventSourceIndexById($scope.model.iCalendarEventSources, id);
+				$scope.model.iCalendarEventSources.splice(indexTyped,1)
+				break;
 			default:
 				throw "Wrong events " + eventSource.events + " provided in eventSources.\nevents should be of type Function, Array<EventType> or URL feed.";
 			}
 
 			// remove eventSource from model
-			eventSources.splice(index, 1);
+			$scope.model.eventSources.splice(index, 1);
 			return true;
 		}
 	} else {

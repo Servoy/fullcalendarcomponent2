@@ -17,6 +17,7 @@
 		"arrayEventSources" : {"type": "ArrayEventSource[]", "tags" : {"scope" : "private"}},
 		"functionEventSources" : {"type": "FunctionEventSource[]", "tags" : {"scope" : "private"}},
 		"jsonEventSources" : {"type": "JSONEventSource[]", "tags" : {"scope" : "private"}},
+		"iCalendarEventSources" : {"type": "iCalendarEventSource[]", "tags" : {"scope" : "private"}},
 		"gcalEventSources" : {"type": "GoogleCalendarEventSource[]", "tags" : {"scope" : "private"}},
 		"styleClass" : {"type": "styleclass"},
 		"tooltipExpression" : {"type": "tagstring"},
@@ -86,35 +87,7 @@
 				 	"optional" : true
 				}]
 		},
-		"onDayClickMethodID": {
-			"parameters" : [{
-					"type": "date",
-				 	"name": "date"
-				 }, {
-				 	"type": "JSEvent",
-				 	"name": "jsEvent"
-				 }, {
-				 	"type": "ViewType",
-				 	"name": "view"
-				 }, {
-				 	"type": "ResourceType",
-				 	"name": "resource",
-				 	"optional" : true
-				}]
-		},
 		"onEventClickMethodID": {
-			"parameters" : [{
-					"type": "EventObject",
-				 	"name": "event"
-				 }, {
-				 	"type": "JSEvent",
-				 	"name": "jsEvent"
-				 }, {
-				 	"type": "ViewType",
-				 	"name": "view"
-				}]
-		},
-		"onEventRightClickMethodID": {
 			"parameters" : [{
 					"type": "EventObject",
 				 	"name": "event"
@@ -134,7 +107,7 @@
 					"type": "EventObject[]",
 				 	"name": "relatedEvents"
 				 }, {
-				 	"type": "Function",
+				 	"type": "function",
 				 	"name": "revert"
 				}]
 		},
@@ -146,7 +119,7 @@
 					"type": "EventObject[]",
 				 	"name": "relatedEvents"
 				 }, {
-				 	"type": "Function",
+				 	"type": "function",
 				 	"name": "revert"
 				}]
 		},
@@ -161,7 +134,7 @@
 					"type": "EventObject[]",
 				 	"name": "relatedEvents"
 				 }, {
-				 	"type": "Function",
+				 	"type": "function",
 				 	"name": "revert"
 				}]
 		},
@@ -605,7 +578,8 @@
 							},
 							{                                                                
 							"name":"settings",
-							"type":"object"
+							"type":"object",
+							"optional": true
 							}
 			]
 		},
@@ -624,7 +598,7 @@
 		"addEventSource": {
 			"parameters" : [{                                                                
 							"name":"source",
-							"type":"object"
+							"type":"FunctionEventSource"
 							}
 			]
 		},
@@ -698,7 +672,6 @@
 		},
 		
 		"next": {
-			"delayUntilFormLoads": true
 		},
 		"prev": {
 			"delayUntilFormLoads": true
@@ -860,21 +833,20 @@
 			]
 		}
 	},
-	"types": {
-		"DateSelectedArg" : {
-			"start" : "date",
-			"end" : "date",
-			"startStr" : "string",
-			"endStr" : "string",
-			"event" : "JSEvent",
-			"view" : "ViewType",
-			"resource" : "ResourceType"
+	"internalApi": {
+		"addEventSourceToCalendar" : {
+				"parameters" : [{"name": "eventSource", "type": "object"}]
 		},
+		"addFunctionEventSourceToCalendar" : {
+				"parameters" : [{"name": "eventSource", "type": "object"}, {"name": "callback", "type": "function"}]
+		}
+	},
+	"types": {
 		"EventParsing": {
 			"id" : "object", 
 			"title": "tagstring", 
-			"start": "date", 
-			"end": "date", 
+			"start": "object", 
+			"end": "object", 
 			"allDay" : "boolean", 
 			"className" : "object", 
 			"classNames" : "object", 
@@ -889,7 +861,7 @@
 			"textColor" : "color", 
 			"data" : "object", 
 			"extendedProps" : "object",
-			"date" : "date",
+			"date" : "object",
 			"display" : "string",
 			"allow" : "boolean",
 			"url" : "string",
@@ -910,8 +882,8 @@
 			"groupId" : "object",
 			"title": "tagstring", 
 			"allDay" : "boolean", 
-			"start": "date", 
-			"end": "date", 
+			"start": "object", 
+			"end": "object", 
 			"startStr": "string", 
 			"endStr": "string", 
 			"classNames" : "object", 
@@ -966,7 +938,7 @@
 	 	}, 	
       	"ArrayEventSource": {
 	 	    "id" : "object",        
-	 	    "events" : "EventSource[]",
+	 	    "events" : "EventObject[]",
             "className" : "string[]",
             "allDayDefault" : "boolean",
 			"editable" : "boolean",
@@ -1012,7 +984,28 @@
         },
 		"JSONEventSource": {
 	 	    "id"  : "object",        
-	 	    "events" : "string",
+            "className" : "string[]",
+            "allDayDefault" : "boolean",
+			"editable" : "boolean",
+			"startEditable" : "boolean",
+			"durationEditable" : "boolean",
+			"overlap" : "boolean",
+			"constraint" : "object",
+			"color": "color",
+			"backgroundColor": "color",
+			"borderColor": "color",
+			"textColor" : "color",
+			"defaultAllDay" : "boolean", 
+			"url" : "string", 
+			"format" : "string", 
+			"eventDataTransform" : "object", 
+			"success" : "object", 
+			"failure" : "object", 
+			"display" : "string",
+			"allow" : "object"
+        },
+		"iCalendarEventSource": {
+	 	    "id"  : "object",        
             "className" : "string[]",
             "allDayDefault" : "boolean",
 			"editable" : "boolean",
@@ -1060,11 +1053,11 @@
         "ViewType": {
             "name": "string",
 	  		"title": "string",
-	  		"start": "date",
-	  		"end": "date",
-	  		"intervalStart": "date",
-	 		"intervalEnd": "date",
-	 		"initialDate": {"type": "date", "tags": {"scope" : "private"}}
+	  		"start": "object",
+	  		"end": "object",
+	  		"intervalStart": "object",
+	 		"intervalEnd": "object",
+	 		"initialDate": {"type": "object", "tags": {"scope" : "private"}}
         },
         "FullCalendar": {
         	"options" : "FullCalendarOptions"
@@ -1086,7 +1079,7 @@
 			"eventStartEditable": {"type" :"boolean"},
 			"eventConstraint": {"type" :"object"}, 		 	
         	"eventOverlap": {"type" :"boolean"},  
-        	"eventSources" : {"type" :"EventSourceType[]"},
+        	"eventSources" : {"type" :"EventSource[]"},
 			"firstDay": {"type" :"int"},
 			"fixedWeekCount": {"type" :"boolean"},
 			"forceEventDuration": {"type" :"boolean"},
@@ -1169,7 +1162,7 @@
 			"weekText": {"type": "string"},
 			"progressiveEventRendering": {"type": "boolean"},
 			"businessHours" : "object",
-			"initialDate": {"type": "date"},
+			"initialDate": {"type": "object"},
 			"now": {"type": "object"},
 			"eventDataTransform": {"type": "object"},
 			"stickyHeaderDates": {"type": "object"},

@@ -1,16 +1,13 @@
-import { ChangeDetectorRef, Component, OnInit, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
-import { LoggerFactory, LoggerService, ServoyBaseComponent, ServoyPublicService } from '@servoy/public';
-import { CalendarOptions, DateInput, DateRangeInput, DateSelectArg, DatesSetArg, DateUnselectArg, Duration, DurationInput, EventAddArg, EventApi, EventChangeArg, EventClickArg, EventDropArg, EventHoveringArg, EventInput, EventRemoveArg, EventSourceInput, FormatterInput, FullCalendarComponent, PointerDragEvent, ViewApi } from '@fullcalendar/angular';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
+import { BaseCustomObject, LoggerFactory, LoggerService, ServoyBaseComponent, ServoyPublicService } from '@servoy/public';
+import { CalendarOptions, ConstraintInput, DateInput, DateRangeInput, DateSelectArg, DatesSetArg, DateUnselectArg, Dictionary, Duration, DurationInput, EventAddArg, EventApi, EventChangeArg, EventClickArg, EventDropArg, EventHoveringArg, EventInput, EventRemoveArg, EventSourceApi, EventSourceInput, FormatterInput, FullCalendarComponent, PointerDragEvent, ViewApi } from '@fullcalendar/angular';
 import { Input } from '@angular/core';
 import { DateClickArg, DropArg, EventDragStartArg, EventDragStopArg, EventLeaveArg, EventReceiveArg, EventResizeDoneArg, EventResizeStartArg, EventResizeStopArg } from '@fullcalendar/interaction';
 
 @Component({
     selector: 'svy-fullcalendar',
-    template: `
-    <div style="height:100%; width:100%; overflow:auto;" [ngClass]="styleClass">
-         <full-calendar #calendar [options]="fullCalendarOptions"></full-calendar>
-    </div>
-    `
+    templateUrl: './fullcalendar.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements OnInit {
 
@@ -43,17 +40,19 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     @Input() styleClass: string;
     @Input() calendarOptions: CalendarOptions;
     @Input() view: any;
-    @Input() events: any[];
-    @Input() eventSources: any[];
-    @Input() arrayEventSources: any[];
-    @Input() functionEventSources: any[];
-    @Input() gcalEventSources: any[];
-    @Input() jsonEventSources: any[];
+    @Input() events: EventInput[];
+    @Input() eventSources: EventSource[];
+    @Input() arrayEventSources: ArrayEventSource[];
+    @Input() functionEventSources: FunctionEventSource[];
+    @Input() gcalEventSources: GoogleCalendarEventSource[];
+    @Input() jsonEventSources: JSONEventSource[];
+    @Input() iCalendarEventSources: iCalendarEventSource[];
     @Input() tooltipExpression: string;
     @Input() location: object;
     @Input() size: object;
 
     @ViewChild('calendar') calendarComponent: FullCalendarComponent;
+    @ViewChild('element', { static: false }) elementRef: ElementRef<HTMLDivElement>;
 
     fullCalendarOptions: CalendarOptions = {};
     TIMEZONE_DEFAULT = "local";
@@ -71,14 +70,13 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
           for (const property of Object.keys(changes)) {
               const change = changes[property];
               switch (property) {
-                  case 'eventSources': {
-                    if (change.currentValue && change.currentValue !== change.previousValue && this.eventSources.length > 0) {
-                      let newEventSource = this.eventSources[this.eventSources.length - 1];
-                      let lastFunctionES = this.functionEventSources.length > 0 ? this.functionEventSources[this.functionEventSources.length - 1] : null;
-                      if (lastFunctionES && newEventSource === lastFunctionES) {
-                        newEventSource = this.transformFunctionEventSource(newEventSource);
-                      }
-                      this.calendarComponent.getApi().addEventSource(newEventSource);
+                  case 'arrayEventSources': 
+                  case 'functionEventSources': 
+                  case 'JSONEventSources': 
+                  case 'GoogleCalendarEventSources': 
+                  case 'iCalendarEventSources': {
+                    if (change.currentValue) {
+                      this.fullCalendarOptions.eventSources = this.getES();
                     }
                     break;
                   }
@@ -92,11 +90,15 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
               }
           }
       }
-  }
+    }
 
+    svyOnInit() {
+      super.svyOnInit();
+      this.initFullCalendar();
+    }
 
     initFullCalendar() {
-      this.fullCalendarOptions = this.calendarOptions;
+      this.fullCalendarOptions = this.calendarOptions ? this.calendarOptions : {} as CalendarOptions;
 
       this.initializeCallbacks();
 
@@ -353,7 +355,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       let stringifyedEvents = [];
       this.calendarComponent.getApi().getEvents().forEach((e) => {
           stringifyedEvents.push(this.stringifyEvent(e));
-        });
+      });
       return stringifyedEvents;
     }
 
@@ -361,7 +363,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       // in the doc is written that id can be string or number
       // but the method only accepts string
       // https://fullcalendar.io/docs/Calendar-getEventById
-      this.calendarComponent.getApi().getEventById(id);
+      return this.stringifyEvent(this.calendarComponent.getApi().getEventById(id));
     }
 
     addEvent(event: EventInput, source?: any) {
@@ -414,36 +416,45 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     }
 
     getEventResources(eventID: string) {
-      // TODO: where is the method event.getResources() ?
-      this.calendarComponent.getApi().getEventById(eventID);
+      let stringifyedResources = [];
+      this.calendarComponent.getApi().getEventById(eventID).getResources().forEach((r) => {
+        stringifyedResources.push(this.stringifyResource(r));
+      });
+      return stringifyedResources;
     }
 
     setEventResources(eventID: string, settings: any) {
-      // TODO: where is the method event.setResources() ?
-      this.calendarComponent.getApi().getEventById(eventID);
+      this.calendarComponent.getApi().getEventById(eventID).setResources(settings);
     }
 
-    toPlainObject(eventID: string, settings: {collapseExtendedProps?: boolean; collapseColor?: boolean;}) {
-      return this.calendarComponent.getApi().getEventById(eventID).toPlainObject(settings);
+    toPlainObjectEvent(eventID: string, settings?: {collapseExtendedProps?: boolean; collapseColor?: boolean;}) {
+      return JSON.stringify(this.calendarComponent.getApi().getEventById(eventID).toPlainObject(settings));
     }
 
     getEventSources() {
-      // TODO: stringify sources before sending
-      return this.calendarComponent.getApi().getEventSources();
+      let stringifyedEventSources = [];
+      this.calendarComponent.getApi().getEventSources().forEach((e) => {
+        stringifyedEventSources.push(this.stringifyEventSource(e));
+      });
+      return stringifyedEventSources;
     }
 
     getEventSourceById(eventSourceID: string) {
-      // TODO: stringify source before sending
-      return this.calendarComponent.getApi().getEventSourceById(eventSourceID);
+      return this.stringifyEventSource(this.calendarComponent.getApi().getEventSourceById(eventSourceID));
     }
 
-    // async addEventSource(eventSource: any) {
-    //   if (eventSource.events && eventSource.events instanceof Function) {
-    //     eventSource = this.transformFunctionEventSource(eventSource);
-    //   }
-    //   await this.servoyApi.callServerSideApi('removeEventSource', [eventSource]);
-    //   return this.calendarComponent.getApi().addEventSource(eventSource);
-    // }
+    addEventSourceToCalendar(eventSource: EventSource) {
+      let source = {} as EventSource;
+      for (let property in eventSource) {
+        source[property] = eventSource[property];
+      }
+      return this.calendarComponent.getApi().addEventSource(source);
+    }
+
+    addFunctionEventSourceToCalendar(eventSource: EventSource, callback: any) {
+      if (callback) eventSource = this.transformFunctionEventSource(eventSource);
+      return this.calendarComponent.getApi().addEventSource(eventSource);
+    }
 
     refetchEvents() {
       return this.calendarComponent.getApi().refetchEvents();
@@ -457,11 +468,14 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       const index = this.getEventSourcesIndexById(eventSourceID);
       if (this.eventSources[index]) {
         const retValue = await this.servoyApi.callServerSideApi('removeEventSource', [eventSourceID]);
-        if (retValue === true) {
-          this.calendarComponent.getApi().getEventSourceById(eventSourceID).remove();
-        } else {
-          this.log.warn('Could not remove event source ' + eventSourceID);
-        }
+        // It is already deleted by the code running in svyOnChanges
+        // This is only a temporary workaround until I find the solution for adding event sources using the internal apis calls. 
+
+        // if (retValue === true) {
+        //   this.calendarComponent.getApi().getEventSourceById(eventSourceID).remove();
+        // } else {
+        //   this.log.warn('Could not remove event source ' + eventSourceID);
+        // }
       }
     }
 
@@ -488,7 +502,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       this.calendarComponent.getApi().setOption(option, value);
     }
 
-    next() {
+    public next() {
       this.calendarComponent.getApi().next();
     }
 
@@ -578,11 +592,12 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
      * @returns an array of event sources
      */
     getES() {
-      let eventSources = [];
+      let eventSources = [] as EventSource[];
 
       // arrayEventSources
       if (this.arrayEventSources && this.arrayEventSources.length) {
         eventSources = eventSources.concat(this.arrayEventSources);
+        eventSources = this.arrayEventSources;
       }
       // functionEventSources
       for (let i = 0; this.functionEventSources && i < this.functionEventSources.length; i++) {
@@ -595,6 +610,10 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       // JSONEventSources
       if (this.jsonEventSources && this.jsonEventSources.length) {
         eventSources = eventSources.concat(this.jsonEventSources);
+      }
+      // ICalendarEventSources
+      if (this.iCalendarEventSources && this.iCalendarEventSources.length) {
+        eventSources = eventSources.concat(this.iCalendarEventSources);
       }
 
       return eventSources;
@@ -609,8 +628,8 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       return null;
     }
 
-    transformFunctionEventSource(eventSource: any) {
-      let source = {};
+    transformFunctionEventSource(eventSource: EventSource) {
+      let source = {} as EventSource;
       
       // copy properties of eventSource
       for (let property in eventSource) {
@@ -619,63 +638,80 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
 
       // register server side callback
       let callback = eventSource.events;
-      source['events'] = (start: Date, end : Date, timezone: string, callbackFunction: Function) => {
-        const retValue = this.servoyService.executeInlineScript(callback.formname, callback.script, [start, end, eventSource.data]);
-        retValue.then(function(success) {
-          callbackFunction(success)
+      source['events'] = (info: FunctionEventSourceInfo, successCallback: Function, failureCallback: Function) => {
+        const retValue = this.servoyService.executeInlineScript(callback.formname, callback.script, [info]);
+        retValue.then((success) => {
+          successCallback(success)
         },(error) => {
-          this.log.error('handler error');
-          this.log.error(error);
+          failureCallback(error);
         });
       }
       return source;
     }
 
+    stringifyFunctionESInfo(info: FunctionEventSourceInfo) {
+      return {
+        start: info.start,
+        end: info.end,
+        startStr: info.startStr,
+        endStr: info.endStr,
+        timezone: info.timezone
+      }
+    }
+
     stringifyEvent(event: EventApi): Event {
       return {
-        sourceId: (event.source) ? event.source.id : null,
-        start: event.start,
-        end: event.end,
-        startStr: event.startStr,
-        endStr: event.endStr,
-        id: event.id,
-        groupId: event.groupId,
-        allDay: event.allDay,
-        title: event.title,
-        url: event.url,
-        display: event.display,
-        startEditable: event.startEditable,
-        durationEditable: event.durationEditable,
-        constraint: (typeof(event.constraint) === 'string') ? event.constraint : null,
-        overlap: event.overlap,
-        backgroundColor: event.backgroundColor,
-        borderColor: event.borderColor,
-        textColor: event.textColor,
-        classNames: event.classNames
+        sourceId: (event?.source) ? event.source.id : null,
+        start: event?.start,
+        end: event?.end,
+        startStr: event?.startStr,
+        endStr: event?.endStr,
+        id: event?.id,
+        groupId: event?.groupId,
+        allDay: event?.allDay,
+        title: event?.title,
+        url: event?.url,
+        display: event?.display,
+        startEditable: event?.startEditable,
+        durationEditable: event?.durationEditable,
+        constraint: (typeof(event?.constraint) === 'string') ? event.constraint : null,
+        overlap: event?.overlap,
+        backgroundColor: event?.backgroundColor,
+        borderColor: event?.borderColor,
+        textColor: event?.textColor,
+        classNames: event?.classNames
+      }
+    }
+
+    stringifyEventSource(eventSource: EventSourceApi) {
+      return {
+        id: eventSource?.id,
+        format: eventSource?.format,
+        url: eventSource?.url
       }
     }
 
     stringifyView(view: ViewApi): View {
       return {
-        type: view.type, 
-        title: view.title,
-        activeStart: view.activeStart,
-        activeEnd: view.activeEnd,
-        currentStart: view.currentStart,
-        currentEnd: view.currentEnd
+        type: view?.type, 
+        title: view?.title,
+        activeStart: view?.activeStart,
+        activeEnd: view?.activeEnd,
+        currentStart: view?.currentStart,
+        currentEnd: view?.currentEnd
       }
     }
 
     stringifyResource(resource: any): Resource {
       return {
-        id: resource.id,
-        title: resource.title,
-        eventConstraint: typeof(resource.eventConstraint) === 'string' ? resource.eventConstraint : null,
-        eventOverlap: resource.eventOverlap,
-        eventBackgroundColor: resource.eventBackgroundColor,
-        eventBorderColor: resource.eventBorderColor,
-        eventTextColor: resource.eventTextColor, 
-        eventClassNames: resource.eventClassNames
+        id: resource?.id,
+        title: resource?.title,
+        eventConstraint: typeof(resource?.eventConstraint) === 'string' ? resource.eventConstraint : null,
+        eventOverlap: resource?.eventOverlap,
+        eventBackgroundColor: resource?.eventBackgroundColor,
+        eventBorderColor: resource?.eventBorderColor,
+        eventTextColor: resource?.eventTextColor, 
+        eventClassNames: resource?.eventClassNames
       }
     }
 }
@@ -720,4 +756,91 @@ interface View {
   activeEnd: Date,
   currentStart: Date,
   currentEnd: Date
+}
+
+interface FunctionEventSourceInfo {
+  start: Date,
+  end: Date,
+  startStr: string,
+  endStr: string,
+  timezone: string
+}
+
+interface DropInfo {
+  allDay?: boolean;
+  end?: Date;
+  endStr?: string;
+  resource?: Resource;
+  start?: Date;
+  startStr: string;
+}
+
+interface FetchInfo {
+  start?: Date;
+  end?: Date;
+  startStr?: string;
+  endStr?: string;
+  timezone?: string;
+}
+
+export class EventSource extends BaseCustomObject {
+  public id?: string;
+  public events?: any;
+  public className?: string[];
+  public editable?: boolean;
+  public startEditable?: boolean;
+  public durationEditable?: boolean;
+  public overlap?: boolean;
+  public constraint?: ConstraintInput;
+  public color?: string;
+  public backgroundcColor?: string;
+  public borderColor?: string;
+  public textColor?: string;
+  public defaultAllDay?: boolean;
+  public url?: string;
+  public format?: string;
+  public eventDataTransform: (eventData: EventInput) => EventInput;
+  public success: (rawEvents: EventInput[], xhr?: XMLHttpRequest) => void | EventInput[];
+  public failure: (errorObj: {message: string}) => void;
+  public display: string;
+  public eventAllow: (dropInfo: DropInfo, draggedEvent: Event) => boolean;
+}
+
+export class JSONEventSource extends EventSource {}
+
+export class iCalendarEventSource extends EventSource {}
+
+export class GoogleCalendarEventSource extends EventSource {
+  public googleCalendarId: string;
+}
+
+export class FunctionEventSource extends EventSource {
+  public events: (fetchInfo: FetchInfo, successCallback: (events: EventInput[]) => void, failureCallback: (error: any) => void) => void;
+}
+
+export class ArrayEventSource extends EventSource {
+  public events?: EventObject[];
+}
+
+export class EventObject extends BaseCustomObject {
+  public id?: string;
+  public groupId?: string;
+  public start?: string | Date;
+  public end?: string | Date;
+  public startStr?: string;
+  public endStr?: string;
+  public className?: string[];
+  public editable?: boolean;
+  public startEditable?: boolean;
+  public durationEditable?: boolean;
+  public resourceEditable?: boolean;
+  public overlap?: boolean;
+  public constraint?: ConstraintInput;
+  public backgroundcColor?: string;
+  public borderColor?: string;
+  public textColor?: string;
+  public extendedProps: Dictionary;
+  public display?: string;
+  public url?: string;
+  public source?: EventSource;
 }

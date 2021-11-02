@@ -1,7 +1,6 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
-import { FullCalendar } from './fullcalendar';
+import { ArrayEventSource, EventObject, EventSource, FullCalendar, FunctionEventSource, GoogleCalendarEventSource, iCalendarEventSource, JSONEventSource } from './fullcalendar';
 import interactionPlugin from '@fullcalendar/interaction'; 
 import dayGridPlugin from '@fullcalendar/daygrid'; 
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -10,6 +9,10 @@ import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
 import luxonPlugin from '@fullcalendar/luxon';
 import momentPlugin from '@fullcalendar/moment';
+import iCalendarPlugin from '@fullcalendar/icalendar';
+import googleCalendarPlugin from '@fullcalendar/google-calendar';
+import { CommonModule } from '@angular/common';
+import { ServoyPublicModule, SpecTypesService } from '@servoy/public';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -19,7 +22,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   resourceTimelinePlugin,
   resourceTimeGridPlugin,
   luxonPlugin,
-  momentPlugin
+  momentPlugin,
+  // googleCalendarPlugin
+  // iCalendarPlugin
 ]);
 
 @NgModule({
@@ -27,9 +32,26 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     FullCalendar
   ],
   imports: [
-    BrowserModule,
+    ServoyPublicModule,
+    CommonModule,
     FullCalendarModule 
   ],
+  exports: [
+    FullCalendar
+  ],
   providers: [],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA 
+]
 })
-export class FullCalendarComponentModule { }
+export class FullCalendarComponentModule {
+  constructor( specTypesService: SpecTypesService ) {
+    specTypesService.registerType('svy-fullcalendar.EventSource', EventSource);
+    specTypesService.registerType('svy-fullcalendar.EventObject', EventObject);
+    specTypesService.registerType('svy-fullcalendar.ArrayEventSource', ArrayEventSource);
+    specTypesService.registerType('svy-fullcalendar.JSONEventSource', JSONEventSource);
+    specTypesService.registerType('svy-fullcalendar.GoogleCalendarEventSource', GoogleCalendarEventSource);
+    specTypesService.registerType('svy-fullcalendar.iCalendarEventSource', iCalendarEventSource);
+    specTypesService.registerType('svy-fullcalendar.FunctionEventSource', FunctionEventSource);
+  } 
+}  
