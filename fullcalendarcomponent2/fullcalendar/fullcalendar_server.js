@@ -1,6 +1,5 @@
 /**
- * TODO can be reused also on client side and on element side ?
- * @enum
+ * @enum of event source types
  * */
  var EVENTSOURCE_TYPE = {
 	FUNCTION_SOURCE: "FunctionEventSource",
@@ -131,6 +130,10 @@ $scope.api.fullCalendar = function(options, renderOnCurrentView) {
         } else if (eventSources) {
             throw "Wrong eventSources provided\neventSources should be of type Array.";
         }
+		var resources = options["resources"];
+        if (resources instanceof Function) {
+			$scope.model.functionResources = resources;
+		}
 	}
 
 	// update model properties;
@@ -280,57 +283,6 @@ $scope.removeEventSource = function(id) {
 		}
 	} else {
 		console.log('can\'t remove eventSources from options');
-	}
-	return false;
-}
-
-/**
- * @param {Object} resource
- *
- * @return {Boolean}
- * */
-$scope.api.addResource = function(resource) {
-	if (!resource) {
-		throw "Illegal argument resource " + resource;
-	}
-	
-	// push resource in options object
-	var options = $scope.api.getFullCalendarOptions();
-	if (!options) {	// option was undefined
-		throw "Illegal State calendarOptions is undefined";
-	} else {	
-		if (options.resources) {	// resource was already existing
-			options.resources.push(resource);
-		} else {	// resource was undefined
-			options.resources = [resource];
-		}
-	}
-	return true;
-}
-
-/**
- * @param {Object} id
- * 
- * @return {Boolean}
- *
- * */
-$scope.removeResource = function(id) {
-	if (!id && id!= 0) {
-		throw "Illegal argument id " + id;
-	}
-	
-	var options = $scope.api.getFullCalendarOptions();
-	if (options && options.resources && options.resources.length) {
-		/** @type {Array} */
-		var resources = options.resources;
-		
-		var index = getEventSourceIndexById(resources, id);
-		if (index || index === 0) {
-			$scope.model.calendarOptions.resources.splice(index, 1);
-			return true;
-		}
-	} else {
-		console.log('can\'t remove resource from options');
 	}
 	return false;
 }

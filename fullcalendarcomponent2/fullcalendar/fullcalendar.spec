@@ -19,6 +19,7 @@
 		"jsonEventSources" : {"type": "JSONEventSource[]", "tags" : {"scope" : "private"}},
 		"iCalendarEventSources" : {"type": "iCalendarEventSource[]", "tags" : {"scope" : "private"}},
 		"gcalEventSources" : {"type": "GoogleCalendarEventSource[]", "tags" : {"scope" : "private"}},
+		"functionResources" : {"type": "function", "tags" : {"scope" : "private"}},
 		"styleClass" : {"type": "styleclass"},
 		"tooltipExpression" : {"type": "tagstring"},
 	    "location" : {"type" :"point", "pushToServer": "deep"}, 
@@ -51,7 +52,7 @@
 				 	"type": "ViewType",
 				 	"name": "view"
 				 }, {
-				 	"type": "ResourceType",
+				 	"type": "ResourceObject",
 				 	"name": "resource",
 				 	"optional" : true
 				}]
@@ -82,7 +83,7 @@
 				 	"type": "ViewType",
 				 	"name": "view"
 				 }, {
-				 	"type": "ResourceType",
+				 	"type": "ResourceObject",
 				 	"name": "resource",
 				 	"optional" : true
 				}]
@@ -179,10 +180,10 @@
 					"type": "EventObject",
 				 	"name": "oldEvent"
 				 }, {
-					"type": "ResourceType",
+					"type": "ResourceObject",
 				 	"name": "oldResource"
 				 }, {
-					"type": "ResourceType",
+					"type": "ResourceObject",
 				 	"name": "newResource"
 				 }, {
 					"type": "object",
@@ -215,7 +216,7 @@
 				 	"type": "JSEvent",
 				 	"name": "jsEvent"
 				 }, {
-				 	"type": "ResourceType",
+				 	"type": "ResourceObject",
 				 	"name": "resource"
 				 }, {
 				 	"type": "ViewType",
@@ -356,6 +357,34 @@
 				 	"type": "ViewType",
 				 	"name": "view"
 				}]
+		},
+		"onResourceAddMethodID": {
+			"parameters" : [{
+					"type": "ResourceObject",
+				 	"name": "resource"
+				}]
+		},
+		"onResourceChangeMethodID": {
+			"parameters" : [{
+					"type": "ResourceObject",
+				 	"name": "oldResource"
+				},
+				{
+					"type": "object",
+				 	"name": "newResource"
+				}]
+		},
+		"onResourceRemoveMethodID": {
+			"parameters" : [{
+					"type": "ResourceObject",
+				 	"name": "resource"
+				}]
+		},
+		"onResourcesSetMethodID": {
+			"parameters" : [{
+					"type": "ResourceObject[]",
+				 	"name": "resources"
+				}]
 		}
 	},
 	"api": {
@@ -382,7 +411,6 @@
                                 }
 			]
 		},
-
 		"getCalendarEvents": {
 			"returns": "EventObject[]"
 		},
@@ -558,7 +586,7 @@
 							"type":"string"
 							}
 			],
-			"returns" : "ResourceType[]"
+			"returns" : "ResourceObject[]"
 		},
 		"setEventResources": {
 			"parameters" : [{                                                                
@@ -567,7 +595,7 @@
 							},
 							{                                                                
 							"name":"resources",
-							"type":"ResourceType[]"
+							"type":"ResourceObject[]"
 							}
 			]
 		},
@@ -654,7 +682,7 @@
 							},
 							{"name":"dateOrRange",
 							"type":"object",
-							"optional" : "true"
+							"optional" : true
 							}
 							],
 			"delayUntilFormLoads": true
@@ -708,11 +736,11 @@
 				"delayUntilFormLoads": true
 		},
 		"getTopLevelResources": {
-				"returns" : "ResourceType[]",
+				"returns" : "ResourceObject[]",
 				"delayUntilFormLoads": true
 		},
 		"getResources": {
-				"returns" : "ResourceType[]",
+				"returns" : "ResourceObject[]",
 				"delayUntilFormLoads": true
 		},
 		"getResourceById": {
@@ -720,18 +748,18 @@
 							"name":"resourceId",
 							"type":"object"
 							}],
-				"returns" : "ResourceType",
+				"returns" : "ResourceObject",
 				"delayUntilFormLoads": true
 		},
 		"addResource": {
 					"parameters":[{                                                                
 								"name":"resource",
-								"type":"ResourceType"
+								"type":"ResourceObject"
 							},
 							{
 								"name":"scrollTo",
 								"type":"boolean",
-								"optional" : "true"
+								"optional" : true
 							}]
 		},
 		"removeResource": {
@@ -742,11 +770,11 @@
 				"delayUntilFormLoad": true
 		},
 		"getParent": {
-				"returns" : "ResourceType",
+				"returns" : "ResourceObject",
 				"delayUntilFormLoads": true
 		},
 		"getChildren": {
-				"returns" : "ResourceType[]",
+				"returns" : "ResourceObject[]",
 				"delayUntilFormLoads": true
 		},
 		"getResourceEvents": {
@@ -763,7 +791,7 @@
 							}
 			]
 		},
-		"setExtendedProp": {
+		"setExtendedPropResource": {
 			"parameters" : [{                                                                
 							"name":"name",
 							"type":"string"
@@ -776,6 +804,9 @@
 		},
 		"toPlainObjectResource": {
 			"parameters" : [{                                                                
+							"name":"id",
+							"type":"object"
+							},{                                                                
 							"name":"settings",
 							"type":"object"
 							}
@@ -802,9 +833,11 @@
 							},
 							{                                                                
 							"name":"omitTime",
-							"type":"boolean"
+							"type":"boolean",
+							"optional": true
 							}
-			]
+			],
+			"returns" : "string"
 		}, 
 		"formatRangeCalendar": {
 			"parameters" : [{                                                                
@@ -819,7 +852,8 @@
 							"name":"settings",
 							"type":"object"
 							}
-			]
+			],
+			"returns" : "string"
 		},
 		"formatDate": {
 			"parameters" : [{                                                                
@@ -830,7 +864,27 @@
 							"name":"settings",
 							"type":"object"
 							}
+			],
+			"returns" : "string"
+		},
+		"setOption": {
+			"parameters" : [{                                                                
+							"name":"option",
+							"type":"object"
+							},
+							{                                                                
+							"name":"value",
+							"type":"object"
+							}
 			]
+		},
+		"getOption": {
+			"parameters" : [{                                                                
+							"name":"name",
+							"type":"string"
+							}
+			],
+			"returns" : "object"
 		}
 	},
 	"internalApi": {
@@ -901,7 +955,7 @@
 			"url" : "string",
 			"source" : "EventSource"
 	 	},
-	 	"ResourceType": {
+	 	"ResourceObject": {
 			"id" : "object",
 			"title" : "tagstring",
 			"eventBackgroundColor": "color",
