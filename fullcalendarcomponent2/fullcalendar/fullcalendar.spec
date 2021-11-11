@@ -107,10 +107,8 @@
 				 }, {
 					"type": "EventObject[]",
 				 	"name": "relatedEvents"
-				 }, {
-				 	"type": "function",
-				 	"name": "revert"
-				}]
+				}],
+			 "returns":  { "type": "boolean", "doc": "if it returns false, the event add action will be reverted, otherwise (true) the action is considered valid", "default": true }
 		},
 		"onEventRemoveMethodID": {
 			"parameters" : [{
@@ -119,10 +117,8 @@
 				 }, {
 					"type": "EventObject[]",
 				 	"name": "relatedEvents"
-				 }, {
-				 	"type": "function",
-				 	"name": "revert"
-				}]
+				}],
+			"returns":  { "type": "boolean", "doc": "if it returns false, the event remove action will be reverted, otherwise (true) the action is considered valid", "default": true }
 		},
 		"onEventChangeMethodID": {
 			"parameters" : [{
@@ -134,10 +130,8 @@
 				 }, {
 					"type": "EventObject[]",
 				 	"name": "relatedEvents"
-				 }, {
-				 	"type": "function",
-				 	"name": "revert"
-				}]
+				}],
+			"returns":  { "type": "boolean", "doc": "if it returns false, the event change action will be reverted, otherwise (true) the action is considered valid", "default": true }
 		},
 		"onEventsSetMethodID": {
 			"parameters" : [{
@@ -167,7 +161,8 @@
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
-				}]
+				}],
+			"returns":  { "type": "boolean", "doc": "if it returns false, the event resize action will be reverted, otherwise (true) the action is considered valid", "default": true },
 		},
 		"onEventDropMethodID": {
 			"parameters" : [{
@@ -197,7 +192,8 @@
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
-				}]
+				}],
+			"returns":  { "type": "boolean", "doc": "if it returns false, the event drop action will be reverted, otherwise (true) the action is considered valid", "default": true }
 		},
 		"onDropMethodID": {
 			"parameters" : [{
@@ -341,7 +337,8 @@
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
-				}]
+				}], 
+			"returns":  { "type": "boolean", "doc": "if it returns false, the event receive action will be reverted, otherwise (true) the action is considered valid", "default": true }
 		},
 		"onEventLeaveMethodID": {
 			"parameters" : [{
@@ -356,13 +353,15 @@
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
-				}]
+				}],
+			"returns":  { "type": "boolean", "doc": "if it returns false, the event leave action will be reverted, otherwise (true) the action is considered valid", "default": true }
 		},
 		"onResourceAddMethodID": {
 			"parameters" : [{
 					"type": "ResourceObject",
 				 	"name": "resource"
-				}]
+				}],
+			"returns":  { "type": "boolean", "doc": "if it returns false, the resource add action will be reverted, otherwise (true) the action is considered valid", "default": true }
 		},
 		"onResourceChangeMethodID": {
 			"parameters" : [{
@@ -372,13 +371,15 @@
 				{
 					"type": "object",
 				 	"name": "newResource"
-				}]
+				}],
+			"returns":  { "type": "boolean", "doc": "if it returns false, the resource change action will be reverted, otherwise (true) the action is considered valid", "default": true }
 		},
 		"onResourceRemoveMethodID": {
 			"parameters" : [{
 					"type": "ResourceObject",
 				 	"name": "resource"
-				}]
+				}],
+			"returns":  { "type": "boolean", "doc": "if it returns false, the resource remove action will be reverted, otherwise (true) the action is considered valid", "default": true }
 		},
 		"onResourcesSetMethodID": {
 			"parameters" : [{
