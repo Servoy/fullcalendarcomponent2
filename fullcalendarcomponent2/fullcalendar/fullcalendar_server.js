@@ -82,8 +82,7 @@ function getEventSourceIndexById(eventSources, id) {
         eventSources: [ {events: [{ title: "lunch event", start: new Date() }]}],
 		selectable: true,
 		editable: true,
-		defaultView: 'agendaWeek',
-		showCurrentTimeline: true
+		initialView: 'dayGridMonth',
    }
    elements.fullcalendarElementName.fullCalendar(options);
 </pre>

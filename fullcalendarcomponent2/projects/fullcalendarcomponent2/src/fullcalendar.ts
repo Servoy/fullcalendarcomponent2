@@ -1044,9 +1044,9 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   timeGridPlugin,
   listPlugin,
   momentPlugin,
-  luxonPlugin
-  // googleCalendarPlugin,
-  // iCalendarPlugin
+  luxonPlugin,
+  googleCalendarPlugin,
+  iCalendarPlugin
 ]);
 
 @NgModule({
