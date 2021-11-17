@@ -2,6 +2,7 @@
 	"name": "svy-fullcalendar",
 	"displayName": "FullCalendar",
 	"categoryName": "Visualization",
+	"doc": "fullcalendarcomponent2/fullcalendar/fullcalendar_doc.js",
 	"icon" : "fullcalendarcomponent2/fullcalendar/fullcalendar.png",
 	"definition": "fullcalendarcomponent2/fullcalendar/fullcalendar.js",
 	"serverscript": "fullcalendarcomponent2/fullcalendar/fullcalendar_server.js",
@@ -55,7 +56,8 @@
 				 	"type": "ResourceObject",
 				 	"name": "resource",
 				 	"optional" : true
-				}]
+				}],
+			"doc" : "<b>onSelectMethodID</b> will be called when a date/time selection is made."
 		},
 		"onUnselectMethodID": {
 			"parameters" : [{
@@ -612,7 +614,6 @@
 							}
 			]
 		},
-
 		"getEventSources": {
 			"returns" : "EventSource[]"
 		}, 
@@ -766,24 +767,40 @@
 		"removeResource": {
 				"parameters":[{                                                                
 							"name":"id",
-							"type":"object"
+							"type":"string"
 							}],
 				"delayUntilFormLoad": true
 		},
 		"getParent": {
+				"parameters":[{                                                                
+					"name":"id",
+					"type":"string"
+				}],
 				"returns" : "ResourceObject",
 				"delayUntilFormLoads": true
 		},
 		"getChildren": {
+				"parameters":[{                                                                
+					"name":"id",
+					"type":"string"
+				}],
 				"returns" : "ResourceObject[]",
 				"delayUntilFormLoads": true
 		},
 		"getResourceEvents": {
-				"returns" : "EventObject[]",
+				"parameters":[{                                                                
+					"name":"id",
+					"type":"string"
+				}],
+				"returns" : "ResourceObject[]",
 				"delayUntilFormLoads": true
 		},
 		"setPropResource": {
 			"parameters" : [{                                                                
+							"name":"id",
+							"type":"string"
+							},
+							{                                                                
 							"name":"name",
 							"type":"string"
 							},
@@ -794,6 +811,10 @@
 		},
 		"setExtendedPropResource": {
 			"parameters" : [{                                                                
+							"name":"id",
+							"type":"string"
+							},
+							{                                                                
 							"name":"name",
 							"type":"string"
 							},
@@ -806,10 +827,11 @@
 		"toPlainObjectResource": {
 			"parameters" : [{                                                                
 							"name":"id",
-							"type":"object"
+							"type":"string"
 							},{                                                                
 							"name":"settings",
-							"type":"object"
+							"type":"object",
+							"optional": true
 							}
 			]
 		},
@@ -870,8 +892,8 @@
 		},
 		"setOption": {
 			"parameters" : [{                                                                
-							"name":"option",
-							"type":"object"
+							"name":"name",
+							"type":"string"
 							},
 							{                                                                
 							"name":"value",
