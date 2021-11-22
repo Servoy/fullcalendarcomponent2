@@ -66,7 +66,8 @@
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
-				 }]
+				 }],
+			"doc" : "<b>onUnselectMethodID</b> will be called when the current selection is cleared."
 		},
 		"onDateClickMethodID": {
 			"parameters" : [{
@@ -88,7 +89,8 @@
 				 	"type": "ResourceObject",
 				 	"name": "resource",
 				 	"optional" : true
-				}]
+				}],
+			"doc" : "<b>onDateClickMethodID</b> will be called when the user clicks on a date or a time."
 		},
 		"onEventClickMethodID": {
 			"parameters" : [{
@@ -100,7 +102,8 @@
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
-				}]
+				}],
+			"doc" : "<b>onEventClickMethodID</b> will be called when the user clicks an event."
 		},
 		"onEventAddMethodID": {
 			"parameters" : [{
@@ -110,7 +113,8 @@
 					"type": "EventObject[]",
 				 	"name": "relatedEvents"
 				}],
-			 "returns":  { "type": "boolean", "doc": "if it returns false, the event add action will be reverted, otherwise (true) the action is considered valid", "default": true }
+			 "returns":  { "type": "boolean", "doc": "if it returns false, the event add action will be reverted, otherwise (true) the action is considered valid", "default": true },
+			 "doc" : "<b>onEventAddMethodID</b> will be called after an event has been added to the calendar."
 		},
 		"onEventRemoveMethodID": {
 			"parameters" : [{
@@ -120,7 +124,8 @@
 					"type": "EventObject[]",
 				 	"name": "relatedEvents"
 				}],
-			"returns":  { "type": "boolean", "doc": "if it returns false, the event remove action will be reverted, otherwise (true) the action is considered valid", "default": true }
+			"returns":  { "type": "boolean", "doc": "if it returns false, the event remove action will be reverted, otherwise (true) the action is considered valid", "default": true },
+			"doc" : "<b>onEventRemoveMethodID</b> will be called after an event has been removed from the calendar."
 		},
 		"onEventChangeMethodID": {
 			"parameters" : [{
@@ -133,19 +138,22 @@
 					"type": "EventObject[]",
 				 	"name": "relatedEvents"
 				}],
-			"returns":  { "type": "boolean", "doc": "if it returns false, the event change action will be reverted, otherwise (true) the action is considered valid", "default": true }
+			"returns":  { "type": "boolean", "doc": "if it returns false, the event change action will be reverted, otherwise (true) the action is considered valid", "default": true },
+			"doc" : "<b>onEventChangeMethodID</b> will be called after an event has been modified in some way."
 		},
 		"onEventsSetMethodID": {
 			"parameters" : [{
 					"type": "EventObject[]",
 				 	"name": "events"
-				 }]
+				 }],
+			"doc" : "<b>onEventsSetMethodID</b> will be called after event data is initialized OR changed in any way."
 		},
 		"onWindowResizeMethodID": {
 			"parameters" : [{
 					"type": "ViewType",
 				 	"name": "view"
-				 }]
+				 }],
+			"doc" : "<b>onWindowResizeMethodID</b> will be called after the calendar’s dimensions have been changed due to the browser window being resized."
 		},
 		"onEventResizeMethodID": {
 			"parameters" : [{
@@ -165,6 +173,7 @@
 				 	"name": "view"
 				}],
 			"returns":  { "type": "boolean", "doc": "if it returns false, the event resize action will be reverted, otherwise (true) the action is considered valid", "default": true },
+			"doc" : "<b>onEventResizeMethodID</b> will be called when resizing stops and the event has changed in duration."
 		},
 		"onEventDropMethodID": {
 			"parameters" : [{
@@ -195,7 +204,8 @@
 				 	"type": "ViewType",
 				 	"name": "view"
 				}],
-			"returns":  { "type": "boolean", "doc": "if it returns false, the event drop action will be reverted, otherwise (true) the action is considered valid", "default": true }
+			"returns":  { "type": "boolean", "doc": "if it returns false, the event drop action will be reverted, otherwise (true) the action is considered valid", "default": true },
+			"doc" : "<b>onEventDropMethodID</b> will be called when dragging stops and the event has moved to a different day/time."
 		},
 		"onDropMethodID": {
 			"parameters" : [{
@@ -219,7 +229,8 @@
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
-				}]
+				}],
+			"doc" : "<b>onDropMethodID</b> will be called when an external draggable element or an event from another calendar has been dropped onto the calendar."
 		},
 		"onEventDragStartMethodID": {
 			"parameters" : [{
@@ -231,7 +242,8 @@
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
-				}]
+				}],
+			"doc" : "<b>onEventDragStartMethodID</b> will be called when event dragging begins."
 		},
 		"onEventResizeStartMethodID": {
 			"parameters" : [{
@@ -243,7 +255,8 @@
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
-				}]
+				}],
+			"doc" : "<b>onEventResizeStartMethodID</b> will be called when event resizing begins."
 		},
 		"onEventDragStopMethodID": {
 			"parameters" : [{
@@ -255,7 +268,8 @@
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
-				}]
+				}],
+			"doc" : "<b>onEventDragStopMethodID</b> will be called when event dragging stops."
 		},
 		"onEventResizeStopMethodID": {
 			"parameters" : [{
@@ -267,7 +281,8 @@
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
-				}]
+				}],
+			"doc" : "<b>onEventResizeStopMethodID</b> will be called when event resizing stops."
 		},
 		"onEventMouseEnterMethodID": {
 			"parameters" : [{
@@ -282,7 +297,8 @@
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
-				}]
+				}],
+			"doc" : "<b>onEventMouseEnterMethodID</b> will be called when the user mouses over an event. Similar to the native mouseenter."
 		},
 		"onEventMouseLeaveMethodID": {
 			"parameters" : [{
@@ -297,13 +313,15 @@
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
-				}]
+				}],
+			"doc" : "<b>onEventMouseLeaveMethodID</b> will be called when the user mouses out of an event. Similar to the native mouseleave."
 		},
 		"onLoadingMethodID": {
 			"parameters" : [{
 					"type": "boolean",
 				 	"name": "isLoading"
-				 }]
+				 }],
+			"doc" : "<b>onLoadingMethodID</b> will be called when event or resource fetching starts/stops."
 		},
 		"onDatesSetMethodID": {
 			"parameters" : [{
@@ -324,7 +342,8 @@
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
-				}]
+				}],
+			"doc" : "<b>onDatesSetMethodID</b> will be called after the calendar’s date range has been initially set or changed in some way and the DOM has been updated."
 		},
 		"onEventReceiveMethodID": {
 			"parameters" : [{
@@ -340,7 +359,8 @@
 				 	"type": "ViewType",
 				 	"name": "view"
 				}], 
-			"returns":  { "type": "boolean", "doc": "if it returns false, the event receive action will be reverted, otherwise (true) the action is considered valid", "default": true }
+			"returns":  { "type": "boolean", "doc": "if it returns false, the event receive action will be reverted, otherwise (true) the action is considered valid", "default": true },
+			"doc" : "<b>onEventReceiveMethodID</b> will be called when an external draggable element with associated event data was dropped onto the calendar. Or an event from another calendar."
 		},
 		"onEventLeaveMethodID": {
 			"parameters" : [{
@@ -356,14 +376,16 @@
 				 	"type": "ViewType",
 				 	"name": "view"
 				}],
-			"returns":  { "type": "boolean", "doc": "if it returns false, the event leave action will be reverted, otherwise (true) the action is considered valid", "default": true }
+			"returns":  { "type": "boolean", "doc": "if it returns false, the event leave action will be reverted, otherwise (true) the action is considered valid", "default": true },
+			"doc" : "<b>onEventLeaveMethodID</b> will be called when on a calendar when one if its events is about to be dropped onto another calendar."
 		},
 		"onResourceAddMethodID": {
 			"parameters" : [{
 					"type": "ResourceObject",
 				 	"name": "resource"
 				}],
-			"returns":  { "type": "boolean", "doc": "if it returns false, the resource add action will be reverted, otherwise (true) the action is considered valid", "default": true }
+			"returns":  { "type": "boolean", "doc": "if it returns false, the resource add action will be reverted, otherwise (true) the action is considered valid", "default": true },
+			"doc" : "<b>onResourceAddMethodID</b> will be called after a resource has been added to the calendar."
 		},
 		"onResourceChangeMethodID": {
 			"parameters" : [{
@@ -374,20 +396,23 @@
 					"type": "object",
 				 	"name": "newResource"
 				}],
-			"returns":  { "type": "boolean", "doc": "if it returns false, the resource change action will be reverted, otherwise (true) the action is considered valid", "default": true }
+			"returns":  { "type": "boolean", "doc": "if it returns false, the resource change action will be reverted, otherwise (true) the action is considered valid", "default": true },
+			"doc" : "<b>onResourceChangeMethodID</b> will be called after a resource has been modified in some way."
 		},
 		"onResourceRemoveMethodID": {
 			"parameters" : [{
 					"type": "ResourceObject",
 				 	"name": "resource"
 				}],
-			"returns":  { "type": "boolean", "doc": "if it returns false, the resource remove action will be reverted, otherwise (true) the action is considered valid", "default": true }
+			"returns":  { "type": "boolean", "doc": "if it returns false, the resource remove action will be reverted, otherwise (true) the action is considered valid", "default": true },
+			"doc" : "<b>onResourceRemoveMethodID</b> will be called after a resource has been removed from the calendar."
 		},
 		"onResourcesSetMethodID": {
 			"parameters" : [{
 					"type": "ResourceObject[]",
 				 	"name": "resources"
-				}]
+				}],
+			"doc" : "<b>onResourcesSetMethodID</b> will be called after resource data is initialized OR changed in any way."
 		}
 	},
 	"api": {
