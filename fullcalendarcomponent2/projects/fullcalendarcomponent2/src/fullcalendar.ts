@@ -93,16 +93,6 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
           for (const property of Object.keys(changes)) {
               const change = changes[property];
               switch (property) {
-                  case 'arrayEventSources': 
-                  case 'functionEventSources': 
-                  case 'JSONEventSources': 
-                  case 'GoogleCalendarEventSources': 
-                  case 'iCalendarEventSources': {
-                    if (change.currentValue) {
-                      this.fullCalendarOptions.eventSources = this.getES();
-                    }
-                    break;
-                  }
                   case 'hasToDraw': {
                     if (change.currentValue && change.currentValue === true && change.previousValue && change.previousValue === false) {
                       this.initFullCalendar();
@@ -553,16 +543,12 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     }
 
     addEventSourceToCalendar(eventSource: EventSource) {
-      let source = {} as EventSource;
-      for (let property in eventSource) {
-        source[property] = eventSource[property];
-      }
-      return this.calendarComponent.getApi().addEventSource(source);
+      return this.stringifyEventSource(this.calendarComponent.getApi().addEventSource(eventSource));
     }
 
-    addFunctionEventSourceToCalendar(eventSource: EventSource, callback: any) {
-      if (callback) eventSource = this.transformFunctionEventSource(eventSource);
-      return this.calendarComponent.getApi().addEventSource(eventSource);
+    addFunctionEventSourceToCalendar(eventSource: EventSource, callback: {formname: string, script: string}) {
+      if (callback) eventSource = this.transformFunctionEventSource(eventSource, callback);
+      return this.stringifyEventSource(this.calendarComponent.getApi().addEventSource(eventSource));
     }
 
     refetchEvents() {
@@ -577,14 +563,11 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       const index = this.getEventSourcesIndexById(eventSourceID);
       if (this.eventSources[index]) {
         const retValue = await this.servoyApi.callServerSideApi('removeEventSource', [eventSourceID]);
-        // It is already deleted by the code running in svyOnChanges
-        // This is only a temporary workaround until I find the solution for adding event sources using the internal apis calls. 
-
-        // if (retValue === true) {
-        //   this.calendarComponent.getApi().getEventSourceById(eventSourceID).remove();
-        // } else {
-        //   this.log.warn('Could not remove event source ' + eventSourceID);
-        // }
+        if (retValue === true) {
+          this.calendarComponent.getApi().getEventSourceById(eventSourceID).remove();
+        } else {
+          this.log.warn('Could not remove event source ' + eventSourceID);
+        }
       }
     }
 
@@ -764,7 +747,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       }
       // functionEventSources
       for (let i = 0; this.functionEventSources && i < this.functionEventSources.length; i++) {
-        eventSources.push(this.transformFunctionEventSource(this.functionEventSources[i]))
+        eventSources.push(this.transformFunctionEventSource(this.functionEventSources[i], null))
       }
       // GoogleFeedEventSources
       if (this.gcalEventSources && this.gcalEventSources.length) {
@@ -803,7 +786,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       }
     }
 
-    transformFunctionEventSource(eventSource: EventSource) {
+    transformFunctionEventSource(eventSource: EventSource, callback: {formname: string, script: string}) {
       let source = {} as EventSource;
       
       // copy properties of eventSource
@@ -812,7 +795,6 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       }
 
       // register server side callback
-      let callback = eventSource.events;
       source['events'] = (info: FunctionInfo, successCallback: Function, failureCallback: Function) => {
         const retValue = this.servoyService.executeInlineScript(callback.formname, callback.script, [info]);
         retValue.then((success) => {

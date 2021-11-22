@@ -202,6 +202,8 @@ $scope.api.updateFullCalendar = function(option, value) {
  * </pre>
  * */
 $scope.api.addEventSource = function(eventSource) {
+
+	var isFunctionES = false;
 	if (!eventSource) {
 		throw "Illegal argument eventSource " + eventSource;
 	}
@@ -210,6 +212,7 @@ $scope.api.addEventSource = function(eventSource) {
 	switch (getEventSourceType(eventSource)) {
 	case EVENTSOURCE_TYPE.FUNCTION_SOURCE:
 		$scope.model.functionEventSources.push(eventSource);
+		isFunctionES = true;
 		break;
 	case EVENTSOURCE_TYPE.ARRAY_SOURCE:
 		$scope.model.arrayEventSources.push(eventSource);
@@ -229,6 +232,8 @@ $scope.api.addEventSource = function(eventSource) {
 
 	if ($scope.model.eventSources == null) $scope.model.eventSources = [];
 	$scope.model.eventSources.push(eventSource);
+
+	return isFunctionES ? $scope.api.addFunctionEventSourceToCalendar(eventSource, eventSource.events) : $scope.api.addEventSourceToCalendar(eventSource);
 }
 
 /**
