@@ -22,15 +22,7 @@
 		"gcalEventSources" : {"type": "GoogleCalendarEventSource[]", "tags" : {"scope" : "private"}},
 		"functionResources" : {"type": "function", "tags" : {"scope" : "private"}},
 		"styleClass" : {"type": "styleclass"},
-		"tooltipExpression" : {"type": "tagstring"},
-	    "location" : {"type" :"point", "pushToServer": "deep"}, 
-		"size": {
-			"type": "dimension",
-			"default": {
-				"width": 600,
-				"height": 400
-			}
-		}
+		"tooltipExpression" : {"type": "tagstring"}
 	},
 	"handlers": {
 		"onSelectMethodID": {
@@ -154,6 +146,20 @@
 				 	"name": "view"
 				 }],
 			"doc" : "<b>onWindowResizeMethodID</b> will be called after the calendar’s dimensions have been changed due to the browser window being resized."
+		},
+		"onViewDidMountMethodID": {
+			"parameters" : [{
+					"type": "ViewType",
+				 	"name": "view"
+				 }],
+			"doc" : "<b>onViewDidMountMethodID</b> will be called right after the view has been added to the DOM."
+		},
+		"onViewWillUnmountMethodID": {
+			"parameters" : [{
+					"type": "ViewType",
+				 	"name": "view"
+				 }],
+			"doc" : "<b>onViewWillUnmountMethodID</b> will be called right before the view will be removed from the DOM."
 		},
 		"onEventResizeMethodID": {
 			"parameters" : [{

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
 import { BaseCustomObject, LoggerFactory, LoggerService, ServoyBaseComponent, ServoyPublicService } from '@servoy/public';
-import { CalendarOptions, ConstraintInput, DateInput, DateRangeInput, DateSelectArg, DatesSetArg, DateUnselectArg, Dictionary, Duration, DurationInput, EventAddArg, EventApi, EventChangeArg, EventClickArg, EventDropArg, EventHoveringArg, EventInput, EventRemoveArg, EventSourceApi, EventSourceInput, FormatterInput, FullCalendarComponent, PointerDragEvent, ViewApi } from '@fullcalendar/angular';
+import { CalendarOptions, ConstraintInput, DateInput, DateRangeInput, DateSelectArg, DatesSetArg, DateUnselectArg, Dictionary, Duration, DurationInput, EventAddArg, EventApi, EventChangeArg, EventClickArg, EventDropArg, EventHoveringArg, EventInput, EventRemoveArg, EventSourceApi, EventSourceInput, FormatterInput, FullCalendarComponent, PointerDragEvent, ViewApi, ViewContentArg, ViewMountArg } from '@fullcalendar/angular';
 import { Input } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import { DateClickArg, DropArg, EventDragStartArg, EventDragStopArg, EventLeaveArg, EventReceiveArg, EventResizeDoneArg, EventResizeStartArg, EventResizeStopArg } from '@fullcalendar/interaction';
@@ -55,12 +55,14 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     @Input() onResourceChangeMethodID: (oldResource: ResourceApi, newResource: ResourceApi) => Promise<boolean>;
     @Input() onResourceRemoveMethodID: (resource: ResourceApi) => Promise<boolean>;
     @Input() onResourcesSetMethodID: (resources: ResourceApi[]) => void;
+    @Input() onViewDidMountMethodID: (view: View ) => void;
+    @Input() onViewWillUnmountMethodID: (view: View ) => void;
 
     @Input() hasToDraw: boolean;
     @Input() renderOnCurrentView: boolean;
     @Input() styleClass: string;
     @Input() calendarOptions: CalendarOptions;
-    @Input() view: any;
+    @Input() view: ViewApi;
     @Input() events: EventInput[];
     @Input() eventSources: EventSource[];
     @Input() arrayEventSources: ArrayEventSource[];
@@ -70,8 +72,6 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     @Input() functionResources: ServerFunction;
     @Input() iCalendarEventSources: iCalendarEventSource[];
     @Input() tooltipExpression: string;
-    @Input() location: object;
-    @Input() size: object;
 
     @ViewChild('calendar') calendarComponent: FullCalendarComponent;
     @ViewChild('element', { static: false }) elementRef: ElementRef<HTMLDivElement>;
@@ -116,8 +116,8 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       this.initializeCallbacks();
 
       if ((!this.hasToDraw || this.renderOnCurrentView) && this.view) {
-        this.fullCalendarOptions.initialView = this.view.name;
-        this.fullCalendarOptions.initialDate = new Date(this.view.defaultDate);
+        this.fullCalendarOptions.initialView = this.view.title;
+        this.fullCalendarOptions.initialDate = new Date(this.view.currentStart);
       }
       if (this.events && this.events.length) {
         this.fullCalendarOptions.events = this.events;
@@ -169,12 +169,26 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       this.fullCalendarOptions.resourceChange = this.resourceChange.bind(this);
       this.fullCalendarOptions.resourceRemove = this.resourceRemove.bind(this);
       this.fullCalendarOptions.resourcesSet = this.resourcesSet.bind(this);
-
+      this.fullCalendarOptions.viewDidMount = this.viewDidMount.bind(this);
+      this.fullCalendarOptions.viewWillUnmount = this.viewWillUnmount.bind(this);
     }
 
     /***********************************************************************************************************
     * CALLBACKS
     * **********************************************************************************************************/
+
+    viewDidMount(viewDidMount: ViewMountArg) {
+      this.view = viewDidMount.view;
+      if (this.onViewDidMountMethodID) {
+        this.onViewDidMountMethodID(this.stringifyView(viewDidMount.view));
+      }
+    }
+
+    viewWillUnmount(viewWillUnmount: ViewMountArg) {
+      if (this.onViewWillUnmountMethodID) {
+        this.onViewWillUnmountMethodID(this.stringifyView(viewWillUnmount.view));
+      }
+    }
 
     resourceAdd(resAdd: ResourceAddArg) {
       if (this.onResourceAddMethodID) {
