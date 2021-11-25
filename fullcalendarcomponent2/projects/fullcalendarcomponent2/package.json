@@ -1,31 +1,30 @@
 {
     "name": "@servoy/fullcalendarcomponent2",
-    "version": "2.0.0",
+    "version": "5.10.0",
     "peerDependencies": {
-      "@angular/animations": ">=12",
-      "@angular/cdk": ">=12",
-      "@angular/common": ">=12",
-      "@angular/core": ">=12",
-      "@angular/forms": ">=12"
+      "@angular/animations": "^13",
+      "@angular/cdk": "^13",
+      "@angular/common": "^13",
+      "@angular/core": "^13",
+      "@angular/forms": "^13"
     },
     "dependencies": {
-      "@fullcalendar/angular": ">=5",
-      "@fullcalendar/interaction": ">=5",
-      "@fullcalendar/list": ">=5",
-      "@fullcalendar/luxon": ">=5",
-      "@fullcalendar/moment": ">=5",
-      "@fullcalendar/resource-timegrid": ">=5",
-      "@fullcalendar/resource-timeline": ">=5",
-      "@fullcalendar/timegrid": ">=5",
-      "@fullcalendar/icalendar": ">=5",
-      "@fullcalendar/google-calendar": ">=5",
-      "@fullcalendar/timeline": ">=5",
-      "@fullcalendar/common": ">=5",
+      "@fullcalendar/angular": "^5",
+      "@fullcalendar/interaction": "^5",
+      "@fullcalendar/list": "^5",
+      "@fullcalendar/luxon": "^5",
+      "@fullcalendar/resource-timegrid": "^5",
+      "@fullcalendar/resource-timeline": "^5",
+      "@fullcalendar/timegrid": "^5",
+      "@fullcalendar/icalendar": "^5",
+      "@fullcalendar/google-calendar": "^5",
+      "@fullcalendar/timeline": "^5",
+      "@fullcalendar/common": "^5",
       "tslib": "*"
     },
     "license": "MIT",
     "repository": {
       "type": "git",
-      "url": "https://github.com/fbandrei/fullcalendarcomponent2"
+      "url": "https://github.com/Servoy/fullcalendarcomponent2"
     }
   }

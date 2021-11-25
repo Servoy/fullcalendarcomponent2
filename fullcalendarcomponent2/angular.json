@@ -16,10 +16,7 @@
             "builder": "@angular-devkit/build-angular:ng-packagr",
             "options": {
               "tsConfig": "projects/fullcalendarcomponent2/tsconfig.lib.json",
-              "project": "projects/fullcalendarcomponent2/ng-package.json",
-              "styles": [
-                "node_modules/ngx-toastr/toastr.css"
-              ]
+              "project": "projects/fullcalendarcomponent2/ng-package.json"
             },
             "configurations": {
               "production": {

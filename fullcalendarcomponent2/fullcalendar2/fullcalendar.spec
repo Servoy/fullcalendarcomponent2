@@ -1,11 +1,11 @@
 {
-	"name": "svy-fullcalendar",
-	"displayName": "FullCalendar",
+	"name": "svy-fullcalendar2",
+	"displayName": "FullCalendar2",
 	"categoryName": "Visualization",
-	"doc": "fullcalendarcomponent2/fullcalendar/fullcalendar_doc.js",
-	"icon" : "fullcalendarcomponent2/fullcalendar/fullcalendar.png",
-	"definition": "fullcalendarcomponent2/fullcalendar/fullcalendar.js",
-	"serverscript": "fullcalendarcomponent2/fullcalendar/fullcalendar_server.js",
+	"doc": "fullcalendarcomponent2/fullcalendar2/fullcalendar_doc.js",
+	"icon" : "fullcalendarcomponent2/fullcalendar2/fullcalendar.png",
+	"definition": "fullcalendarcomponent2/fullcalendar2/fullcalendar.js",
+	"serverscript": "fullcalendarcomponent2/fullcalendar2/fullcalendar_server.js",
 	"version": 1,
 	"model":
 	{
