@@ -149,20 +149,20 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     * CALLBACKS
     * **********************************************************************************************************/
 
-    viewDidMount(viewDidMount: ViewMountArg) {
+    viewDidMount = (viewDidMount: ViewMountArg) => {
       this.view = viewDidMount.view;
       if (this.onViewDidMountMethodID) {
         this.onViewDidMountMethodID(this.stringifyView(viewDidMount.view));
       }
     }
 
-    viewWillUnmount(viewWillUnmount: ViewMountArg) {
+    viewWillUnmount = (viewWillUnmount: ViewMountArg) => {
       if (this.onViewWillUnmountMethodID) {
         this.onViewWillUnmountMethodID(this.stringifyView(viewWillUnmount.view));
       }
     }
 
-    resourceAdd(resAdd: ResourceAddArg) {
+    resourceAdd = (resAdd: ResourceAddArg) => {
       if (this.onResourceAddMethodID) {
         this.onResourceAddMethodID(resAdd.resource).then(success => {
           if (!success) {
@@ -175,7 +175,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       }
 
     }
-    resourceChange(resChange: ResourceChangeArg) {
+    resourceChange = (resChange: ResourceChangeArg) => {
       if (this.onResourceChangeMethodID) {
         this.onResourceChangeMethodID(resChange.oldResource, resChange.resource).then(success => {
           if (!success) {
@@ -187,7 +187,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         });
       }
     }
-    resourceRemove(resRemove: ResourceRemoveArg) {
+    resourceRemove = (resRemove: ResourceRemoveArg) => {
       if (this.onResourceRemoveMethodID) {
         this.onResourceRemoveMethodID(resRemove.resource).then(success => {
           if (!success) {
@@ -199,62 +199,62 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         });
       }
     }
-    resourcesSet(resources: ResourceApi[]) {
+    resourcesSet = (resources: ResourceApi[]) => {
       if (this.onResourcesSetMethodID) {
         this.onResourcesSetMethodID(resources);
       }
     }
 
-    loading(isLoading: boolean) {
+    loading = (isLoading: boolean) => {
       if (this.onLoadingMethodID) {
         this.onLoadingMethodID(isLoading);
       }
     }
 
-    datesSet(arg: DatesSetArg) {
+    datesSet = (arg: DatesSetArg) => {
       if (this.onDatesSetMethodID) {
         this.onDatesSetMethodID(arg.start, arg.end, arg.startStr, arg.endStr, arg.timeZone, this.stringifyView(arg.view));
       }
     }
 
-    selectCallback = (selectionInfo: DateSelectArg)=> {
+    selectCallback = (selectionInfo: DateSelectArg) => {
       if (this.onSelectMethodID) {
         this.onSelectMethodID(selectionInfo.start, selectionInfo.end, selectionInfo.startStr, selectionInfo.endStr,
           selectionInfo.allDay, selectionInfo.jsEvent, this.stringifyView(selectionInfo.view), selectionInfo.resource);
       }
     }
 
-    unselectCallback(selectionInfo: DateUnselectArg) {
+    unselectCallback = (selectionInfo: DateUnselectArg) => {
       if (this.onUnselectMethodID) {
         this.onUnselectMethodID(selectionInfo.jsEvent, this.stringifyView(selectionInfo.view));
       }
     }
 
-    dateClick(arg: DateClickArg) {
+    dateClick = (arg: DateClickArg) => {
       if (this.onDateClickMethodID) {
         this.onDateClickMethodID(arg.date, arg.dateStr, arg.dayEl, arg.jsEvent, this.stringifyView(arg.view), this.stringifyResource(arg.resource));
       }
     }
 
-    eventClick(eventClickArg: EventClickArg) {
+    eventClick = (eventClickArg: EventClickArg) => {
       if (this.onEventClickMethodID) {
         this.onEventClickMethodID(this.stringifyEvent(eventClickArg.event), eventClickArg.jsEvent, this.stringifyView(eventClickArg.view));
       }
     }
 
-    eventMouseEnter(eventHovering: EventHoveringArg) {
+    eventMouseEnter = (eventHovering: EventHoveringArg) => {
       if (this.onEventMouseEnterMethodID) {
         this.onEventMouseEnterMethodID(eventHovering.el, this.stringifyEvent(eventHovering.event), eventHovering.jsEvent, eventHovering.view);
       }
     }
 
-    eventMouseLeave(eventHovering: EventHoveringArg) {
+    eventMouseLeave = (eventHovering: EventHoveringArg) => {
       if (this.onEventMouseLeaveMethodID) {
         this.onEventMouseLeaveMethodID(eventHovering.el, this.stringifyEvent(eventHovering.event), eventHovering.jsEvent, eventHovering.view);
       }
     }
 
-    eventAdd(eventAdd: EventAddArg) {
+    eventAdd = (eventAdd: EventAddArg) => {
       if (this.onEventAddMethodID) {
         const stringifyedRelatedEvents = [];
         eventAdd.relatedEvents.forEach((e) => {
@@ -271,7 +271,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         }
     }
 
-    eventRemove(eventRemove: EventRemoveArg) {
+    eventRemove = (eventRemove: EventRemoveArg) => {
       if (this.onEventRemoveMethodID) {
         const stringifyedRelatedEvents = [];
         eventRemove.relatedEvents.forEach((e) => {
@@ -288,7 +288,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       }
     }
 
-    eventChange(eventChange: EventChangeArg) {
+    eventChange = (eventChange: EventChangeArg) => {
       if (this.onEventChangeMethodID) {
         const stringifyedRelatedEvents = [];
         eventChange.relatedEvents.forEach((e) => {
@@ -306,7 +306,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         }
     }
 
-    eventResize(resizeArg: EventResizeDoneArg) {
+    eventResize = (resizeArg: EventResizeDoneArg) => {
       if (this.onEventResizeMethodID) {
         const stringifyedRelatedEvents = [];
         resizeArg.relatedEvents.forEach((e) => {
@@ -325,7 +325,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       }
     }
 
-    eventDrop(dropArg: EventDropArg) {
+    eventDrop = (dropArg: EventDropArg) => {
       if (this.onEventDropMethodID) {
         const stringifyedRelatedEvents = [];
         dropArg.relatedEvents.forEach((e) => {
@@ -344,38 +344,38 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       }
     }
 
-    drop(dropArg: DropArg) {
+    drop = (dropArg: DropArg) => {
       if (this.onDropMethodID) {
         this.onDropMethodID(dropArg.allDay, dropArg.date, dropArg.dateStr, dropArg.draggedEl,
           dropArg.jsEvent, this.stringifyResource(dropArg.resource), this.stringifyView(dropArg.view));
       }
     }
 
-    eventResizeStart(resizeStart: EventResizeStartArg) {
+    eventResizeStart = (resizeStart: EventResizeStartArg) => {
       if (this.onEventResizeStartMethodID) {
         this.onEventResizeStartMethodID(this.stringifyEvent(resizeStart.event), resizeStart.jsEvent, this.stringifyView(resizeStart.view));
       }
     }
 
-    eventResizeStop(resizeStop: EventResizeStopArg) {
+    eventResizeStop = (resizeStop: EventResizeStopArg) => {
       if (this.onEventResizeStopMethodID) {
         this.onEventResizeStopMethodID(this.stringifyEvent(resizeStop.event), resizeStop.jsEvent, this.stringifyView(resizeStop.view));
       }
     }
 
-    eventDragStart(dragStart: EventDragStartArg) {
+    eventDragStart = (dragStart: EventDragStartArg) => {
       if (this.onEventDragStartMethodID) {
         this.onEventDragStartMethodID(this.stringifyEvent(dragStart.event), dragStart.jsEvent, this.stringifyView(dragStart.view));
       }
     }
 
-    eventDragStop(dragStop: EventDragStopArg) {
+    eventDragStop = (dragStop: EventDragStopArg) => {
       if (this.onEventDragStopMethodID) {
         this.onEventDragStopMethodID(this.stringifyEvent(dragStop.event), dragStop.jsEvent, this.stringifyView(dragStop.view));
       }
     }
 
-    eventReceive(receiveArg: EventReceiveArg) {
+    eventReceive = (receiveArg: EventReceiveArg) => {
       if (this.onEventReceiveMethodID) {
         const stringifyedRelatedEvents = [];
         receiveArg.relatedEvents.forEach((e) => {
@@ -393,7 +393,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       }
     }
 
-    eventLeave(leaveArg: EventLeaveArg) {
+    eventLeave = (leaveArg: EventLeaveArg) => {
       if (this.onEventLeaveMethodID) {
         const stringifyedRelatedEvents = [];
         leaveArg.relatedEvents.forEach((e) => {
@@ -411,7 +411,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       }
     }
 
-    eventsSet(events: EventApi[]) {
+    eventsSet = (events: EventApi[]) => {
       if (this.onEventsSetMethodID) {
         const stringifyedRelatedEvents = [];
         events.forEach((e) => {
@@ -421,7 +421,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
       }
     }
 
-    windowResize(arg: {view: ViewApi}) {
+    windowResize = (arg: {view: ViewApi}) => {
       if (this.onWindowResizeMethodID) {
         this.onWindowResizeMethodID(arg.view);
       }
@@ -863,33 +863,33 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
 
     private initializeCallbacks() {
       this.fullCalendarOptions.select = this.selectCallback;
-      this.fullCalendarOptions.unselect = this.unselectCallback.bind(this);
-      this.fullCalendarOptions.eventClick = this.eventClick.bind(this);
-      this.fullCalendarOptions.eventResize = this.eventResize.bind(this);
-      this.fullCalendarOptions.eventResizeStart = this.eventDragStart.bind(this);
-      this.fullCalendarOptions.eventResizeStop = this.eventResizeStop.bind(this);
-      this.fullCalendarOptions.eventDrop = this.eventDrop.bind(this);
-      this.fullCalendarOptions.eventDragStart = this.eventDragStart.bind(this);
-      this.fullCalendarOptions.eventDragStop = this.eventDragStop.bind(this);
-      this.fullCalendarOptions.eventReceive = this.eventReceive.bind(this);
-      this.fullCalendarOptions.eventLeave = this.eventLeave.bind(this);
-      this.fullCalendarOptions.drop = this.drop.bind(this);
-      this.fullCalendarOptions.eventMouseEnter = this.eventMouseEnter.bind(this);
-      this.fullCalendarOptions.eventMouseLeave = this.eventMouseLeave.bind(this);
-      this.fullCalendarOptions.eventAdd = this.eventAdd.bind(this);
-      this.fullCalendarOptions.eventChange = this.eventChange.bind(this);
-      this.fullCalendarOptions.eventRemove = this.eventRemove.bind(this);
-      this.fullCalendarOptions.eventsSet = this.eventsSet.bind(this);
-      this.fullCalendarOptions.windowResize = this.windowResize.bind(this);
-      this.fullCalendarOptions.datesSet = this.datesSet.bind(this);
-      this.fullCalendarOptions.loading = this.loading.bind(this);
-      this.fullCalendarOptions.dateClick = this.dateClick.bind(this);
-      this.fullCalendarOptions.resourceAdd = this.resourceAdd.bind(this);
-      this.fullCalendarOptions.resourceChange = this.resourceChange.bind(this);
-      this.fullCalendarOptions.resourceRemove = this.resourceRemove.bind(this);
-      this.fullCalendarOptions.resourcesSet = this.resourcesSet.bind(this);
-      this.fullCalendarOptions.viewDidMount = this.viewDidMount.bind(this);
-      this.fullCalendarOptions.viewWillUnmount = this.viewWillUnmount.bind(this);
+      this.fullCalendarOptions.unselect = this.unselectCallback;
+      this.fullCalendarOptions.eventClick = this.eventClick;
+      this.fullCalendarOptions.eventResize = this.eventResize;
+      this.fullCalendarOptions.eventResizeStart = this.eventDragStart;
+      this.fullCalendarOptions.eventResizeStop = this.eventResizeStop;
+      this.fullCalendarOptions.eventDrop = this.eventDrop;
+      this.fullCalendarOptions.eventDragStart = this.eventDragStart;
+      this.fullCalendarOptions.eventDragStop = this.eventDragStop;
+      this.fullCalendarOptions.eventReceive = this.eventReceive;
+      this.fullCalendarOptions.eventLeave = this.eventLeave;
+      this.fullCalendarOptions.drop = this.drop;
+      this.fullCalendarOptions.eventMouseEnter = this.eventMouseEnter;
+      this.fullCalendarOptions.eventMouseLeave = this.eventMouseLeave;
+      this.fullCalendarOptions.eventAdd = this.eventAdd;
+      this.fullCalendarOptions.eventChange = this.eventChange;
+      this.fullCalendarOptions.eventRemove = this.eventRemove;
+      this.fullCalendarOptions.eventsSet = this.eventsSet;
+      this.fullCalendarOptions.windowResize = this.windowResize;
+      this.fullCalendarOptions.datesSet = this.datesSet;
+      this.fullCalendarOptions.loading = this.loading;
+      this.fullCalendarOptions.dateClick = this.dateClick;
+      this.fullCalendarOptions.resourceAdd = this.resourceAdd;
+      this.fullCalendarOptions.resourceChange = this.resourceChange;
+      this.fullCalendarOptions.resourceRemove = this.resourceRemove;
+      this.fullCalendarOptions.resourcesSet = this.resourcesSet;
+      this.fullCalendarOptions.viewDidMount = this.viewDidMount;
+      this.fullCalendarOptions.viewWillUnmount = this.viewWillUnmount;
     }
 }
 
