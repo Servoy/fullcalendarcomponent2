@@ -22,6 +22,7 @@
 		"gcalEventSources" : {"type": "GoogleCalendarEventSource[]", "tags" : {"scope" : "private"}},
 		"functionResources" : {"type": "function", "tags" : {"scope" : "private"}},
 		"styleClass" : {"type": "styleclass"},
+		"themeSystem" : { "type" :"string", "tags": { "scope" :"design" }, "default": "standard", "values" :["standard", "bootstrap5"]},
 		"tooltipExpression" : {"type": "tagstring"}
 	},
 	"handlers": {

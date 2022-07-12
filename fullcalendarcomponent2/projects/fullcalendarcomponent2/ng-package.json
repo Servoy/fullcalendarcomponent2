@@ -5,5 +5,6 @@
       "entryFile": "src/public-api.ts"
     },
     "allowedNonPeerDependencies": [  "@fullcalendar/angular","@fullcalendar/interaction","@fullcalendar/list","@fullcalendar/luxon","@fullcalendar/resource-timegrid",
-        "@fullcalendar/resource-timeline","@fullcalendar/timegrid","@fullcalendar/icalendar","@fullcalendar/google-calendar","@fullcalendar/timeline", "@fullcalendar/common"]
+        "@fullcalendar/resource-timeline","@fullcalendar/timegrid","@fullcalendar/icalendar","@fullcalendar/google-calendar","@fullcalendar/timeline", "@fullcalendar/common", "@fullcalendar/bootstrap5", 
+        "bootstrap" , "bootstrap-icons"]
   }
