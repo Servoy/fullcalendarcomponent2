@@ -4,7 +4,7 @@
     "packageType": "Web-Component",
     "icon": "https://raw.githubusercontent.com/Servoy/fullcalendarcomponent2/master/fullcalendarcomponent2/fullcalendar.png",
     "description": "This Servoy Web Package contains the fullcalendar component2 which display events on a full-sized calendar and supports drag & drop event. The component is a 1-to-1 implementation of the fullcalendar for Servoy Titanium",
-    "wikiUrl": "https://github.com/Servoy/fullcalendarcomponent/wiki",
+    "wikiUrl": "https://github.com/Servoy/fullcalendarcomponent2/wiki",
     "sourceUrl" : "https://github.com/Servoy/fullcalendarcomponent2",
     "releases" : [{"version":"5.10.0","url":"https://github.com/Servoy/fullcalendarcomponent2/releases/download/v5.10.0/fullcalendarcomponent2.zip", "servoy-version":"2021.12"},
         {"version":"2022.3.0","url":"https://github.com/Servoy/fullcalendarcomponent2/releases/download/v2022.3.0/fullcalendarcomponent2.zip", "servoy-version":"2022.3.1"}
