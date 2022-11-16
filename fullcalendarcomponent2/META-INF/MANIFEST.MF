@@ -1,7 +1,7 @@
 Manifest-Version: 1.0.1
 Bundle-SymbolicName: fullcalendarcomponent2
 Bundle-Name: Fullcalendar Component
-Bundle-Version: 2022.9.1
+Bundle-Version: 2022.12.0
 Entry-Point: dist/servoy/fullcalendarcomponent2
 NPM-PackageName: @servoy/fullcalendarcomponent2
 NG2-CSS-ClientLibs: ~bootstrap/dist/css/bootstrap.min.css,
