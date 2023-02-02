@@ -1,10 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
 import { BaseCustomObject, LoggerFactory, LoggerService, ServoyBaseComponent, ServoyPublicService } from '@servoy/public';
-import {
-    CalendarOptions, ConstraintInput, DateInput, DateRangeInput, DateSelectArg, DatesSetArg, DateUnselectArg, Dictionary, Duration, DurationInput,
-    EventAddArg, EventApi, EventChangeArg, EventClickArg, EventDropArg, EventHoveringArg, EventInput, EventRemoveArg, EventSourceApi, FormatterInput,
-    FullCalendarComponent, PointerDragEvent, ViewApi, ViewMountArg
-} from '@fullcalendar/angular';
+import { FullCalendarComponent} from '@fullcalendar/angular';
 import { Input } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
 import { DateClickArg, DropArg, EventDragStartArg, EventDragStopArg, EventLeaveArg, EventReceiveArg, EventResizeDoneArg, EventResizeStartArg, EventResizeStopArg } from '@fullcalendar/interaction';
@@ -23,7 +19,11 @@ import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import { CommonModule } from '@angular/common';
 import { ServoyPublicModule, SpecTypesService } from '@servoy/public';
-import { ResourceAddArg, ResourceApi, ResourceChangeArg, ResourceRemoveArg } from '@fullcalendar/resource-common';
+import { ResourceAddArg, ResourceApi, ResourceChangeArg, ResourceRemoveArg } from '@fullcalendar/resource';
+import { CalendarOptions, ConstraintInput, DateInput, DateRangeInput, DateSelectArg, DatesSetArg,
+    DateUnselectArg, Duration, DurationInput, EventAddArg, EventApi, EventChangeArg, EventClickArg,
+    EventDropArg, EventHoveringArg, EventInput, EventRemoveArg, EventSourceApi, FormatterInput, ViewApi, ViewMountArg } from '@fullcalendar/core';
+import { PointerDragEvent } from '@fullcalendar/core/internal';
 
 @Component({
     selector: 'svy-fullcalendar2',
@@ -147,6 +147,17 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         if (this.themeSystem) {
             this.fullCalendarOptions.themeSystem = this.themeSystem;
         }
+
+        this.fullCalendarOptions.plugins = [ // register FullCalendar plugins
+            dayGridPlugin,
+            interactionPlugin,
+            timeGridPlugin,
+            listPlugin,
+            luxonPlugin,
+            googleCalendarPlugin,
+            iCalendarPlugin,
+            bootstrap5Plugin
+        ];
         this.isReadyForRendering = true;
     }
 
@@ -1021,7 +1032,7 @@ export class EventObject extends BaseCustomObject {
     public backgroundcColor?: string;
     public borderColor?: string;
     public textColor?: string;
-    public extendedProps: Dictionary;
+    public extendedProps: any;
     public display?: string;
     public url?: string;
     public source?: EventSource;
@@ -1030,7 +1041,7 @@ export class EventObject extends BaseCustomObject {
 export class ResourceObject extends BaseCustomObject {
     public id?: string;
     public title?: string;
-    public extendedProps: Dictionary;
+    public extendedProps: any;
     public eventConstraint?: any;
     public eventOverlap?: any;
     public eventAllow?: any;
@@ -1044,17 +1055,6 @@ class ServerFunction {
     public formname?: string;
     public script?: string;
 }
-
-FullCalendarModule.registerPlugins([ // register FullCalendar plugins
-    dayGridPlugin,
-    interactionPlugin,
-    timeGridPlugin,
-    listPlugin,
-    luxonPlugin,
-    googleCalendarPlugin,
-    iCalendarPlugin,
-    bootstrap5Plugin
-]);
 
 @NgModule({
     declarations: [

@@ -4,7 +4,22 @@
     "lib": {
       "entryFile": "src/public-api.ts"
     },
-    "allowedNonPeerDependencies": [  "@fullcalendar/angular","@fullcalendar/interaction","@fullcalendar/list","@fullcalendar/luxon","@fullcalendar/resource-timegrid",
-        "@fullcalendar/resource-timeline","@fullcalendar/timegrid","@fullcalendar/icalendar","@fullcalendar/google-calendar","@fullcalendar/timeline", "@fullcalendar/common", "@fullcalendar/bootstrap5", 
-        "bootstrap" , "bootstrap-icons"]
+    "allowedNonPeerDependencies": [  
+        "@fullcalendar/angular",
+        "@fullcalendar/bootstrap5", 
+        "@fullcalendar/core", 
+        "@fullcalendar/google-calendar",
+        "@fullcalendar/icalendar",
+        "@fullcalendar/interaction",
+        "@fullcalendar/list",
+        "@fullcalendar/luxon",
+        "@fullcalendar/resource",
+        "@fullcalendar/resource-timegrid",
+        "@fullcalendar/resource-timeline",
+        "@fullcalendar/timegrid",
+        "@fullcalendar/timeline", 
+        "bootstrap" , 
+        "bootstrap-icons",
+        "ical.js"
+        ]
   }
