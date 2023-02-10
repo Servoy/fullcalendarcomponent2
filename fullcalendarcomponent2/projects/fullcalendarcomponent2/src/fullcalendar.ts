@@ -100,7 +100,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
                 const change = changes[property];
                 switch (property) {
                     case 'hasToDraw': {
-                        if (change.currentValue && change.currentValue === true && change.previousValue && change.previousValue === false) {
+                        if (change.currentValue === true && change.previousValue === false) {
                             this.initFullCalendar();
                             this.hasToDraw = false;
                         }
@@ -752,7 +752,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         }
         // functionEventSources
         for (let i = 0; this.functionEventSources && i < this.functionEventSources.length; i++) {
-            eventSources.push(this.transformFunctionEventSource(this.functionEventSources[i], null));
+            eventSources.push(this.transformFunctionEventSource(this.functionEventSources[i], this.functionEventSources[i]['events']));
         }
         // GoogleFeedEventSources
         if (this.gcalEventSources && this.gcalEventSources.length) {
@@ -801,7 +801,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
 
         // register server side callback
         source['events'] = (info: FunctionInfo, successCallback: (arg) => void, failureCallback: (arg) => void) => {
-            const retValue = this.servoyService.executeInlineScript(callback.formname, callback.script, [info]);
+            const retValue = this.servoyService.executeInlineScript(callback.formname, callback.script, [info.start, info.end, eventSource.data]);
             retValue.then((success) => {
                 successCallback(success);
             }, (error) => {
@@ -989,6 +989,7 @@ export class EventSource extends BaseCustomObject {
     public backgroundcColor?: string;
     public borderColor?: string;
     public textColor?: string;
+    public data?: any;
     public defaultAllDay?: boolean;
     public url?: string;
     public format?: string;
@@ -1008,7 +1009,7 @@ export class GoogleCalendarEventSource extends EventSource {
 }
 
 export class FunctionEventSource extends EventSource {
-    public events: (fetchInfo: FetchInfo, successCallback: (events: EventInput[]) => void, failureCallback: (error: any) => void) => void;
+    public events: { formname: string; script: string };
 }
 
 export class ArrayEventSource extends EventSource {
