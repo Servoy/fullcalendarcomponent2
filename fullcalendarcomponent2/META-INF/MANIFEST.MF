@@ -5,14 +5,7 @@ Bundle-Version: 2023.3.0
 Entry-Point: dist/servoy/fullcalendarcomponent2
 NPM-PackageName: @servoy/fullcalendarcomponent2
 NG2-CSS-ClientLibs: ~bootstrap/dist/css/bootstrap.min.css,
- ~bootstrap-icons/font/bootstrap-icons.css,
- ~@fullcalendar/bootstrap5/main.css,
- ~@fullcalendar/common/main.css,
- ~@fullcalendar/daygrid/main.css,
- ~@fullcalendar/timegrid/main.css,
- ~@fullcalendar/timeline/main.css,
- ~@fullcalendar/resource-timeline/main.css,
- ~@fullcalendar/list/main.css
+ ~bootstrap-icons/font/bootstrap-icons.css
 NG2-Module: FullCalendarComponentModule
 Package-Type: Web-Component
 
