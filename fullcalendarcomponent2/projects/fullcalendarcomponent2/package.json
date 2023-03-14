@@ -16,7 +16,7 @@
     "@fullcalendar/icalendar": "<6.2",
     "@fullcalendar/interaction": "<6.2",
     "@fullcalendar/list": "<6.2",
-    "@fullcalendar/luxon": "<6.2",
+    "@fullcalendar/luxon2": "<6.2",
     "@fullcalendar/resource": "<6.2",
     "@fullcalendar/resource-timegrid": "<6.2",
     "@fullcalendar/resource-timeline": "<6.2",

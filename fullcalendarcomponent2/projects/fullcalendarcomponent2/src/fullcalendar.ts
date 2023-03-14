@@ -13,7 +13,7 @@ import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
 import resourceDayGridPlugin from '@fullcalendar/resource-daygrid';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
 import timeline from '@fullcalendar/timeline';
-import luxonPlugin from '@fullcalendar/luxon';
+import luxonPlugin from '@fullcalendar/luxon2';
 import iCalendarPlugin from '@fullcalendar/icalendar';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
 import bootstrap5Plugin from '@fullcalendar/bootstrap5';
