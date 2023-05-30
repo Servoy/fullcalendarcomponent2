@@ -141,13 +141,6 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
             this.fullCalendarOptions.resources = this.transformFunctionResource(this.functionResources);
         }
 
-        if (this.fullCalendarOptions.schedulerLicenseKey) {
-            this.fullCalendarOptions.plugins = [timeline, resourceTimelinePlugin, resourceTimeGridPlugin, resourceDayGridPlugin];
-        }
-        if (this.themeSystem) {
-            this.fullCalendarOptions.themeSystem = this.themeSystem;
-        }
-
         this.fullCalendarOptions.plugins = [ // register FullCalendar plugins
             dayGridPlugin,
             interactionPlugin,
@@ -158,6 +151,14 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
             iCalendarPlugin,
             bootstrap5Plugin
         ];
+        if (this.fullCalendarOptions.schedulerLicenseKey) {
+            this.fullCalendarOptions.plugins.push(timeline, resourceTimelinePlugin, resourceTimeGridPlugin, resourceDayGridPlugin);
+        }
+
+        if (this.themeSystem) {
+            this.fullCalendarOptions.themeSystem = this.themeSystem;
+        }
+
         this.isReadyForRendering = true;
     }
 
