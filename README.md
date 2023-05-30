@@ -1,23 +1,23 @@
 # FullCalendar Component
 -------------
-FullCalendar Component is a Servoy Web Package containing the implementation of the Fullcalendar 5.x component  as a Servoy Web Component for NG2 
+FullCalendar Component 2 is a Servoy Web Package containing the implementation of the Fullcalendar component as a Servoy Web Component for Titanium NG client.
 
 Requirements
 -------------
-The FullCalendar Component  can be used on Servoy 2021.12 or higher.
+The FullCalendar Component 2 can be used on Servoy 2021.12 or higher.
 
 
 Getting started
 -------------
-To add the FullCalendar Component package in your solution, open the Servoy Developer IDE and download the Servoy Extra Components from the Web Package Manager (the Web Package Manager is accessible from the context menu of the Web Components node of your solution).
+To add the FullCalendar Component 2 package in your solution, open the Servoy Developer IDE and download the FullCalendar Component 2 from the Servoy Package Manager (the Servoy Package Manager is accessible from the context menu of the Servoy Packages node of your solution).
 
-To use the latest source code clone the git repository and checkout the develop branch. Install the [egit](http://www.eclipse.org/egit/download/) plugin for Eclipse to clone the repository and import the projects into the workspace.
+To use the latest source code clone the git repository and checkout the master branch. Install the [egit](http://www.eclipse.org/egit/download/) plugin for Eclipse to clone the repository and import the projects into the workspace.
 
 
 
 Documentation
 -------------
-See the [Wiki](https://github.com/Servoy/fullcalendarcomponent/wiki) for the available documentation
+See the [Wiki](https://github.com/Servoy/fullcalendarcomponent2/wiki) for the available documentation
 
 
 Feature Requests & Bugs
@@ -32,4 +32,4 @@ Eager to fix a bug or introduce a new feature? Clone the repository and issue a 
 
 License
 -------
-fullcalendarcomponent is licensed under the MIT license
+fullcalendarcomponent2 is licensed under the MIT license
