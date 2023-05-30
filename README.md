@@ -17,7 +17,7 @@ To use the latest source code clone the git repository and checkout the master b
 
 Documentation
 -------------
-See the [Wiki](https://github.com/Servoy/fullcalendarcomponent2/wiki) for the available documentation
+See the [NG1 FullCalendar Wiki](https://github.com/Servoy/fullcalendarcomponent/wiki) for the available documentation.
 
 
 Feature Requests & Bugs
