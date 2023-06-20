@@ -40,6 +40,9 @@
 					"type": "string",
 					"name": "endStr"
 				 }, {
+				    "type": "boolean",
+				    "name": "allDay"
+				 }, {
 				 	"type": "JSEvent",
 				 	"name": "jsEvent"
 				 }, {
