@@ -88,6 +88,26 @@
 				}],
 			"doc" : "<b>onDateClickMethodID</b> will be called when the user clicks on a date or a time."
 		},
+		"onNavLinkDayClickMethodID": {
+            "parameters" : [{
+                    "type": "date",
+                    "name": "date"
+                 }, {
+                    "type": "JSEvent",
+                    "name": "jsEvent"
+                 }],
+            "doc" : "<b>onNavLinkDayClickMethodID</b> when navLinks setting is true, will be called when the user clicks on a day. onDateClickMethodID will not be called in this scenario."
+        },
+        "onNavLinkWeekClickMethodID": {
+            "parameters" : [{
+                    "type": "date",
+                    "name": "date"
+                 }, {
+                    "type": "JSEvent",
+                    "name": "jsEvent"
+                 }],
+            "doc" : "<b>onNavLinkWeekClickMethodID</b> when navLinks setting is true, will be called when the user clicks on a week."
+        },
 		"onEventClickMethodID": {
 			"parameters" : [{
 					"type": "EventObject",

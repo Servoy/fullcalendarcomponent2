@@ -36,6 +36,8 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     @Input() onSelectMethodID: (start: Date, end: Date, startStr: string, endStr: string, allDay: boolean, event: MouseEvent, view: View, resource?: any) => void;
     @Input() onUnselectMethodID: (jsEvent: MouseEvent, view: View) => void;
     @Input() onDateClickMethodID: (date: Date, dateStr: string, dayEl: HTMLElement, event: MouseEvent, view: View, resource?: Resource) => void;
+    @Input() onNavLinkDayClickMethodID: (date: Date, event: MouseEvent) => void;
+    @Input() onNavLinkWeekClickMethodID: (date: Date, event: MouseEvent) => void;
     @Input() onEventClickMethodID: (event: Event, jsEvent: MouseEvent, view: View) => void;
     @Input() onEventMouseEnterMethodID: (el: HTMLElement, event: Event, jsEvent: MouseEvent, view: View) => void;
     @Input() onEventMouseLeaveMethodID: (el: HTMLElement, event: Event, jsEvent: MouseEvent, view: View) => void;
@@ -253,6 +255,18 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         }
     }
 
+    navLinkDayClick = (date : Date,event : MouseEvent) => {
+        if (this.onNavLinkDayClickMethodID) {
+            this.onNavLinkDayClickMethodID(date, event);
+        }
+    }
+    
+    navLinkWeekClick = (date : Date,event : MouseEvent) => {
+        if (this.onNavLinkWeekClickMethodID) {
+            this.onNavLinkWeekClickMethodID(date, event);
+        }
+    }
+    
     eventClick = (eventClickArg: EventClickArg) => {
         if (this.onEventClickMethodID) {
             this.onEventClickMethodID(this.stringifyEvent(eventClickArg.event), eventClickArg.jsEvent, this.stringifyView(eventClickArg.view));
@@ -907,6 +921,12 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         this.fullCalendarOptions.resourcesSet = this.resourcesSet;
         this.fullCalendarOptions.viewDidMount = this.viewDidMount;
         this.fullCalendarOptions.viewWillUnmount = this.viewWillUnmount;
+        if (!this.fullCalendarOptions.navLinkDayClick){
+            this.fullCalendarOptions.navLinkDayClick = this.navLinkDayClick;
+        }
+        if (!this.fullCalendarOptions.navLinkWeekClick){
+            this.fullCalendarOptions.navLinkWeekClick = this.navLinkWeekClick;
+        }
     }
 }
 
