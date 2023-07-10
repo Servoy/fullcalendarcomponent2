@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
-import { BaseCustomObject, LoggerFactory, LoggerService, ServoyBaseComponent, ServoyPublicService } from '@servoy/public';
+import { LoggerFactory, LoggerService, ServoyBaseComponent, ServoyPublicService, ICustomObjectValue } from '@servoy/public';
 import { FullCalendarComponent} from '@fullcalendar/angular';
 import { Input } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
@@ -33,38 +33,38 @@ import { PointerDragEvent } from '@fullcalendar/core/internal';
 export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements OnInit {
 
     // IMPLEMENTED
-    @Input() onSelectMethodID: (start: Date, end: Date, startStr: string, endStr: string, allDay: boolean, event: MouseEvent, view: View, resource?: any) => void;
-    @Input() onUnselectMethodID: (jsEvent: MouseEvent, view: View) => void;
-    @Input() onDateClickMethodID: (date: Date, dateStr: string, dayEl: HTMLElement, event: MouseEvent, view: View, resource?: Resource) => void;
+    @Input() onSelectMethodID: (start: Date, end: Date, startStr: string, endStr: string, allDay: boolean, event: MouseEvent, view: ViewType, resource?: any) => void;
+    @Input() onUnselectMethodID: (jsEvent: MouseEvent, view: ViewType) => void;
+    @Input() onDateClickMethodID: (date: Date, dateStr: string, dayEl: HTMLElement, event: MouseEvent, view: ViewType, resource?: ResourceObject) => void;
     @Input() onNavLinkDayClickMethodID: (date: Date, event: MouseEvent) => void;
     @Input() onNavLinkWeekClickMethodID: (date: Date, event: MouseEvent) => void;
-    @Input() onEventClickMethodID: (event: Event, jsEvent: MouseEvent, view: View) => void;
-    @Input() onEventMouseEnterMethodID: (el: HTMLElement, event: Event, jsEvent: MouseEvent, view: View) => void;
-    @Input() onEventMouseLeaveMethodID: (el: HTMLElement, event: Event, jsEvent: MouseEvent, view: View) => void;
-    @Input() onEventAddMethodID: (event: Event, relatedEvents: Event[]) => Promise<boolean>;
-    @Input() onEventRemoveMethodID: (event: Event, relatedEvents: Event[]) => Promise<boolean>;
-    @Input() onEventChangeMethodID: (event: Event, oldEvent: Event, relatedEvents: Event[]) => Promise<boolean>;
+    @Input() onEventClickMethodID: (event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
+    @Input() onEventMouseEnterMethodID: (el: HTMLElement, event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
+    @Input() onEventMouseLeaveMethodID: (el: HTMLElement, event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
+    @Input() onEventAddMethodID: (event: EventObject, relatedEvents: EventObject[]) => Promise<boolean>;
+    @Input() onEventRemoveMethodID: (event: EventObject, relatedEvents: EventObject[]) => Promise<boolean>;
+    @Input() onEventChangeMethodID: (event: EventObject, oldEvent: EventObject, relatedEvents: EventObject[]) => Promise<boolean>;
     @Input() onLoadingMethodID: (isLoading: boolean) => void;
-    @Input() onDatesSetMethodID: (start: Date, end: Date, startStr: string, endStr: string, timeZone: string, view: View) => void;
-    @Input() onEventsSetMethodID: (events: Event[]) => void;
-    @Input() onWindowResizeMethodID: (view: View) => void;
-    @Input() onEventResizeMethodID: (event: Event, relatedEvents: Event[], oldEvent: Event, endDelta: Duration, startDelta: Duration, view: View,
+    @Input() onDatesSetMethodID: (start: Date, end: Date, startStr: string, endStr: string, timeZone: string, view: ViewType) => void;
+    @Input() onEventsSetMethodID: (events: EventObject[]) => void;
+    @Input() onWindowResizeMethodID: (view: ViewType) => void;
+    @Input() onEventResizeMethodID: (event: EventObject, relatedEvents: EventObject[], oldEvent: EventObject, endDelta: Duration, startDelta: Duration, view: ViewType,
         el: HTMLElement, jsEvent: MouseEvent) => Promise<boolean>;
-    @Input() onEventDropMethodID: (event: Event, relatedEvents: Event[], oldEvent: Event, oldResource: Resource,
-        newResource: Resource, delta: Duration, view: View, el: HTMLElement, jsEvent: MouseEvent) => Promise<boolean>;
-    @Input() onDropMethodID: (allDay: boolean, date: Date, dateStr: string, draggedEl: HTMLElement, jsEvent: MouseEvent, resource: Resource, view: View) => void;
-    @Input() onEventDragStartMethodID: (event: Event, jsEvent: MouseEvent, view: View) => void;
-    @Input() onEventResizeStartMethodID: (event: Event, jsEvent: MouseEvent, view: View) => void;
-    @Input() onEventDragStopMethodID: (event: Event, jsEvent: MouseEvent, view: View) => void;
-    @Input() onEventResizeStopMethodID: (event: Event, jsEvent: MouseEvent, view: View) => void;
-    @Input() onEventReceiveMethodID: (event: Event, relatedEvents: Event[], draggedEl: HTMLElement, view: View) => Promise<boolean>;
-    @Input() onEventLeaveMethodID: (event: Event, relatedEvents: Event[], draggedEl: HTMLElement, view: View) => Promise<boolean>;
+    @Input() onEventDropMethodID: (event: EventObject, relatedEvents: EventObject[], oldEvent: EventObject, oldResource: ResourceObject,
+        newResource: ResourceObject, delta: Duration, view: ViewType, el: HTMLElement, jsEvent: MouseEvent) => Promise<boolean>;
+    @Input() onDropMethodID: (allDay: boolean, date: Date, dateStr: string, draggedEl: HTMLElement, jsEvent: MouseEvent, resource: ResourceObject, view: ViewType) => void;
+    @Input() onEventDragStartMethodID: (event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
+    @Input() onEventResizeStartMethodID: (event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
+    @Input() onEventDragStopMethodID: (event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
+    @Input() onEventResizeStopMethodID: (event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
+    @Input() onEventReceiveMethodID: (event: EventObject, relatedEvents: Event[], draggedEl: HTMLElement, view: ViewType) => Promise<boolean>;
+    @Input() onEventLeaveMethodID: (event: EventObject, relatedEvents: Event[], draggedEl: HTMLElement, view: ViewType) => Promise<boolean>;
     @Input() onResourceAddMethodID: (resource: ResourceApi) => Promise<boolean>;
     @Input() onResourceChangeMethodID: (oldResource: ResourceApi, newResource: ResourceApi) => Promise<boolean>;
     @Input() onResourceRemoveMethodID: (resource: ResourceApi) => Promise<boolean>;
     @Input() onResourcesSetMethodID: (resources: ResourceApi[]) => void;
-    @Input() onViewDidMountMethodID: (view: View) => void;
-    @Input() onViewWillUnmountMethodID: (view: View) => void;
+    @Input() onViewDidMountMethodID: (view: ViewType) => void;
+    @Input() onViewWillUnmountMethodID: (view: ViewType) => void;
 
     @Input() hasToDraw: boolean;
     @Input() renderOnCurrentView: boolean;
@@ -555,11 +555,11 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         return stringifyedEventSources;
     }
 
-    getEventSourceById(eventSourceID: string) {
+    getEventSourceById(eventSourceID: string) : EventSource{
         return this.stringifyEventSource(this.calendarComponent.getApi().getEventSourceById(eventSourceID));
     }
 
-    addEventSourceToCalendar(eventSource: EventSource) {
+    addEventSourceToCalendar(eventSource: EventSource) : EventSource{
         return this.stringifyEventSource(this.calendarComponent.getApi().addEventSource(eventSource));
     }
 
@@ -826,19 +826,9 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         return source;
     }
 
-    stringifyFunctionESInfo(info: FunctionInfo) {
+    stringifyEvent(event: EventApi): EventObject {
         return {
-            start: info.start,
-            end: info.end,
-            startStr: info.startStr,
-            endStr: info.endStr,
-            timezone: info.timezone
-        };
-    }
-
-    stringifyEvent(event: EventApi): Event {
-        return {
-            sourceId: (event?.source) ? event.source.id : null,
+            source: this.stringifyEventSource(event?.source),
             start: event?.start,
             end: event?.end,
             startStr: event?.startStr,
@@ -856,20 +846,21 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
             backgroundColor: event?.backgroundColor,
             borderColor: event?.borderColor,
             textColor: event?.textColor,
-            classNames: event?.classNames
+            classNames: event?.classNames,
+            extendedProps: event?.extendedProps
         };
     }
 
-    stringifyEventSource(eventSource: EventSourceApi) {
-        return {
+    stringifyEventSource(eventSource: EventSourceApi) : EventSource{
+       return {
             id: eventSource?.id,
             format: eventSource?.format,
             url: eventSource?.url
         };
     }
 
-    stringifyView(view: ViewApi): View {
-        return {
+    stringifyView(view: ViewApi): ViewType {
+       return {
             type: view?.type,
             title: view?.title,
             activeStart: view?.activeStart,
@@ -879,7 +870,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         };
     }
 
-    stringifyResource(resource: any): Resource {
+    stringifyResource(resource: any): ResourceObject {
         return {
             id: resource?.id,
             title: resource?.title,
@@ -888,7 +879,8 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
             eventBackgroundColor: resource?.eventBackgroundColor,
             eventBorderColor: resource?.eventBorderColor,
             eventTextColor: resource?.eventTextColor,
-            eventClassNames: resource?.eventClassNames
+            eventClassNames: resource?.eventClassNames,
+            extendedProps: resource?.extendedProps
         };
     }
 
@@ -930,40 +922,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     }
 }
 
-interface Resource {
-    id: string;
-    title: string;
-    eventConstraint: string;
-    eventOverlap: boolean;
-    eventBackgroundColor: string;
-    eventBorderColor: string;
-    eventTextColor: string;
-    eventClassNames: string[];
-}
-
-interface Event {
-    sourceId: string;
-    start: Date;
-    end: Date;
-    startStr: string;
-    endStr: string;
-    id: string;
-    groupId: string;
-    allDay: boolean;
-    title: string;
-    url: string;
-    display: string;
-    startEditable: boolean;
-    durationEditable: boolean;
-    constraint: string;
-    overlap: boolean;
-    backgroundColor: string;
-    borderColor: string;
-    textColor: string;
-    classNames: string[];
-}
-
-interface View {
+export class ViewType implements ICustomObjectValue {
     type: string;
     title: string;
     activeStart: Date;
@@ -980,24 +939,8 @@ interface FunctionInfo {
     timezone: string;
 }
 
-interface DropInfo {
-    allDay?: boolean;
-    end?: Date;
-    endStr?: string;
-    resource?: Resource;
-    start?: Date;
-    startStr: string;
-}
 
-interface FetchInfo {
-    start?: Date;
-    end?: Date;
-    startStr?: string;
-    endStr?: string;
-    timezone?: string;
-}
-
-export class EventSource extends BaseCustomObject {
+export class EventSource implements ICustomObjectValue {
     public id?: string;
     public events?: any;
     public className?: string[];
@@ -1014,11 +957,7 @@ export class EventSource extends BaseCustomObject {
     public defaultAllDay?: boolean;
     public url?: string;
     public format?: string;
-    public eventDataTransform: (eventData: EventInput) => EventInput;
-    public success: (rawEvents: EventInput[], xhr?: XMLHttpRequest) => void | EventInput[];
-    public failure: (errorObj: { message: string }) => void;
-    public display: string;
-    public eventAllow: (dropInfo: DropInfo, draggedEvent: Event) => boolean;
+    public display?: string;
 }
 
 export class JSONEventSource extends EventSource { }
@@ -1037,30 +976,32 @@ export class ArrayEventSource extends EventSource {
     public events?: EventObject[];
 }
 
-export class EventObject extends BaseCustomObject {
+export class EventObject implements ICustomObjectValue {
     public id?: string;
     public groupId?: string;
+    public title?: string;
+    public allDay?: boolean;
     public start?: string | Date;
     public end?: string | Date;
     public startStr?: string;
     public endStr?: string;
-    public className?: string[];
+    public classNames?: string[];
     public editable?: boolean;
     public startEditable?: boolean;
     public durationEditable?: boolean;
     public resourceEditable?: boolean;
     public overlap?: boolean;
     public constraint?: ConstraintInput;
-    public backgroundcColor?: string;
+    public backgroundColor?: string;
     public borderColor?: string;
     public textColor?: string;
-    public extendedProps: any;
+    public extendedProps?: any;
     public display?: string;
     public url?: string;
     public source?: EventSource;
 }
 
-export class ResourceObject extends BaseCustomObject {
+export class ResourceObject implements ICustomObjectValue {
     public id?: string;
     public title?: string;
     public extendedProps: any;
@@ -1097,13 +1038,5 @@ class ServerFunction {
 })
 export class FullCalendarComponentModule {
     constructor(specTypesService: SpecTypesService) {
-        specTypesService.registerType('svy-fullcalendar.EventSource', EventSource);
-        specTypesService.registerType('svy-fullcalendar.EventObject', EventObject);
-        specTypesService.registerType('svy-fullcalendar.ResourceObject', ResourceObject);
-        specTypesService.registerType('svy-fullcalendar.ArrayEventSource', ArrayEventSource);
-        specTypesService.registerType('svy-fullcalendar.JSONEventSource', JSONEventSource);
-        specTypesService.registerType('svy-fullcalendar.GoogleCalendarEventSource', GoogleCalendarEventSource);
-        specTypesService.registerType('svy-fullcalendar.iCalendarEventSource', iCalendarEventSource);
-        specTypesService.registerType('svy-fullcalendar.FunctionEventSource', FunctionEventSource);
     }
 }

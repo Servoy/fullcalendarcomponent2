@@ -1189,13 +1189,12 @@
 			"allow" : "object"
         },
         "ViewType": {
-            "name": "string",
+            "type": "string",
 	  		"title": "string",
-	  		"start": "object",
-	  		"end": "object",
-	  		"intervalStart": "object",
-	 		"intervalEnd": "object",
-	 		"initialDate": {"type": "object", "tags": {"scope" : "private"}}
+	  		"activeStart": "date",
+	  		"activeEnd": "date",
+	  		"currentStart": "date",
+	 		"currentEnd": "date",
         },
         "FullCalendar": {
         	"options" : "FullCalendarOptions"
