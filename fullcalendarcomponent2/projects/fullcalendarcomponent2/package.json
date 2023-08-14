@@ -1,6 +1,6 @@
 {
     "name": "@servoy/fullcalendarcomponent2",
-    "version": "2023.6.0",
+    "version": "2023.9.0",
     "peerDependencies": {
       "@angular/animations": "^15",
       "@angular/cdk": "^15",
