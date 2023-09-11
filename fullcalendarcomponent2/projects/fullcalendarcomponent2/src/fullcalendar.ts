@@ -1004,6 +1004,8 @@ export class EventObject implements ICustomObjectValue {
 export class ResourceObject implements ICustomObjectValue {
     public id?: string;
     public title?: string;
+    public children?: Array<ResourceObject>;
+    public parentId?: string;
     public extendedProps: any;
     public eventConstraint?: any;
     public eventOverlap?: any;
