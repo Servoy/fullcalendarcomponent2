@@ -948,7 +948,13 @@
 		},
 		"addFunctionEventSourceToCalendar" : {
 				"parameters" : [{"name": "eventSource", "type": "object"}, {"name": "callback", "type": "function"}]
-		}
+		},
+		"removeEventSource": {
+            "parameters" : [{                                                                
+                            "name":"eventSourceID",
+                            "type":"string"
+                            }]
+        },
 	},
 	"types": {
 		"EventParsing": {
