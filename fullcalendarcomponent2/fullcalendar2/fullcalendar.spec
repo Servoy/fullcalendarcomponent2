@@ -1042,6 +1042,8 @@
 	 	"ResourceObject": {
 			"id" : "object",
 			"title" : "tagstring",
+			"children" : "ResourceObject[]",
+			"parentId": "object",
 			"eventBackgroundColor": "color",
 			"eventBorderColor": "color",
 			"eventTextColor" : "color",
