@@ -1,0 +1,10 @@
+allowCreationRelatedRecords:true,
+foreignDataSource:"mem:event_objects",
+items:[
+{foreignColumnName:"resource_id",primaryDataProviderID:"resource_id",typeid:23,uuid:"B195BBC3-1963-425F-B9BC-CD6FAFBDF66A"}
+],
+joinType:1,
+name:"resources_to_event_object",
+primaryDataSource:"mem:resources",
+typeid:22,
+uuid:"B11AB0BA-338F-4D35-9B50-E711F3AF3340"

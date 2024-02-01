@@ -1,0 +1,14 @@
+addEmptyValue:1,
+customValues:"white\
+orange\
+yellow\
+blue\
+green\
+red\
+black\
+purple",
+displayValueType:12,
+name:"baseColours",
+realValueType:12,
+typeid:34,
+uuid:"C1F7E374-426C-4472-9F06-7C63D4F13782"

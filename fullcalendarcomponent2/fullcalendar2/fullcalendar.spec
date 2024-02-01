@@ -1196,7 +1196,7 @@
 	  		"activeStart": "date",
 	  		"activeEnd": "date",
 	  		"currentStart": "date",
-	 		"currentEnd": "date",
+	 		"currentEnd": "date"
         },
         "FullCalendar": {
         	"options" : "FullCalendarOptions"
