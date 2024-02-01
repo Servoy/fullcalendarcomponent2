@@ -89,6 +89,7 @@ svyUUID:"B961D79E-1C37-475E-87A4-A221F8FCD5FC"
 },
 {
 dataprovider:"end_date",
+editType:"DATEPICKER",
 headerTitle:"End date",
 id:"end_date",
 styleClassDataprovider:null,
@@ -106,6 +107,7 @@ dataprovider:"allday",
 editType:"CHECKBOX",
 headerTitle:"All day",
 id:"allday",
+showAs:null,
 styleClassDataprovider:null,
 svyUUID:"6967FC41-C7FC-4194-90BB-FE6C53227CF4"
 },
@@ -135,7 +137,8 @@ myFoundset:{
 foundsetSelector:"mem:event_objects",
 loadAllRecords:"true"
 },
-onCellDoubleClick:"A4A13AF2-52D5-4447-97D0-F4AEDA1164B4"
+onCellDoubleClick:"A4A13AF2-52D5-4447-97D0-F4AEDA1164B4",
+readOnly:true
 },
 name:"eventsGrid",
 typeName:"aggrid-groupingtable",
