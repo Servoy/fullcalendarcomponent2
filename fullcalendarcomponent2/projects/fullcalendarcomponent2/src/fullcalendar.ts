@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
-import { LoggerFactory, LoggerService, ServoyBaseComponent, ServoyPublicService, ICustomObjectValue } from '@servoy/public';
+import { LoggerFactory, LoggerService, ServoyBaseComponent, ServoyPublicService, ICustomObjectValue, TooltipService } from '@servoy/public';
 import { FullCalendarComponent} from '@fullcalendar/angular';
 import { Input } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
@@ -88,12 +88,15 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     TIMEZONE_DEFAULT = 'local';
     log: LoggerService;
     isReadyForRendering = false;
+    tooltipService: TooltipService;
 
     constructor(private servoyService: ServoyPublicService,
+        tooltipSrv: TooltipService,
         renderer: Renderer2, cdRef: ChangeDetectorRef,
         logFactory: LoggerFactory) {
         super(renderer, cdRef);
         this.log = logFactory.getLogger('FullCalendar');
+        this.tooltipService = tooltipSrv;
     }
 
     svyOnChanges(changes: SimpleChanges) {
@@ -120,6 +123,8 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
 
     initFullCalendar() {
         this.fullCalendarOptions = this.calendarOptions ? this.calendarOptions : {} as CalendarOptions;
+
+        this.fullCalendarOptions.eventDidMount = this.eventDidMount;
 
         this.initializeCallbacks();
 
@@ -457,6 +462,46 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
             this.onWindowResizeMethodID(arg.view);
         }
     }
+
+    eventDidMount = (info: any) => {
+        // show tooltip
+        if (this.tooltipExpression) {
+            const tooltip = this.evaluateTooltipExpression(this.tooltipExpression, info.event);
+            info.el.onmouseenter = (jsEvent: MouseEvent) => {
+                console.log('mouse enter')
+                this.tooltipService.showTooltip(jsEvent, tooltip, 750, 5000);
+            };
+            info.el.onmouseleave = (jsEvent: MouseEvent) => {
+                console.log('mouse leave')
+                this.tooltipService.hideTooltip()
+            };
+        }
+    }
+
+    evaluateTooltipExpression = (expression: String, event: EventObject) => {
+        // match all text wrapped in {{ }} which starts with a literal and may contains literal, numbers _ and . (. is used for nested properties)
+        return expression.replace(/({{[a-zA-Z][a-zA-Z0-9&._]*}})/g, (j) => { 
+            let property = j.replace(/{{/, '').replace(/}}/, '');				    	
+            return this.evalDeepProperty(event, property) || '';
+        });
+    }
+
+    evalDeepProperty = (obj: EventObject, property: String) => {
+        if (!property) {
+            throw 'Illegal argument property undefined';
+        }
+        
+        let parts = property.split('.');
+        let deepObj = obj[parts[0]];
+        
+        if (parts.length === 1) {
+            return deepObj;
+        } else if (deepObj) {
+            return this.evalDeepProperty(deepObj, parts.slice(1).join('.'));
+        } else {
+            return null;
+        }
+    } 
 
     /***********************************************************************************************************
     * APIs

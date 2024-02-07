@@ -246,7 +246,9 @@ onEventClickMethodID:"A5E343E1-FF71-41DC-AD61-795A9CC48510",
 onEventMouseEnterMethodID:null,
 onSelectMethodID:null,
 themeSystem:"bootstrap5",
-tooltipExpression:"Event"
+tooltipExpression:"This is an expression <i>{{title}}<\/i>\
+<br>\
+{{data.description}}"
 },
 name:"fullcalendar2",
 typeName:"svy-fullcalendar2",
