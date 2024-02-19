@@ -608,7 +608,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         return this.stringifyEventSource(this.calendarComponent.getApi().addEventSource(eventSource));
     }
 
-    addFunctionEventSourceToCalendar(eventSource: EventSource, callback: { formname: string; script: string }) {
+    addFunctionEventSourceToCalendar(eventSource: EventSource, callback: (...args: unknown[]) => any) {
         if (callback) eventSource = this.transformFunctionEventSource(eventSource, callback);
         return this.stringifyEventSource(this.calendarComponent.getApi().addEventSource(eventSource));
     }
@@ -842,7 +842,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     transformFunctionResource(resource) {
         // register server side callback
         return (info: FunctionInfo, successCallback: Function, failureCallback: Function) => {
-            const retValue = this.servoyService.executeInlineScript(resource.formname, resource.script, [info]);
+            const retValue = resource(info);
             retValue.then((success) => {
                 successCallback(success);
             }, (error) => {
@@ -851,7 +851,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         };
     }
 
-    transformFunctionEventSource(eventSource: EventSource, callback: { formname: string; script: string }) {
+    transformFunctionEventSource(eventSource: EventSource, callback: (...args: unknown[]) => any) {
         const source = {} as EventSource;
 
         // copy properties of eventSource
@@ -861,7 +861,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
 
         // register server side callback
         source['events'] = (info: FunctionInfo, successCallback: (arg) => void, failureCallback: (arg) => void) => {
-            const retValue = this.servoyService.executeInlineScript(callback.formname, callback.script, [info.start, info.end, eventSource.data]);
+            const retValue = callback(info.start, info.end, eventSource.data);
             retValue.then((success) => {
                 successCallback(success);
             }, (error) => {
@@ -1014,7 +1014,7 @@ export class GoogleCalendarEventSource extends EventSource {
 }
 
 export class FunctionEventSource extends EventSource {
-    public events: { formname: string; script: string };
+    public events: (...args: unknown[]) => any;
 }
 
 export class ArrayEventSource extends EventSource {
