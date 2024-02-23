@@ -243,8 +243,9 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
 
     selectCallback = (selectionInfo: DateSelectArg) => {
         if (this.onSelectMethodID) {
+            const _resources = (selectionInfo.resource as any)._resources;
             this.onSelectMethodID(selectionInfo.start, selectionInfo.end, selectionInfo.startStr, selectionInfo.endStr,
-                selectionInfo.allDay, selectionInfo.jsEvent, this.stringifyView(selectionInfo.view), selectionInfo.resource);
+                selectionInfo.allDay, selectionInfo.jsEvent, this.stringifyView(selectionInfo.view), _resources);
         }
     }
 
