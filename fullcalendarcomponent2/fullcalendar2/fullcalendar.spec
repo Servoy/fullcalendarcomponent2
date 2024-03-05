@@ -185,6 +185,18 @@
 				 }],
 			"doc" : "<b>onViewWillUnmountMethodID</b> will be called right before the view will be removed from the DOM."
 		},
+		"onEventRightClickMethodID": {
+            "parameters" : [{
+                    "type": "EventObject",
+                    "name": "event"
+                 }, {
+                    "type": "JSEvent",
+                    "name": "event"
+                 }, {
+                    "type": "ViewType",
+                    "name": "view"
+                }]
+        },
 		"onEventResizeMethodID": {
 			"parameters" : [{
 					"type": "EventObject",

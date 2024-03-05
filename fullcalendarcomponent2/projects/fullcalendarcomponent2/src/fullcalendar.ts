@@ -55,6 +55,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     @Input() onDropMethodID: (allDay: boolean, date: Date, dateStr: string, draggedEl: HTMLElement, jsEvent: MouseEvent, resource: ResourceObject, view: ViewType) => void;
     @Input() onEventDragStartMethodID: (event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
     @Input() onEventResizeStartMethodID: (event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
+    @Input() onEventRightClickMethodID: (event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
     @Input() onEventDragStopMethodID: (event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
     @Input() onEventResizeStopMethodID: (event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
     @Input() onEventReceiveMethodID: (event: EventObject, relatedEvents: Event[], draggedEl: HTMLElement, view: ViewType) => Promise<boolean>;
@@ -476,6 +477,13 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
                 console.log('mouse leave')
                 this.tooltipService.hideTooltip()
             };
+        }
+        if (this.onEventRightClickMethodID)
+        {
+            info.el.addEventListener("contextmenu", (event) => {
+                event.preventDefault()
+                this.onEventRightClickMethodID(this.stringifyEvent(info.event), event, info.view);
+            })
         }
     }
 
