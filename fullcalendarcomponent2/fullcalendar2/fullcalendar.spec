@@ -201,19 +201,25 @@
 			"parameters" : [{
 					"type": "EventObject",
 				 	"name": "event"
-				 }, {
+				 },{
 					"type": "EventObject[]",
 				 	"name": "relatedEvents"
-				 }, {
+				 },{
+                    "type": "EventObject",
+                    "name": "oldEvent"
+                 },{
+                    "type": "int",
+                    "name": "endDateDelta"
+                 },{
 					"type": "int",
-					"name": "delta"
-				 }, {
+					"name": "startDateDelta"
+				 },{
 				 	"type": "JSEvent",
 				 	"name": "jsEvent"
-				 }, {
+				 },{
 				 	"type": "ViewType",
 				 	"name": "view"
-				}],
+				 }],
 			"returns":  { "type": "boolean", "doc": "if it returns false, the event resize action will be reverted, otherwise (true) the action is considered valid", "default": true },
 			"doc" : "<b>onEventResizeMethodID</b> will be called when resizing stops and the event has changed in duration."
 		},
@@ -234,11 +240,8 @@
 					"type": "ResourceObject",
 				 	"name": "newResource"
 				 }, {
-					"type": "object",
+					"type": "int",
 					"name": "delta"
-				 }, {
-					"type": "object",
-					"name": "element"
 				 }, {
 				 	"type": "JSEvent",
 				 	"name": "jsEvent"

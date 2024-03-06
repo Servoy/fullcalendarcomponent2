@@ -48,10 +48,9 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     @Input() onDatesSetMethodID: (start: Date, end: Date, startStr: string, endStr: string, timeZone: string, view: ViewType) => void;
     @Input() onEventsSetMethodID: (events: EventObject[]) => void;
     @Input() onWindowResizeMethodID: (view: ViewType) => void;
-    @Input() onEventResizeMethodID: (event: EventObject, relatedEvents: EventObject[], oldEvent: EventObject, endDelta: Duration, startDelta: Duration, view: ViewType,
-        el: HTMLElement, jsEvent: MouseEvent) => Promise<boolean>;
+    @Input() onEventResizeMethodID: (event: EventObject, relatedEvents: EventObject[], oldEvent: EventObject, endDelta: number, startDelta: number, jsEvent: MouseEvent, view: ViewType) => Promise<boolean>;
     @Input() onEventDropMethodID: (event: EventObject, relatedEvents: EventObject[], oldEvent: EventObject, oldResource: ResourceObject,
-        newResource: ResourceObject, delta: Duration, view: ViewType, el: HTMLElement, jsEvent: MouseEvent) => Promise<boolean>;
+        newResource: ResourceObject, delta: number, jsEvent: MouseEvent, view: ViewType) => Promise<boolean>;
     @Input() onDropMethodID: (allDay: boolean, date: Date, dateStr: string, draggedEl: HTMLElement, jsEvent: MouseEvent, resource: ResourceObject, view: ViewType) => void;
     @Input() onEventDragStartMethodID: (event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
     @Input() onEventResizeStartMethodID: (event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
@@ -351,7 +350,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
                 stringifyedRelatedEvents.push(this.stringifyEvent(e));
             });
             const retValue = this.onEventResizeMethodID(this.stringifyEvent(resizeArg.event), stringifyedRelatedEvents, this.stringifyEvent(resizeArg.oldEvent),
-                resizeArg.endDelta, resizeArg.startDelta, resizeArg.view, resizeArg.el, resizeArg.jsEvent);
+                this.durationToMilliseconds(resizeArg.endDelta), this.durationToMilliseconds(resizeArg.startDelta), resizeArg.jsEvent, resizeArg.view);
             retValue.then((success) => {
                 if (!success) {
                     resizeArg.revert();
@@ -370,7 +369,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
                 stringifyedRelatedEvents.push(this.stringifyEvent(e));
             });
             const retValue = this.onEventDropMethodID(this.stringifyEvent(dropArg.event), stringifyedRelatedEvents, this.stringifyEvent(dropArg.oldEvent),
-                this.stringifyResource(dropArg.oldResource), this.stringifyResource(dropArg.newResource), dropArg.delta, this.stringifyView(dropArg.view), dropArg.el, dropArg.jsEvent);
+                this.stringifyResource(dropArg.oldResource), this.stringifyResource(dropArg.newResource), this.durationToMilliseconds(dropArg.delta), dropArg.jsEvent, dropArg.view);
             retValue.then((success) => {
                 if (!success) {
                     dropArg.revert();
@@ -880,6 +879,10 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         return source;
     }
 
+    private durationToMilliseconds(duration:Duration):number{
+        return duration.years * 31556952000 + duration.months * 2629746000 + duration.days * 86400000 + duration.milliseconds ;
+    }
+    
     stringifyEvent(event: EventApi): EventObject {
         return {
             source: this.stringifyEventSource(event?.source),
