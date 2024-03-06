@@ -759,18 +759,6 @@
 							],
 			"delayUntilFormLoads": true
 		},
-		
-		"option": {
-			"parameters":[{                                                                
-							"name":"option",
-							"type":"string"
-							}, {                                                                
-							"name":"value",
-							"type":"object"
-							}],
-			"delayUntilFormLoads": true
-		},
-		
 		"next": {
 		},
 		"prev": {
