@@ -36,9 +36,11 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     @Input() onSelectMethodID: (start: Date, end: Date, startStr: string, endStr: string, allDay: boolean, event: MouseEvent, view: ViewType, resource?: any) => void;
     @Input() onUnselectMethodID: (jsEvent: MouseEvent, view: ViewType) => void;
     @Input() onDateClickMethodID: (date: Date, dateStr: string, dayEl: HTMLElement, event: MouseEvent, view: ViewType, resource?: ResourceObject) => void;
+    @Input() onDateDblClickMethodID: (date: Date, dateStr: string, dayEl: HTMLElement, event: MouseEvent, view: ViewType, resource?: ResourceObject) => void;
     @Input() onNavLinkDayClickMethodID: (date: Date, event: MouseEvent) => void;
     @Input() onNavLinkWeekClickMethodID: (date: Date, event: MouseEvent) => void;
     @Input() onEventClickMethodID: (event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
+    @Input() onEventDblClickMethodID: (event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
     @Input() onEventMouseEnterMethodID: (el: HTMLElement, event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
     @Input() onEventMouseLeaveMethodID: (el: HTMLElement, event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
     @Input() onEventAddMethodID: (event: EventObject, relatedEvents: EventObject[]) => Promise<boolean>;
@@ -89,6 +91,9 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     log: LoggerService;
     isReadyForRendering = false;
     tooltipService: TooltipService;
+
+    clickTimeout = null;
+    clickDelay = 300; //ms
 
     constructor(private servoyService: ServoyPublicService,
         tooltipSrv: TooltipService,
@@ -256,8 +261,21 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     }
 
     dateClick = (arg: DateClickArg) => {
-        if (this.onDateClickMethodID) {
-            this.onDateClickMethodID(arg.date, arg.dateStr, arg.dayEl, arg.jsEvent, this.stringifyView(arg.view), this.stringifyResource(arg.resource));
+        if (this.clickTimeout) {
+            clearTimeout(this.clickTimeout);
+            this.clickTimeout = null;
+
+            if (this.onDateDblClickMethodID) {
+                this.onDateDblClickMethodID(arg.date, arg.dateStr, arg.dayEl, arg.jsEvent, this.stringifyView(arg.view), this.stringifyResource(arg.resource));
+            }
+        } else {
+            this.clickTimeout = setTimeout(() => {
+                this.clickTimeout = null;
+
+                if (this.onDateClickMethodID) {
+                    this.onDateClickMethodID(arg.date, arg.dateStr, arg.dayEl, arg.jsEvent, this.stringifyView(arg.view), this.stringifyResource(arg.resource));
+                }
+            }, this.clickDelay);
         }
     }
 
@@ -274,8 +292,21 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     }
     
     eventClick = (eventClickArg: EventClickArg) => {
-        if (this.onEventClickMethodID) {
-            this.onEventClickMethodID(this.stringifyEvent(eventClickArg.event), eventClickArg.jsEvent, this.stringifyView(eventClickArg.view));
+        if (this.clickTimeout) {
+            clearTimeout(this.clickTimeout);
+            this.clickTimeout = null;
+
+            if (this.onEventDblClickMethodID) {
+                this.onEventDblClickMethodID(this.stringifyEvent(eventClickArg.event), eventClickArg.jsEvent, this.stringifyView(eventClickArg.view));
+            }
+        } else {
+            this.clickTimeout = setTimeout(() => {
+                this.clickTimeout = null;
+
+                if (this.onEventClickMethodID) {
+                    this.onEventClickMethodID(this.stringifyEvent(eventClickArg.event), eventClickArg.jsEvent, this.stringifyView(eventClickArg.view));
+                }
+            }, this.clickDelay);
         }
     }
 

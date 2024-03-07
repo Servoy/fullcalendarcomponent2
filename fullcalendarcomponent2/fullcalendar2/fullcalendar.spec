@@ -88,6 +88,29 @@
 				}],
 			"doc" : "<b>onDateClickMethodID</b> will be called when the user clicks on a date or a time."
 		},
+        "onDateDblClickMethodID": {
+			"parameters" : [{
+					"type": "date",
+				 	"name": "date"
+				 }, {
+					"type": "string",
+				 	"name": "dateStr"
+				 },{
+					"type": "object",
+				 	"name": "dayEl"
+				 },{
+				 	"type": "JSEvent",
+				 	"name": "jsEvent"
+				 }, {
+				 	"type": "ViewType",
+				 	"name": "view"
+				 }, {
+				 	"type": "ResourceObject",
+				 	"name": "resource",
+				 	"optional" : true
+				}],
+			"doc" : "<b>onDateClickMethodID</b> will be called when the user double clicks on a date or a time."
+		},
 		"onNavLinkDayClickMethodID": {
             "parameters" : [{
                     "type": "date",
@@ -120,6 +143,19 @@
 				 	"name": "view"
 				}],
 			"doc" : "<b>onEventClickMethodID</b> will be called when the user clicks an event."
+		},
+        "onEventDblClickMethodID": {
+			"parameters" : [{
+					"type": "EventObject",
+				 	"name": "event"
+				 }, {
+				 	"type": "JSEvent",
+				 	"name": "jsEvent"
+				 }, {
+				 	"type": "ViewType",
+				 	"name": "view"
+				}],
+			"doc" : "<b>onEventDblClickMethodID</b> will be called when the user dbl click an event."
 		},
 		"onEventAddMethodID": {
 			"parameters" : [{
