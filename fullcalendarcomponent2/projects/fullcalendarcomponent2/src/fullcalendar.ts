@@ -500,11 +500,9 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         if (this.tooltipExpression) {
             const tooltip = this.evaluateTooltipExpression(this.tooltipExpression, info.event);
             info.el.onmouseenter = (jsEvent: MouseEvent) => {
-                console.log('mouse enter')
                 this.tooltipService.showTooltip(jsEvent, tooltip, 750, 5000);
             };
             info.el.onmouseleave = (jsEvent: MouseEvent) => {
-                console.log('mouse leave')
                 this.tooltipService.hideTooltip()
             };
         }
