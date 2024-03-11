@@ -1,11 +1,11 @@
 {
     "name": "@servoy/fullcalendarcomponent2",
-    "version": "2023.9.0",
+    "version": "2024.3.0",
     "peerDependencies": {
-      "@angular/animations": "^16",
-      "@angular/common": "^16",
-      "@angular/core": "^16",
-      "@angular/forms": "^16"
+      "@angular/animations": "^17",
+      "@angular/common": "^17",
+      "@angular/core": "^17",
+      "@angular/forms": "^17"
     },
     "dependencies": {
     "@fullcalendar/angular": "<6.2",
@@ -15,7 +15,7 @@
     "@fullcalendar/icalendar": "<6.2",
     "@fullcalendar/interaction": "<6.2",
     "@fullcalendar/list": "<6.2",
-    "@fullcalendar/luxon2": "<6.2",
+    "@fullcalendar/luxon3": "<6.2",
     "@fullcalendar/resource": "<6.2",
     "@fullcalendar/resource-timegrid": "<6.2",
     "@fullcalendar/resource-timeline": "<6.2",

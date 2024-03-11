@@ -12,7 +12,7 @@
         "@fullcalendar/icalendar",
         "@fullcalendar/interaction",
         "@fullcalendar/list",
-        "@fullcalendar/luxon2",
+        "@fullcalendar/luxon3",
         "@fullcalendar/resource",
         "@fullcalendar/resource-timegrid",
         "@fullcalendar/resource-timeline",
