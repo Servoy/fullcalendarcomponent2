@@ -689,10 +689,6 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         this.calendarComponent.getApi().changeView(viewName, dateOrRange);
     }
 
-    setOption<OptionName extends keyof CalendarOptions>(option: OptionName, value: CalendarOptions[OptionName]) {
-        this.calendarComponent.getApi().setOption(option, value);
-    }
-
     getOption<OptionName extends keyof CalendarOptions>(name: OptionName) {
         const option = this.calendarComponent.getApi().getOption(name);
         return option;
@@ -845,7 +841,6 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         // arrayEventSources
         if (this.arrayEventSources && this.arrayEventSources.length) {
             eventSources = eventSources.concat(this.arrayEventSources);
-            eventSources = this.arrayEventSources;
         }
         // functionEventSources
         for (let i = 0; this.functionEventSources && i < this.functionEventSources.length; i++) {

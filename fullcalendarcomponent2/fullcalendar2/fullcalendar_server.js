@@ -184,6 +184,24 @@ $scope.api.updateFullCalendar = function(option, value) {
 }
 
 /**
+ * Set the given calendar option to the given value
+ * The set will force the calendar to repaint.
+ * 
+ * @param {String} option a single option to be setted
+ * @param {Object} value
+ * 
+ * @example 
+ * <pre>
+ * 	elements.fullcalendarElementName.setOption('scrollTime','13:00:00');
+ * </pre>
+ *
+ * */
+$scope.api.setOption = function(option, value) {
+	$scope.api.updateFullCalendar(option, value);
+}
+
+
+/**
  * @param {svy-fullcalendar.EventSourceType} eventSource
  * 
  * @example 
