@@ -1016,7 +1016,7 @@
                             "name":"eventSourceID",
                             "type":"string"
                             }]
-        },
+        }
 	},
 	"types": {
 		"EventParsing": {
