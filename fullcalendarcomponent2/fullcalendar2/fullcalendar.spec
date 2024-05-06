@@ -227,7 +227,7 @@
                     "name": "event"
                  }, {
                     "type": "JSEvent",
-                    "name": "event"
+                    "name": "jsEvent"
                  }, {
                     "type": "ViewType",
                     "name": "view"
@@ -387,10 +387,10 @@
 				 	"name": "element"
 				 }, {
 					"type": "EventObject",
-					"name": "eventObject"
+					"name": "event"
 				 }, {
 				 	"type": "JSEvent",
-				 	"name": "event"
+				 	"name": "jsEvent"
 				 }, {
 				 	"type": "ViewType",
 				 	"name": "view"
