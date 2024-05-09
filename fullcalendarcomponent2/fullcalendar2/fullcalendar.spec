@@ -1241,7 +1241,8 @@
 	  		"activeStart": "date",
 	  		"activeEnd": "date",
 	  		"currentStart": "date",
-	 		"currentEnd": "date"
+	 		"currentEnd": "date",
+	 		"dateEnv": "object"
         },
         "FullCalendar": {
         	"options" : "FullCalendarOptions"
