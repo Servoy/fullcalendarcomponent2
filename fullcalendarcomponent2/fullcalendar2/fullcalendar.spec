@@ -1086,7 +1086,7 @@
 			"eventBackgroundColor": "color",
 			"eventBorderColor": "color",
 			"eventTextColor" : "color",
-			"eventClassName" : "styleclass",
+			"eventClassNames" : "styleclass",
 			"extendedProps" : "object",
 			"eventOverlap" : "object",
 			"eventConstraint" : "object",
