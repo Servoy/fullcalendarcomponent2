@@ -1406,7 +1406,8 @@
 			"moreLinkClassNames": {"type": "object"},
 			"moreLinkContent": {"type": "object"},
 			"moreLinkDidMount": {"type": "object"},
-			"moreLinkWillUnmount": {"type": "object"}
+			"moreLinkWillUnmount": {"type": "object"},
+			"resources": {"type": "object"}
         }
 	}
 }
