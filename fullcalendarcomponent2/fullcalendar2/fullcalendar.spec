@@ -1407,7 +1407,8 @@
 			"moreLinkContent": {"type": "object"},
 			"moreLinkDidMount": {"type": "object"},
 			"moreLinkWillUnmount": {"type": "object"},
-			"resources": {"type": "object"}
+			"resources": {"type": "object"},
+			"schedulerLicenseKey": {"type": "string"}
         }
 	}
 }
