@@ -291,7 +291,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         }
     }
     
-    eventClick = (eventClickArg: ExtendedEventClickArg) => {
+    eventClick = (eventClickArg: EventClickArg) => {
         if (this.clickTimeout) {
             clearTimeout(this.clickTimeout);
             this.clickTimeout = null;
@@ -303,9 +303,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
             this.clickTimeout = setTimeout(() => {
                 this.clickTimeout = null;
 
-                if (eventClickArg.isRightClick && this.onEventRightClickMethodID) {
-                    this.onEventRightClickMethodID(this.stringifyEvent(eventClickArg.event), eventClickArg.jsEvent, this.stringifyView(eventClickArg.view));
-                } else if (this.onEventClickMethodID) {
+                if (this.onEventClickMethodID) {
                     this.onEventClickMethodID(this.stringifyEvent(eventClickArg.event), eventClickArg.jsEvent, this.stringifyView(eventClickArg.view));
                 }
             }, this.clickDelay);
@@ -510,19 +508,10 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         }
         if (this.onEventRightClickMethodID)
         {
-            if (this.onEventRightClickMethodID) {
-                info.el.addEventListener("contextmenu", (event) => {
-                    event.preventDefault();
-                    const eventClickArg: ExtendedEventClickArg = {
-                        event: info.event,
-                        jsEvent: event,
-                        view: info.view,
-                        el: info.el,
-                        isRightClick: true 
-                    };
-                    this.eventClick(eventClickArg);
-                });
-            }
+            info.el.addEventListener("contextmenu", (event) => {
+                event.preventDefault()
+                this.onEventRightClickMethodID(this.stringifyEvent(info.event), event, info.view);
+            })
         }
     }
 
@@ -1111,10 +1100,6 @@ export class ResourceObject implements ICustomObjectValue {
 class ServerFunction {
     public formname?: string;
     public script?: string;
-}
-
-interface ExtendedEventClickArg extends EventClickArg {
-    isRightClick?: boolean; 
 }
 
 @NgModule({
