@@ -95,7 +95,7 @@ function next(event) {
  * @properties={typeid:24,uuid:"79FB978F-EFA4-47EF-929F-8EE36B2BDD36"}
  */
 function nextYear(event) {
-	nextYear(event);
+	forms.demoCalendar.nextYear(event);
 }
 
 /**
