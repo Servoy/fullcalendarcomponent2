@@ -269,13 +269,18 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
                 this.onDateDblClickMethodID(arg.date, arg.dateStr, arg.dayEl, arg.jsEvent, this.stringifyView(arg.view), this.stringifyResource(arg.resource));
             }
         } else {
-            this.clickTimeout = setTimeout(() => {
-                this.clickTimeout = null;
-
+            if (this.onDateDblClickMethodID) {
+                this.clickTimeout = setTimeout(() => {
+                    this.clickTimeout = null;
+                    if (this.onDateClickMethodID) {
+                        this.onDateClickMethodID(arg.date, arg.dateStr, arg.dayEl, arg.jsEvent, this.stringifyView(arg.view), this.stringifyResource(arg.resource));
+                    }
+                }, this.clickDelay);
+            } else {
                 if (this.onDateClickMethodID) {
                     this.onDateClickMethodID(arg.date, arg.dateStr, arg.dayEl, arg.jsEvent, this.stringifyView(arg.view), this.stringifyResource(arg.resource));
                 }
-            }, this.clickDelay);
+            }
         }
     }
 
@@ -300,13 +305,19 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
                 this.onEventDblClickMethodID(this.stringifyEvent(eventClickArg.event), eventClickArg.jsEvent, this.stringifyView(eventClickArg.view));
             }
         } else {
-            this.clickTimeout = setTimeout(() => {
-                this.clickTimeout = null;
 
+            if (this.onEventDblClickMethodID) {
+                this.clickTimeout = setTimeout(() => {
+                    this.clickTimeout = null;
+                    if (this.onEventClickMethodID) {
+                        this.onEventClickMethodID(this.stringifyEvent(eventClickArg.event), eventClickArg.jsEvent, this.stringifyView(eventClickArg.view));
+                    }
+                }, this.clickDelay);
+            } else {
                 if (this.onEventClickMethodID) {
                     this.onEventClickMethodID(this.stringifyEvent(eventClickArg.event), eventClickArg.jsEvent, this.stringifyView(eventClickArg.view));
                 }
-            }, this.clickDelay);
+            }
         }
     }
 
