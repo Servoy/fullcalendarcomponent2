@@ -1,3 +1,4 @@
+/* The FullCalendar component is a Titanium Client wrapper around https://fullcalendar.io/ . Note that some features require a premium FullCalendar license. See https://fullcalendar.io/docs for more details.*/
 
 /**
  * Getter for all calendar events.
