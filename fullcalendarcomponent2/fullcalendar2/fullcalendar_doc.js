@@ -2,7 +2,7 @@
 /**
  * Getter for all calendar events.
  * 
- * @return {Array<EventObject>}
+ * @return {Array<CustomType<svy-fullcalendar2.EventObject>>}
  */
  function getCalendarEvents() {}
 
@@ -11,17 +11,17 @@
  * 
  * @param {String} id 
  * 
- * @return {EventObject}
+ * @return {CustomType<svy-fullcalendar2.EventObject>}
  */
   function getEventById() {}
 
  /**
  * Adds an event to calendar.
  * 
- * @param {EventParsing} event 
+ * @param {CustomType<svy-fullcalendar2.EventParsing>} event 
  * @param {Object} source 
  * 
- * @return {EventObject}
+ * @return {CustomType<svy-fullcalendar2.EventObject>}
  */
  function addEvent() {}
 
@@ -126,7 +126,7 @@
  * Gets the Resources associated with the given event.
  * 
  * @param {String} eventID 
- * @returns {Array<ResourceObject>}
+ * @returns {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
  */
  function getEventResources() {}
 
@@ -134,7 +134,7 @@
  * Sets the Resources associated with the given event.
  * 
  * @param {String} eventID 
- * @param {Array<ResourceObject>} resources
+ * @param {Array<CustomType<svy-fullcalendar2.ResourceObject>>} resources
  */
  function setEventResources() {}
 
@@ -149,7 +149,7 @@
 /**
  * Retrieves all Event Source Objects.
  * 
- * @returns {Array<EventSource>}
+ * @returns {Array<CustomType<svy-fullcalendar2.EventSource>>}
  */
  function getEventSources() {}
 
@@ -157,14 +157,14 @@
  * Retrieves a specific Event Source Object.
  * 
  * @param {String} eventID 
- * @returns {EventSource}
+ * @returns {CustomType<svy-fullcalendar2.EventSource>}
  */
  function getEventSourceById() {}
 
 /**
  * Dynamically adds an event source.
  * 
- * @param {EventSource} source 
+ * @param {CustomType<svy-fullcalendar2.EventSource>} source 
  */
  function addEventSource() {}
 
@@ -210,7 +210,7 @@
  /**
  * Gets the View Object for the current view.
  * 
- * @returns {ViewType}
+ * @returns {CustomType<svy-fullcalendar2.ViewType>}
  */
   function getView() {}
 
@@ -284,14 +284,14 @@
  /**
  * A method that retrieves only top-level Resources.
  * 
- * @returns {Array<ResourceObject>}
+ * @returns {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
  */
   function getTopLevelResources() {}
 
  /**
  * A method that retrieves all Resources, including children, as a single flat list.
  * 
- * @returns {Array<ResourceObject>}
+ * @returns {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
  */
   function getResources() {}
 
@@ -299,14 +299,14 @@
  * A method that retrieves a specific Resource Object in memory.
  * 
  * @param {Object} resourceId
- * @returns {ResourceObject}
+ * @returns {CustomType<svy-fullcalendar2.ResourceObject>}
  */
   function getResourceById() {}
 
  /**
  * Allows programmatic rendering of a new resource on the calendar after the initial set of resources has already been displayed.
  * 
- * @param {ResourceObject} resource
+ * @param {CustomType<svy-fullcalendar2.ResourceObject>} resource
  * @param {Boolean} [scrollTo]
  */
   function addResource() {}
@@ -322,7 +322,7 @@
  * Returns the parent Resource of a child resource.
  * 
  * @param {String} id
- * @returns {ResourceObject}
+ * @returns {CustomType<svy-fullcalendar2.ResourceObject>}
  */
   function getParent() {}
 
@@ -330,7 +330,7 @@
  * Returns a list of a resource’s child resources.
  * 
  * @param {String} id
- * @returns {Array<ResourceObject>}
+ * @returns {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
  */
   function getChildren() {}
 
@@ -338,7 +338,7 @@
  * Gets the Resources associated with the given event.
  * 
  * @param {String} id
- * @returns {Array<ResourceObject>}
+ * @returns {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
  */
   function getResourceEvents() {}
 
