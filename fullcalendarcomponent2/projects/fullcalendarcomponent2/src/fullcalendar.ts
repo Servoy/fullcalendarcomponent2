@@ -977,34 +977,34 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     }
 
     private initializeCallbacks() {
-        this.fullCalendarOptions.select = this.selectCallback;
-        this.fullCalendarOptions.unselect = this.unselectCallback;
-        this.fullCalendarOptions.eventClick = this.eventClick;
-        this.fullCalendarOptions.eventResize = this.eventResize;
-        this.fullCalendarOptions.eventResizeStart = this.eventDragStart;
-        this.fullCalendarOptions.eventResizeStop = this.eventResizeStop;
-        this.fullCalendarOptions.eventDrop = this.eventDrop;
-        this.fullCalendarOptions.eventDragStart = this.eventDragStart;
-        this.fullCalendarOptions.eventDragStop = this.eventDragStop;
-        this.fullCalendarOptions.eventReceive = this.eventReceive;
-        this.fullCalendarOptions.eventLeave = this.eventLeave;
-        this.fullCalendarOptions.drop = this.drop;
-        this.fullCalendarOptions.eventMouseEnter = this.eventMouseEnter;
-        this.fullCalendarOptions.eventMouseLeave = this.eventMouseLeave;
-        this.fullCalendarOptions.eventAdd = this.eventAdd;
-        this.fullCalendarOptions.eventChange = this.eventChange;
-        this.fullCalendarOptions.eventRemove = this.eventRemove;
-        this.fullCalendarOptions.eventsSet = this.eventsSet;
-        this.fullCalendarOptions.windowResize = this.windowResize;
-        this.fullCalendarOptions.datesSet = this.datesSet;
-        this.fullCalendarOptions.loading = this.loading;
-        this.fullCalendarOptions.dateClick = this.dateClick;
-        this.fullCalendarOptions.resourceAdd = this.resourceAdd;
-        this.fullCalendarOptions.resourceChange = this.resourceChange;
-        this.fullCalendarOptions.resourceRemove = this.resourceRemove;
-        this.fullCalendarOptions.resourcesSet = this.resourcesSet;
+        if (this.onSelectMethodID) { this.fullCalendarOptions.select = this.selectCallback; }
+        if (this.onUnselectMethodID) { this.fullCalendarOptions.unselect = this.unselectCallback; }
+        if (this.onEventDblClickMethodID || this.onEventClickMethodID) this.fullCalendarOptions.eventClick = this.eventClick;
+        if (this.onEventResizeMethodID) { this.fullCalendarOptions.eventResize = this.eventResize;}
+        if (this.onEventDragStartMethodID) { this.fullCalendarOptions.eventResizeStart = this.eventDragStart; }
+        if (this.onEventResizeStopMethodID) {  this.fullCalendarOptions.eventResizeStop = this.eventResizeStop; }
+        if (this.onEventDropMethodID) { this.fullCalendarOptions.eventDrop = this.eventDrop; }
+        if (this.onEventDragStartMethodID) { this.fullCalendarOptions.eventDragStart = this.eventDragStart; }
+        if (this.onEventDragStopMethodID) { this.fullCalendarOptions.eventDragStop = this.eventDragStop; }
+        if (this.onEventReceiveMethodID) { this.fullCalendarOptions.eventReceive = this.eventReceive; }
+        if (this.onEventLeaveMethodID) { this.fullCalendarOptions.eventLeave = this.eventLeave; }
+        if (this.onDropMethodID) { this.fullCalendarOptions.drop = this.drop; }
+        if (this.onEventMouseEnterMethodID) { this.fullCalendarOptions.eventMouseEnter = this.eventMouseEnter; }
+        if (this.onEventMouseLeaveMethodID) { this.fullCalendarOptions.eventMouseLeave = this.eventMouseLeave; }
+        if (this.onEventAddMethodID) { this.fullCalendarOptions.eventAdd = this.eventAdd; }
+        if (this.onEventChangeMethodID) {this.fullCalendarOptions.eventChange = this.eventChange; }
+        if (this.onEventRemoveMethodID) { this.fullCalendarOptions.eventRemove = this.eventRemove; }
+        if (this.onEventsSetMethodID) {this.fullCalendarOptions.eventsSet = this.eventsSet; }
+        if (this.onWindowResizeMethodID) {this.fullCalendarOptions.windowResize = this.windowResize;}
+        if (this.onDatesSetMethodID) { this.fullCalendarOptions.datesSet = this.datesSet; }
+        if (this.onLoadingMethodID) { this.fullCalendarOptions.loading = this.loading; }
+        if (this.onDateClickMethodID || this.onDateDblClickMethodID) {this.fullCalendarOptions.dateClick = this.dateClick; }
+        if (this.onResourceAddMethodID) { this.fullCalendarOptions.resourceAdd = this.resourceAdd; }
+        if (this.onResourceChangeMethodID) { this.fullCalendarOptions.resourceChange = this.resourceChange; }
+        if (this.onResourceRemoveMethodID) { this.fullCalendarOptions.resourceRemove = this.resourceRemove; }
+        if (this.onResourcesSetMethodID) { this.fullCalendarOptions.resourcesSet = this.resourcesSet; }
         this.fullCalendarOptions.viewDidMount = this.viewDidMount;
-        this.fullCalendarOptions.viewWillUnmount = this.viewWillUnmount;
+        if (this.onViewWillUnmountMethodID) { this.fullCalendarOptions.viewWillUnmount = this.viewWillUnmount; }
         if (!this.fullCalendarOptions.navLinkDayClick){
             this.fullCalendarOptions.navLinkDayClick = this.navLinkDayClick;
         }
