@@ -116,6 +116,12 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
                         }
                         break;
                     }
+					case 'calendarOptions': {
+						if (this.calendarComponent) {
+							this.initFullCalendar();
+						}
+						break;
+					}
                 }
             }
         }
