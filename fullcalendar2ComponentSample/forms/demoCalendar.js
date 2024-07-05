@@ -635,7 +635,7 @@ function eventResourceRemove(record) {
 function onNewEvent(event) {
 	scopes.svyData.setEventObject(null);
 	isNewEvent = true;
-	plugins.window.showFormPopup(null,forms.eventDialog, this, 'dlgReturnedValued', null, null, null, null, false, true, eventsCallback);
+	plugins.window.showFormPopup(null,forms.eventDialog, this, 'dlgReturnedValue', null, null, null, null, false, true, eventsCallback);
 }
 
 /**
@@ -646,6 +646,8 @@ function onNewEvent(event) {
  * @properties={typeid:24,uuid:"40D907E7-8B82-42EB-8205-A11F65249B23"}
  */
 function onDeleteEvent(event) {
+	var record = elements.eventsGrid.myFoundset.foundset.getSelectedRecord();
+	calendar.removeEvent(record.event_object_id.toString());
 	elements.eventsGrid.myFoundset.foundset.deleteRecord();
 }
 
@@ -700,7 +702,7 @@ function eventsCallback() {
 	if (isNewEvent) {
 		record.editable = 0;
 		calendar.addEvent({
-			id: record.event_object_id,
+			id: record.event_object_id.toString(),
 			title: record.title_event,
 			start: record.start_date,
 			end: record.end_date,

@@ -131,11 +131,11 @@ width:"40"
 formIndex:3,
 imageStyleClass:"fa-solid fa-calendar-week",
 onActionMethodID:"3D7A6057-B538-44EE-A83F-1F9CD37B1970",
-styleClass:"btn btn-primary",
+styleClass:"btn btn-default btn-primary",
 toolTipText:"Week view"
 },
 name:"btnWeekView",
-styleClass:"btn btn-primary",
+styleClass:"btn btn-default btn-primary",
 typeName:"bootstrapcomponents-button",
 typeid:47,
 uuid:"9E30AFA8-0326-463F-827D-5598184A202E"
