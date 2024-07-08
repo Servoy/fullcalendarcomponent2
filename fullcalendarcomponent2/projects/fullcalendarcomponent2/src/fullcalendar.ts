@@ -329,13 +329,13 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
 
     eventMouseEnter = (eventHovering: EventHoveringArg) => {
         if (this.onEventMouseEnterMethodID) {
-            this.onEventMouseEnterMethodID(eventHovering.el, this.stringifyEvent(eventHovering.event), eventHovering.jsEvent, eventHovering.view);
+            this.onEventMouseEnterMethodID(null, this.stringifyEvent(eventHovering.event), eventHovering.jsEvent, eventHovering.view);
         }
     }
 
     eventMouseLeave = (eventHovering: EventHoveringArg) => {
         if (this.onEventMouseLeaveMethodID) {
-            this.onEventMouseLeaveMethodID(eventHovering.el, this.stringifyEvent(eventHovering.event), eventHovering.jsEvent, eventHovering.view);
+            this.onEventMouseLeaveMethodID(null, this.stringifyEvent(eventHovering.event), eventHovering.jsEvent, eventHovering.view);
         }
     }
 
