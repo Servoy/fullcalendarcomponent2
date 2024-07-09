@@ -711,8 +711,9 @@ function eventsCallback() {
 			color : record.event_object_to_resources.fg_color,
 			textColor: record.event_object_to_resources.text_color,
 			hour12: false
-		});
+		}, record.resource_id.toString());
 		calendar.render();
+		databaseManager.saveData();
 	} else {
 		calendar.refetchEvents();
 	}
