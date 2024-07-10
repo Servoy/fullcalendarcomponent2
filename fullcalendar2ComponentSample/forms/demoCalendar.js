@@ -646,9 +646,8 @@ function onNewEvent(event) {
  * @properties={typeid:24,uuid:"40D907E7-8B82-42EB-8205-A11F65249B23"}
  */
 function onDeleteEvent(event) {
-	var record = elements.eventsGrid.myFoundset.foundset.getSelectedRecord();
-	calendar.removeEvent(record.event_object_id.toString());
 	elements.eventsGrid.myFoundset.foundset.deleteRecord();
+	calendar.refetchEvents();
 }
 
 /**
@@ -694,29 +693,16 @@ function eventsCallback() {
 		elements.eventsGrid.myFoundset.foundset.newRecord();
 	}
 	var record = elements.eventsGrid.myFoundset.foundset.getSelectedRecord();
-	record.title_event = scopes.svyData.title;
+	record.title_event = scopes.svyData.title + "%%scopes.svyData.text%%";
 	record.start_date = scopes.svyData.startDate;
 	record.end_date = scopes.svyData.endDate;
 	record.allday = scopes.svyData.allDay;
 	record.resource_id = getResourceId(scopes.svyData.groupName);
 	if (isNewEvent) {
 		record.editable = 0;
-		calendar.addEvent({
-			id: record.event_object_id.toString(),
-			title: record.title_event,
-			start: record.start_date,
-			end: record.end_date,
-			allDay: record.allday == 1,
-			data: { description: record.description },
-			color : record.event_object_to_resources.fg_color,
-			textColor: record.event_object_to_resources.text_color,
-			hour12: false
-		}, record.resource_id.toString());
-		calendar.render();
 		databaseManager.saveData();
-	} else {
-		calendar.refetchEvents();
 	}
+	calendar.refetchEvents();
 }
 
 /**
