@@ -1016,6 +1016,13 @@
                             "name":"eventSourceID",
                             "type":"string"
                             }]
+        },
+        "getEventsFromFunctionEventSource": {
+        		"parameters" : [{
+        			"name": "functionEventSourceIndex",
+        			"type": "int"
+        		}],
+        		"returns" : "EventParsing[]"
         }
 	},
 	"types": {

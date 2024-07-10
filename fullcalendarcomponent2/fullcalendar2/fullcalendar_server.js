@@ -308,3 +308,11 @@ $scope.removeEventSource = function(id) {
 	}
 	return false;
 }
+
+$scope.getEventsFromFunctionEventSource = function(functionEventSourceIndex, start, end, data) 
+{
+    if ($scope.model.functionEventSources[functionEventSourceIndex].events) {
+		return $scope.model.functionEventSources[functionEventSourceIndex].events(start, end, data);
+	}
+	return [];
+}

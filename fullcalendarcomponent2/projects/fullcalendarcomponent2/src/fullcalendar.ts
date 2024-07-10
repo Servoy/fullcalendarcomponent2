@@ -910,7 +910,8 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
 
         // register server side callback
         source['events'] = (info: FunctionInfo, successCallback: (arg) => void, failureCallback: (arg) => void) => {
-            const retValue = callback(info.start, info.end, eventSource.data);
+			const index = this.getEventSourcesIndexById(source.id);
+            const retValue = this.servoyApi.callServerSideApi('getEventsFromFunctionEventSource', [index, info.start, info.end, eventSource.data]);
             retValue.then((success) => {
                 successCallback(success);
             }, (error) => {
