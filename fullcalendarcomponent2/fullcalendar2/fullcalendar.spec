@@ -366,6 +366,8 @@
 			"doc" : "<b>onEventResizeStopMethodID</b> will be called when event resizing stops."
 		},
 		"onEventMouseEnterMethodID": {
+			"deprecated": "Should use <b>onMouseEnter</b> instead.",
+			"replacement": "onMouseEnter",
 			"parameters" : [{
 					"type": "object",
 				 	"name": "element"
@@ -382,6 +384,8 @@
 			"doc" : "<b>onEventMouseEnterMethodID</b> will be called when the user mouses over an event. Similar to the native mouseenter."
 		},
 		"onEventMouseLeaveMethodID": {
+			"deprecated": "Should use <b>onMouseLeave</b> instead.",
+			"replacement": "onMouseLeave",
 			"parameters" : [{
 					"type": "object",
 				 	"name": "element"
@@ -396,6 +400,32 @@
 				 	"name": "view"
 				}],
 			"doc" : "<b>onEventMouseLeaveMethodID</b> will be called when the user mouses out of an event. Similar to the native mouseleave."
+		},
+		"onMouseEnter": {
+			"parameters" : [{
+					"type": "EventObject",
+					"name": "eventObject"
+				 }, {
+				 	"type": "JSEvent",
+				 	"name": "jsEvent"
+				 }, {
+				 	"type": "ViewType",
+				 	"name": "view"
+				}],
+			"doc" : "<b>onMouseEnter</b> will be called when the user mouses over an event. Similar to the native mouseenter."
+		},
+		"onMouseLeave": {
+			"parameters" : [{
+					"type": "EventObject",
+					"name": "eventObject"
+				 }, {
+				 	"type": "JSEvent",
+				 	"name": "jsEvent"
+				 }, {
+				 	"type": "ViewType",
+				 	"name": "view"
+				}],
+			"doc" : "<b>onMouseLeave</b> will be called when the user mouses out of an event. Similar to the native mouseleave."
 		},
 		"onLoadingMethodID": {
 			"parameters" : [{

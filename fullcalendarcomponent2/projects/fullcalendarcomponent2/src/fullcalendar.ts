@@ -43,6 +43,8 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     @Input() onEventDblClickMethodID: (event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
     @Input() onEventMouseEnterMethodID: (el: HTMLElement, event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
     @Input() onEventMouseLeaveMethodID: (el: HTMLElement, event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
+	@Input() onMouseEnter: (event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
+	@Input() onMouseLeave: (event: EventObject, jsEvent: MouseEvent, view: ViewType) => void;
     @Input() onEventAddMethodID: (event: EventObject, relatedEvents: EventObject[]) => Promise<boolean>;
     @Input() onEventRemoveMethodID: (event: EventObject, relatedEvents: EventObject[]) => Promise<boolean>;
     @Input() onEventChangeMethodID: (event: EventObject, oldEvent: EventObject, relatedEvents: EventObject[]) => Promise<boolean>;
@@ -331,12 +333,18 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         if (this.onEventMouseEnterMethodID) {
             this.onEventMouseEnterMethodID(null, this.stringifyEvent(eventHovering.event), eventHovering.jsEvent, eventHovering.view);
         }
+		if (this.onMouseEnter) {
+			this.onMouseEnter(this.stringifyEvent(eventHovering.event), eventHovering.jsEvent, eventHovering.view);
+		}
     }
 
     eventMouseLeave = (eventHovering: EventHoveringArg) => {
         if (this.onEventMouseLeaveMethodID) {
             this.onEventMouseLeaveMethodID(null, this.stringifyEvent(eventHovering.event), eventHovering.jsEvent, eventHovering.view);
         }
+		if (this.onMouseLeave) {
+			this.onMouseLeave(this.stringifyEvent(eventHovering.event), eventHovering.jsEvent, eventHovering.view);
+		}
     }
 
     eventAdd = (eventAdd: EventAddArg) => {
@@ -996,8 +1004,8 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         if (this.onEventReceiveMethodID) { this.fullCalendarOptions.eventReceive = this.eventReceive; }
         if (this.onEventLeaveMethodID) { this.fullCalendarOptions.eventLeave = this.eventLeave; }
         if (this.onDropMethodID) { this.fullCalendarOptions.drop = this.drop; }
-        if (this.onEventMouseEnterMethodID) { this.fullCalendarOptions.eventMouseEnter = this.eventMouseEnter; }
-        if (this.onEventMouseLeaveMethodID) { this.fullCalendarOptions.eventMouseLeave = this.eventMouseLeave; }
+        if (this.onEventMouseEnterMethodID || this.onMouseEnter) { this.fullCalendarOptions.eventMouseEnter = this.eventMouseEnter; }
+        if (this.onEventMouseLeaveMethodID || this.onMouseLeave) { this.fullCalendarOptions.eventMouseLeave = this.eventMouseLeave; }
         if (this.onEventAddMethodID) { this.fullCalendarOptions.eventAdd = this.eventAdd; }
         if (this.onEventChangeMethodID) {this.fullCalendarOptions.eventChange = this.eventChange; }
         if (this.onEventRemoveMethodID) { this.fullCalendarOptions.eventRemove = this.eventRemove; }
