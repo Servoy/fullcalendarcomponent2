@@ -367,7 +367,6 @@
 		},
 		"onEventMouseEnterMethodID": {
 			"deprecated": "Should use <b>onMouseEnter</b> instead.",
-			"replacement": "onMouseEnter",
 			"parameters" : [{
 					"type": "object",
 				 	"name": "element"
@@ -385,7 +384,6 @@
 		},
 		"onEventMouseLeaveMethodID": {
 			"deprecated": "Should use <b>onMouseLeave</b> instead.",
-			"replacement": "onMouseLeave",
 			"parameters" : [{
 					"type": "object",
 				 	"name": "element"
