@@ -693,7 +693,7 @@ function eventsCallback() {
 		elements.eventsGrid.myFoundset.foundset.newRecord();
 	}
 	var record = elements.eventsGrid.myFoundset.foundset.getSelectedRecord();
-	record.title_event = scopes.svyData.title + "%%scopes.svyData.text%%";
+	record.title_event = scopes.svyData.title;
 	record.start_date = scopes.svyData.startDate;
 	record.end_date = scopes.svyData.endDate;
 	record.allday = scopes.svyData.allDay;
