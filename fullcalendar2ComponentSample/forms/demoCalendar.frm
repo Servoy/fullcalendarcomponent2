@@ -138,6 +138,7 @@ foundsetSelector:"mem:event_objects",
 loadAllRecords:"true"
 },
 onCellDoubleClick:"A4A13AF2-52D5-4447-97D0-F4AEDA1164B4",
+onColumnDataChange:"818C2F1D-CBDA-48EF-BC5B-839A2D33987A",
 readOnly:true
 },
 name:"eventsGrid",

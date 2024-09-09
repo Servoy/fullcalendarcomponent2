@@ -116,7 +116,6 @@ var tableData = {
     event_objects: {
         columnNames: ["event_object_id", "resource_id", "allday", "description", "editable", "end_date", "start_date", "title_event"],
         rows: [
-            ["55555555-5555-5555-5555-555555555555", "44444444-4444-4444-4444-444444444444", 0, null, 1, "1900-01-09T14:00:00.000Z", "1900-01-09T07:30:00.000Z", "The beginning of time"],
 	        ["23C28FA8-3BAE-4ED3-9867-08344B760E9A", "2A595C21-C4E7-4DC0-A4F9-53F5A1C94D8C", 0, null, 1, "2024-01-09T14:00:00.000Z", "2024-01-09T07:30:00.000Z", "Apple Event"],
 			["5E55FDAF-5C21-47EF-96B1-ABC0AD6AF902", "2A81D00C-22F3-4EF0-9B9B-799024A0679A", 1, null, 1, "2024-01-14T17:30:00.000Z", "2024-01-08T07:30:00.000Z", "Servoy World"],
 			["67FAC62C-D12B-4ECF-A0C3-2A3EE652421C", "18486893-983F-4F95-8F9E-93B56F667910", 0, "Presentation", 1, "2024-01-12T14:00:00.000Z", "2024-01-12T07:30:00.000Z", "Office 365"],

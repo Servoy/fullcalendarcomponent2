@@ -698,6 +698,7 @@ function eventsCallback() {
 	record.end_date = scopes.svyData.endDate;
 	record.allday = scopes.svyData.allDay;
 	record.resource_id = getResourceId(scopes.svyData.groupName);
+	record.description = scopes.svyData.description;
 	if (isNewEvent) {
 		record.editable = 0;
 		databaseManager.saveData();
