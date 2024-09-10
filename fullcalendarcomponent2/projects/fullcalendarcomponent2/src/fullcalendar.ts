@@ -97,6 +97,9 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     clickTimeout = null;
     clickDelay = 300; //ms
 
+    private initialDelay = 750;
+    private dismissDelay = 5000;
+    
     constructor(private servoyService: ServoyPublicService,
         tooltipSrv: TooltipService,
         renderer: Renderer2, cdRef: ChangeDetectorRef,
@@ -104,6 +107,10 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         super(renderer, cdRef);
         this.log = logFactory.getLogger('FullCalendar');
         this.tooltipService = tooltipSrv;
+        this.initialDelay = servoyService.getUIProperty("tooltipInitialDelay");
+        if (this.initialDelay === null || isNaN(this.initialDelay)) this.initialDelay = 750;
+        this.dismissDelay = servoyService.getUIProperty("tooltipDismissDelay");
+        if (this.dismissDelay === null || isNaN(this.dismissDelay)) this.dismissDelay = 5000;
     }
 
     svyOnChanges(changes: SimpleChanges) {
@@ -525,7 +532,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         if (this.tooltipExpression) {
             const tooltip = this.evaluateTooltipExpression(this.tooltipExpression, info.event);
             info.el.onmouseenter = (jsEvent: MouseEvent) => {
-                this.tooltipService.showTooltip(jsEvent, tooltip, 750, 5000);
+                this.tooltipService.showTooltip(jsEvent, tooltip, this.initialDelay, this.dismissDelay);
             };
             info.el.onmouseleave = (jsEvent: MouseEvent) => {
                 this.tooltipService.hideTooltip()
