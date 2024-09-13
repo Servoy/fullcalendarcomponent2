@@ -23,7 +23,7 @@
 		"functionResources" : {"type": "function", "tags" : {"scope" : "private"}},
 		"styleClass" : {"type": "styleclass"},
 		"themeSystem" : { "type" :"string", "tags": { "scope" :"design" }, "default": "standard", "values" :["standard", "bootstrap5"]},
-		"tooltipExpression" : {"type": "tagstring"}
+		"tooltipExpression" : {"type": "tagstring", "tags" : { "doc": "The text expression to be shown as tooltip when hovering over the calendar events.<br/>Use double curly brackets to evaluate {{propertyName}} the event's properties.<br/><b>Example</b><br/><pre text>\nThis is the event title:{{title}}. The event starts at: {{start}}. Description: {{data.description}}\n</pre>" }}
 	},
 	"handlers": {
 		"onSelectMethodID": {
@@ -1433,7 +1433,7 @@
 			"dateAlignment": {"type": "string", "tags": {"doc" : "Determines the first visible day of a custom view."}},
 			"dateIncrement": {"type": "object", "tags": {"doc" : "How far into the future/past the calendar navigates when prev/next is executed."}},
 			"hiddenDays": {"type": "int[]", "tags": {"doc" : "Exclude certain days-of-the-week from being displayed."}},
-			"monthMode": {"type": "boolean", "tags": {"doc" : ""}},
+			"monthMode": {"type": "boolean"},
 			"validRange": {"type": "object", "tags": {"doc" : "Limits which dates the user can navigate to and where events can go."}},
 			"visibleRange": {"type": "object", "tags": {"doc" : "Sets the exact date range that is visible in a view."}},
 			"noEventsText": {"type": "string", "tags": {"doc" : "No Events Text"}},

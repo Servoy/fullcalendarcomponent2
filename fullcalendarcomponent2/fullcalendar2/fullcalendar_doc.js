@@ -1,4 +1,7 @@
-/* The FullCalendar component is a Titanium Client wrapper around https://fullcalendar.io/ . Note that some features require a premium FullCalendar license. See https://fullcalendar.io/docs for more details.*/
+/* The FullCalendar component is a Titanium Client wrapper around <a href="https://fullcalendar.io/">https://fullcalendar.io/</a>.<br/>
+Note that some features require a premium FullCalendar license.<br/><br/>
+
+See <a href="https://fullcalendar.io/docs">https://fullcalendar.io/docs</a> for more details.*/
 
 /**
  * Getter for all calendar events.
@@ -127,7 +130,7 @@
  * Gets the Resources associated with the given event.
  * 
  * @param {String} eventID 
- * @returns {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
+ * @return {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
  */
  function getEventResources() {}
 
@@ -150,7 +153,7 @@
 /**
  * Retrieves all Event Source Objects.
  * 
- * @returns {Array<CustomType<svy-fullcalendar2.EventSource>>}
+ * @return {Array<CustomType<svy-fullcalendar2.EventSource>>}
  */
  function getEventSources() {}
 
@@ -158,7 +161,7 @@
  * Retrieves a specific Event Source Object.
  * 
  * @param {String} eventID 
- * @returns {CustomType<svy-fullcalendar2.EventSource>}
+ * @return {CustomType<svy-fullcalendar2.EventSource>}
  */
  function getEventSourceById() {}
 
@@ -211,7 +214,7 @@
  /**
  * Gets the View Object for the current view.
  * 
- * @returns {CustomType<svy-fullcalendar2.ViewType>}
+ * @return {CustomType<svy-fullcalendar2.ViewType>}
  */
   function getView() {}
 
@@ -259,7 +262,7 @@
  /**
  * Returns a Date for the current date of the calendar.
  * 
- * @returns {Date}
+ * @return {Date}
  */
   function getDate() {}
 
@@ -285,14 +288,14 @@
  /**
  * A method that retrieves only top-level Resources.
  * 
- * @returns {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
+ * @return {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
  */
   function getTopLevelResources() {}
 
  /**
  * A method that retrieves all Resources, including children, as a single flat list.
  * 
- * @returns {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
+ * @return {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
  */
   function getResources() {}
 
@@ -300,7 +303,7 @@
  * A method that retrieves a specific Resource Object in memory.
  * 
  * @param {Object} resourceId
- * @returns {CustomType<svy-fullcalendar2.ResourceObject>}
+ * @return {CustomType<svy-fullcalendar2.ResourceObject>}
  */
   function getResourceById() {}
 
@@ -323,7 +326,7 @@
  * Returns the parent Resource of a child resource.
  * 
  * @param {String} id
- * @returns {CustomType<svy-fullcalendar2.ResourceObject>}
+ * @return {CustomType<svy-fullcalendar2.ResourceObject>}
  */
   function getParent() {}
 
@@ -331,7 +334,7 @@
  * Returns a list of a resource’s child resources.
  * 
  * @param {String} id
- * @returns {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
+ * @return {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
  */
   function getChildren() {}
 
@@ -339,7 +342,7 @@
  * Gets the Resources associated with the given event.
  * 
  * @param {String} id
- * @returns {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
+ * @return {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
  */
   function getResourceEvents() {}
 
@@ -391,7 +394,7 @@
  * 
  * @param {Object} date
  * @param {Boolean} [omitTime]
- * @returns {String}
+ * @return {String}
  */
   function formatIso() {}
 
@@ -405,7 +408,7 @@
  * @param {Object} start
  * @param {Object} end
  * @param {Object} settings
- * @returns {String}
+ * @return {String}
  */
   function formatRangeCalendar() {}
 
@@ -414,7 +417,7 @@
  * 
  * @param {Object} date
  * @param {Object} settings
- * @returns {String}
+ * @return {String}
  */
   function formatDate() {}
 
@@ -430,6 +433,6 @@ function setOption() {}
  * Gets the value of an option from the calendar.
  * 
  * @param {String} name 
- * @returns {Object}
+ * @return {Object}
  */
 function getOption() {}
