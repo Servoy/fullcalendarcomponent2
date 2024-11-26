@@ -23,7 +23,7 @@
 		"functionResources" : {"type": "function", "tags" : {"scope" : "private"}},
 		"styleClass" : {"type": "styleclass"},
 		"themeSystem" : { "type" :"string", "tags": { "scope" :"design" }, "default": "standard", "values" :["standard", "bootstrap5"]},
-		"tooltipExpression" : {"type": "tagstring", "tags" : { "doc": "The text expression to be shown as tooltip when hovering over the calendar events.<br/>Use double curly brackets to evaluate {{propertyName}} the event's properties.<br/><b>Example</b><br/><pre text>\nThis is the event title:{{title}}. The event starts at: {{start}}. Description: {{data.description}}\n</pre>" }}
+		"tooltipExpression" : {"type": "tagstring", "tags" : { "doc": "The text expression to be shown as tooltip when hovering over the calendar events.<br/>Use double curly brackets to evaluate {{propertyName}} the event's properties.<br/>For non-standard properties, use {{extendedProps.yourPropertyName}}.<br/><b>Example</b><br/><pre text>\nThis is the event title:{{title}}. The event starts at: {{start}}. Description: {{extendedPropsdata.data.description}}\n</pre>" }}
 	},
 	"handlers": {
 		"onSelectMethodID": {
