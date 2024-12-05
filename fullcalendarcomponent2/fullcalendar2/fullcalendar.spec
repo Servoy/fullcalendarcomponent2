@@ -1444,7 +1444,8 @@
 			"moreLinkWillUnmount": {"type": "object", "tags": {"doc" : "Callback called right before the link will be removed from the DOM"}},
 			"resources": {"type": "object", "tags": {"doc" : "Tells the calendar to display resources from an input."}},
 			"events": {"type": "object", "tags": {"doc" : "An array of Event Objects that will be displayed on the calendar."}},
-			"schedulerLicenseKey": {"type": "string", "tags": {"doc" : "The license key you must enter to use premium features."}}
+			"schedulerLicenseKey": {"type": "string", "tags": {"doc" : "The license key you must enter to use premium features."}},
+			"resourceAreaWidth" : {"type" :"string", "tags": {"doc" : "Determines the width of the area that contains the list of resources.Default: 30%."}}
         }
 	}
 }
