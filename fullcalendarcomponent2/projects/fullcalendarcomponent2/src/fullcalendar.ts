@@ -149,7 +149,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         this.initializeCallbacks();
 
         if ((!this.hasToDraw || this.renderOnCurrentView) && this.view) {
-            this.fullCalendarOptions.initialView = this.view.title;
+            this.fullCalendarOptions.initialView = this.view.type;
             this.fullCalendarOptions.initialDate = new Date(this.view.currentStart);
         }
         if (this.events && this.events.length) {
