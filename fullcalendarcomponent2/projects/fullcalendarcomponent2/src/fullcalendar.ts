@@ -961,7 +961,9 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
             borderColor: event?.borderColor,
             textColor: event?.textColor,
             classNames: event?.classNames,
-            extendedProps: event?.extendedProps
+            extendedProps: event?.extendedProps,
+            resourceId : event ? event['resourceId'] : null,
+            resourceIds : event ? event['resourceIds'] : null
         };
     }
 
@@ -1113,6 +1115,8 @@ export class EventObject implements ICustomObjectValue {
     public display?: string;
     public url?: string;
     public source?: EventSource;
+    public resourceId? : string;
+    public resourceIds? : string[];
 }
 
 export class ResourceObject implements ICustomObjectValue {

@@ -1111,7 +1111,9 @@
 			"extendedProps" : "object",
 			"display" : "string",
 			"url" : "string",
-			"source" : "EventSource"
+			"source" : "EventSource",
+			"resourceId" : "string",
+            "resourceIds" : "string[]"
 	 	},
 	 	"ResourceObject": {
 			"id" : "object",
