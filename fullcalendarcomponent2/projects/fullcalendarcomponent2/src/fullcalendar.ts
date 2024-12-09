@@ -955,7 +955,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
             display: event?.display,
             startEditable: event?.startEditable,
             durationEditable: event?.durationEditable,
-            constraint: (typeof (event?.constraint) === 'string') ? event.constraint : null,
+            constraint: event?.constraint,
             overlap: event?.overlap,
             backgroundColor: event?.backgroundColor,
             borderColor: event?.borderColor,
