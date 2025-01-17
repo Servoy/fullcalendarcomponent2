@@ -28,7 +28,8 @@ import { PointerDragEvent } from '@fullcalendar/core/internal';
 @Component({
     selector: 'svy-fullcalendar2',
     templateUrl: './fullcalendar.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements OnInit {
 

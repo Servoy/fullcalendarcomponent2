@@ -1,11 +1,11 @@
 {
     "name": "@servoy/fullcalendarcomponent2",
-    "version": "2024.12.1",
+    "version": "2025.3.0",
     "peerDependencies": {
-      "@angular/animations": "^18",
-      "@angular/common": "^18",
-      "@angular/core": "^18",
-      "@angular/forms": "^18"
+      "@angular/animations": "^19",
+      "@angular/common": "^19",
+      "@angular/core": "^19",
+      "@angular/forms": "^19"
     },
     "dependencies": {
     "@fullcalendar/angular": "<6.2",
