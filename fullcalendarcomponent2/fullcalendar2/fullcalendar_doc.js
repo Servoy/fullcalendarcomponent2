@@ -6,104 +6,105 @@ See <a href="https://fullcalendar.io/docs">https://fullcalendar.io/docs</a> for 
 /**
  * Getter for all calendar events.
  * 
- * @return {Array<CustomType<svy-fullcalendar2.EventObject>>}
+ * @return {Array<CustomType<svy-fullcalendar2.EventObject>>} An array containing all event objects currently displayed in the calendar.
  */
  function getCalendarEvents() {}
 
 /**
  * Gets a calendar event using a given ID.
  * 
- * @param {String} id 
+ * @param {String} id The unique identifier of the event to retrieve.
  * 
- * @return {CustomType<svy-fullcalendar2.EventObject>}
+ * @return {CustomType<svy-fullcalendar2.EventObject>} The event object corresponding to the provided ID.
  */
   function getEventById() {}
 
  /**
  * Adds an event to calendar.
  * 
- * @param {CustomType<svy-fullcalendar2.EventParsing>} event 
- * @param {Object} source 
+ * @param {CustomType<svy-fullcalendar2.EventParsing>} event The event object to be added to the calendar.
+ * @param {Object} [source] The source object specifying the origin of the event (e.g., a specific event source).
  * 
- * @return {CustomType<svy-fullcalendar2.EventObject>}
+ * @return {CustomType<svy-fullcalendar2.EventObject>} The newly added event object.
+
  */
  function addEvent() {}
 
  /**
  * Modifies any of the non-date-related properties of an event.
  * 
- * @param {String} eventID 
- * @param {String} name 
- * @param {Object} value 
+ * @param {String} eventID The unique identifier of the event to modify.
+ * @param {String} name The name of the property to modify (e.g., 'title' or 'color').
+ * @param {Object} value The new value to assign to the specified property.
  */
  function setPropEvent() {}
 
  /**
  * Modifies a single property in an events' extendedProps hash.
  * 
- * @param {String} eventID 
- * @param {String} name 
- * @param {Object} value 
+ * @param {String} eventID The unique identifier of the event to modify.
+ * @param {String} name The name of the extended property to modify.
+ * @param {Object} value The new value to assign to the specified extended property.
  */
   function setExtendedPropEvent() {}
 
  /**
  * Sets an event’s start date.
  * 
- * @param {String} eventID 
- * @param {Object} date 
- * @param {Object} [options]
+ * @param {String} eventID The unique identifier of the event to modify.
+ * @param {Object} date The new start date for the event.
+ * @param {Object} [options] Optional settings for configuring how the start date is set.
  */
   function setStart() {}
 
  /**
  * Sets an event’s end date.
  * 
- * @param {String} eventID 
- * @param {Object} date 
+ * @param {String} eventID The unique identifier of the event to modify.
+ * @param {Object} date The new end date for the event.
  */
   function setEnd() {}
 
 /**
  * Sets an event’s start date, end date, and allDay properties at the same time.
  * 
- * @param {String} eventID 
- * @param {Object} start 
- * @param {Object} end 
- * @param {Object} [options]   
+ * @param {String} eventID The unique identifier of the event to modify.
+ * @param {Object} start The new start date for the event.
+ * @param {Object} end The new end date for the event.
+ * @param {Object} [options] Optional settings for configuring how the dates are set.
  */
  function setDates() {}
 
 /**
  * Sets whether an event is considered all-day.
  * 
- * @param {String} eventID 
- * @param {Boolean} allDay 
- * @param {Object} [settings] 
+ * @param {String} eventID The unique identifier of the event to modify.
+ * @param {Boolean} allDay Whether the event should be marked as all-day.
+ * @param {Object} [settings] Optional settings for configuring the all-day property.
  */
  function setAllDay() {}
 
 /**
  * Will move an event’s start date by a specific period of time.
  * 
- * @param {String} eventID 
- * @param {Object} delta 
+ * @param {String} eventID The unique identifier of the event to modify.
+ * @param {Object} delta The duration to move the start date by (e.g., { days: 1 }).
  */
  function moveStart() {}
 
 /**
  * Will move an event’s end date by a specific period of time.
  * 
- * @param {String} eventID 
- * @param {Object} delta 
+ * @param {String} eventID The unique identifier of the event to modify.
+ * @param {Object} delta The duration to move the end date by (e.g., { days: 1 }).
  */
  function moveEnd() {}
 
 /**
  * Will move an event’s start and end dates by a specific period of time.
  * 
- * @param {String} eventID 
- * @param {Object} delta 
+ * @param {String} eventID The unique identifier of the event to modify.
+ * @param {Object} delta The duration to move the start and end dates by (e.g., { days: 1 }).
  */
  function moveDates() {}
 
@@ -114,61 +115,61 @@ See <a href="https://fullcalendar.io/docs">https://fullcalendar.io/docs</a> for 
  * 
  * If the event doesn’t have an end, then the start will be formatted alone.
  * 
- * @param {String} eventID 
- * @param {Object} formatConfig 
+ * @param {String} eventID The unique identifier of the event.
+ * @param {Object} formatConfig Configuration for formatting the dates (e.g., date format, locale).
  */
  function formatRangeEvent() {}
 
 /**
  * Removes an event from the calendar.
  * 
- * @param {String} eventID 
+ * @param {String} eventID The unique identifier of the event to remove.
  */
  function removeEvent() {}
 
 /**
  * Gets the Resources associated with the given event.
  * 
- * @param {String} eventID 
- * @return {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
+ * @param {String} eventID The unique identifier of the event.
+ * @return {Array<CustomType<svy-fullcalendar2.ResourceObject>>} An array of resources associated with the event.
  */
  function getEventResources() {}
 
 /**
  * Sets the Resources associated with the given event.
  * 
- * @param {String} eventID 
- * @param {Array<CustomType<svy-fullcalendar2.ResourceObject>>} resources
+ * @param {String} eventID The unique identifier of the event.
+ * @param {Array<CustomType<svy-fullcalendar2.ResourceObject>>} resources An array of resources to associate with the event.
  */
  function setEventResources() {}
 
 /**
  * Serializes an Event API Object to a plain object.
  * 
- * @param {String} eventID 
- * @param {Object} [settings]
+ * @param {String} eventID The unique identifier of the event.
+ * @param {Object} [settings] Optional settings for customizing the serialization process.
  */
  function toPlainObjectEvent() {}
 
 /**
  * Retrieves all Event Source Objects.
  * 
- * @return {Array<CustomType<svy-fullcalendar2.EventSource>>}
+ * @return {Array<CustomType<svy-fullcalendar2.EventSource>>} An array of all event source objects in the calendar.
  */
  function getEventSources() {}
 
 /**
  * Retrieves a specific Event Source Object.
  * 
- * @param {String} eventID 
- * @return {CustomType<svy-fullcalendar2.EventSource>}
+ * @param {String} id The unique identifier of the event source to retrieve.
+ * @return {CustomType<svy-fullcalendar2.EventSource>} The event source object corresponding to the provided ID.
  */
  function getEventSourceById() {}
 
 /**
  * Dynamically adds an event source.
  * 
- * @param {CustomType<svy-fullcalendar2.EventSource>} source 
+ * @param {CustomType<svy-fullcalendar2.FunctionEventSource>} source The event source object to add to the calendar.
  */
  function addEventSource() {}
 
@@ -180,29 +181,29 @@ See <a href="https://fullcalendar.io/docs">https://fullcalendar.io/docs</a> for 
 /**
  * Refetches events from all sources and rerenders them on the screen.
  * 
- * @param {String} eventSourceID 
+ * @param {String} eventSourceID The unique identifier of the event source to refetch.
  */
  function refetchEventSource() {}
 
  /**
  * Removes all events associated with this source and prevents it from being fetched again.
  * 
- * @param {String} eventSourceID 
+ * @param {String} eventSourceID The unique identifier of the event source to remove.
  */
   function removeEventSource() {}
 
  /**
  * Programatically scroll the current view to the given time.
  * 
- * @param {Object} durationInput 
+ * @param {Object} durationInput The duration to scroll to (e.g., '09:00:00').
  */
   function scrollToTime() {}
 
  /**
  * A method for programmatically selecting a period of time.
  * 
- * @param {Object} dateOrObj 
- * @param {Object} [endDate] 
+ * @param {Object} dateOrObj The start date or object representing the range to select.
+ * @param {Object} [endDate] Optional end date for the selection range.
  */
   function select() {}
 
@@ -214,15 +215,15 @@ See <a href="https://fullcalendar.io/docs">https://fullcalendar.io/docs</a> for 
  /**
  * Gets the View Object for the current view.
  * 
- * @return {CustomType<svy-fullcalendar2.ViewType>}
+ * @return {CustomType<svy-fullcalendar2.ViewType>} The view object representing the currently active calendar view (e.g., month, week, or day view).
  */
   function getView() {}
 
  /**
  * Gets the View Object for the current view.
  * 
- * @param {String} viewName 
- * @param {Object} [dateOrRange] 
+ * @param {String} viewName The name of the view to switch to (e.g., 'dayGridMonth', 'timeGridWeek').
+ * @param {Object} [dateOrRange] Optional date or date range to navigate to within the specified view.
  */
   function changeView() {}
 
@@ -262,21 +263,21 @@ See <a href="https://fullcalendar.io/docs">https://fullcalendar.io/docs</a> for 
  /**
  * Returns a Date for the current date of the calendar.
  * 
- * @return {Date}
+ * @return {Date} The current date displayed by the calendar.
  */
   function getDate() {}
 
  /**
  * Moves the calendar to an arbitrary date.
  * 
- * @param {Date} date
+ * @param {Date} date The target date to move the calendar to.
  */
   function gotoDate() {}
 
  /**
  * Moves the calendar forward/backward an arbitrary amount of time.
  * 
- * @param {Object} delta
+ * @param {Object} delta The time period to increment or decrement (e.g., { days: 7 }).
  */
   function incrementDate() {}
 
@@ -288,87 +289,87 @@ See <a href="https://fullcalendar.io/docs">https://fullcalendar.io/docs</a> for 
  /**
  * A method that retrieves only top-level Resources.
  * 
- * @return {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
+ * @return {Array<CustomType<svy-fullcalendar2.ResourceObject>>} An array of top-level resource objects.
  */
   function getTopLevelResources() {}
 
  /**
  * A method that retrieves all Resources, including children, as a single flat list.
  * 
- * @return {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
+ * @return {Array<CustomType<svy-fullcalendar2.ResourceObject>>} An array of all resource objects, including child resources.
  */
   function getResources() {}
 
  /**
  * A method that retrieves a specific Resource Object in memory.
  * 
- * @param {Object} resourceId
- * @return {CustomType<svy-fullcalendar2.ResourceObject>}
+ * @param {Object} resourceId The unique identifier of the resource to retrieve.
+ * @return {CustomType<svy-fullcalendar2.ResourceObject>} The resource object corresponding to the provided ID.
  */
   function getResourceById() {}
 
  /**
  * Allows programmatic rendering of a new resource on the calendar after the initial set of resources has already been displayed.
  * 
- * @param {CustomType<svy-fullcalendar2.ResourceObject>} resource
- * @param {Boolean} [scrollTo]
+ * @param {CustomType<svy-fullcalendar2.ResourceObject>} resource The resource object to be added.
+ * @param {Boolean} [scrollTo] Whether to scroll to the newly added resource.
  */
   function addResource() {}
 
  /**
  * Programmatically removes a resource from the calendar.
  * 
- * @param {String} id
+ * @param {String} id The unique identifier of the resource to remove.
  */
   function removeResource() {}
 
  /**
  * Returns the parent Resource of a child resource.
  * 
- * @param {String} id
- * @return {CustomType<svy-fullcalendar2.ResourceObject>}
+ * @param {String} id The unique identifier of the child resource.
+ * @return {CustomType<svy-fullcalendar2.ResourceObject>} The parent resource object.
  */
   function getParent() {}
 
  /**
  * Returns a list of a resource’s child resources.
  * 
- * @param {String} id
- * @return {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
+ * @param {String} id The unique identifier of the parent resource.
+ * @return {Array<CustomType<svy-fullcalendar2.ResourceObject>>} An array of child resource objects.
  */
   function getChildren() {}
 
  /**
  * Gets the Resources associated with the given event.
  * 
- * @param {String} id
- * @return {Array<CustomType<svy-fullcalendar2.ResourceObject>>}
+ * @param {String} id The unique identifier of the event.
+ * @return {Array<CustomType<svy-fullcalendar2.ResourceObject>>} An array of resources associated with the specified event.
  */
   function getResourceEvents() {}
 
  /**
  * Modifies any of the properties of a Resource Object.
  * 
- * @param {String} id
- * @param {String} name
- * @param {Object} value
+ * @param {String} id The unique identifier of the resource to modify.
+ * @param {String} name The name of the property to modify.
+ * @param {Object} value The new value to assign to the property.
  */
   function setPropResource() {}
 
  /**
  * Modifies a single property in an Resource Object’s extendedProps hash.
  * 
- * @param {String} id
- * @param {String} name
- * @param {Object} value
+ * @param {String} id The unique identifier of the resource to modify.
+ * @param {String} name The name of the extended property to modify.
+ * @param {Object} value The new value to assign to the extended property.
  */
   function setExtendedPropResource() {}
 
  /**
  * Serializes a Resource API Object to a plain object.
  * 
- * @param {String} id
- * @param {Object} [settings]
+ * @param {String} id The unique identifier of the resource.
+ * @param {Object} [settings] Optional settings for customizing the serialization process.
  */
   function toPlainObjectResource() {}
 
@@ -385,16 +386,16 @@ See <a href="https://fullcalendar.io/docs">https://fullcalendar.io/docs</a> for 
  /**
  * A way to group operations that cause rerenders.
  * 
- * @param {Function} func
+ * @param {Function} func The function containing the operations to group together.
  */
   function batchRendering() {}
 
  /**
  * Formats a date into an ISO8601 string. Outputs a UTC offset appropriate to the calendar it’s called on.
  * 
- * @param {Object} date
- * @param {Boolean} [omitTime]
- * @return {String}
+ * @param {Object} date The date to format.
+ * @param {Boolean} [omitTime] Whether to omit the time portion from the formatted string.
+ * @return {String} The formatted ISO8601 date string.
  */
   function formatIso() {}
 
@@ -405,34 +406,91 @@ See <a href="https://fullcalendar.io/docs">https://fullcalendar.io/docs</a> for 
  * separator — what will be inserted between the two dates. a ' - ' by default
  * isExclusive — if true, the given end date will be considered the exclusive end of the range, meaning date just before the end will be rendered instead. Useful if you need to format an exclusive-end whole-day range.
  * 
- * @param {Object} start
- * @param {Object} end
- * @param {Object} settings
- * @return {String}
+ * @param {Object} start The start date of the range to format.
+ * @param {Object} end The end date of the range to format.
+ * @param {Object} settings An object containing formatting settings and options.
+ * @return {String} The formatted date range string.
  */
   function formatRangeCalendar() {}
 
  /**
  * A method that formats a date into a string. It inherits the locale and time zone settings of the calendar it’s called on.
  * 
- * @param {Object} date
- * @param {Object} settings
- * @return {String}
+ * @param {Object} date The date object to be formatted.
+ * @param {Object} settings An object containing formatting settings, such as locale and time zone preferences.
+ * @return {String} The formatted date string based on the provided settings.
  */
   function formatDate() {}
 
  /**
  * Sets an option for the calendar.
  * 
- * @param {String} name 
- * @param {Object} value 
+ * @param {String} name The name of the option to set (e.g., 'theme', 'locale', or 'headerToolbar').
+ * @param {Object} value The value to assign to the specified option.
  */
 function setOption() {}
 
  /**
  * Gets the value of an option from the calendar.
  * 
- * @param {String} name 
- * @return {Object}
+ * @param {String} name The name of the option to retrieve (e.g., 'theme', 'locale', or 'headerToolbar').
+ * @return {Object} The current value of the specified option.
  */
 function getOption() {}
+
+/**
+ * Initializes the FullCalendar component with the specified configuration options.
+ * If the calendar has already been initialized and any configuration options have changed, 
+ * the calendar will be destroyed and re-rendered with the updated options.
+ *
+ * @param {CustomType<svy-fullcalendar2.FullCalendarOptions>} calendarOptions 
+ *                The configuration options for the FullCalendar component.
+ *                These options include properties for event sources, calendar behavior, styling, and views. 
+ *                Refer to the FullCalendar documentation for the complete list of options.
+ *  @param {Boolean} [renderOnCurrentView]
+ *                Indicates whether the calendar should re-render in the current view when the configuration is updated. 
+ *                If false, the calendar will reset to the default view.
+ *
+ * @example <pre>  @type {svy-fullcalendar.FullCalendarOptions}
+ * var options = {
+ *       eventSources: [ {events: [{ title: "lunch event", start: new Date() }]}],
+ *		selectable: true,
+ *		editable: true,
+ *		initialView: 'dayGridMonth',
+ *  }
+ *  elements.fullcalendarElementName.fullCalendar(options);
+ */
+function fullCalendar() {
+}
+
+/**
+ * Retrieves the current configuration options for the FullCalendar component.
+ * These options define the behavior, appearance, and data sources of the calendar.
+ *
+ * @example
+ * var options = elements.fullcalendarElementName.getFullCalendarOptions();
+ * // Example usage: Update a specific calendar option and reinitialize the calendar
+ * options.scrollTime = '09:00:00';
+ * elements.fullcalendarElementName.fullCalendar(options, true);
+ *
+ * @return {CustomType<svy-fullcalendar2.FullCalendarOptions>} The current configuration options for the FullCalendar component.
+ * If the options are not set, it returns `null`.
+ */
+function getFullCalendarOptions() {
+}
+
+/**
+ * Updates a specific configuration option for the FullCalendar component and forces the calendar to re-render.
+ * This method allows you to dynamically adjust the calendar's behavior or appearance without requiring a full reinitialization.
+ *
+ * @example
+ * // Update the scroll time to start the calendar at 1 PM
+ * elements.fullcalendarElementName.updateFullCalendar('scrollTime', '13:00:00');
+ *
+ * @param {string} option The name of the configuration option to update (e.g., 'scrollTime', 'editable').
+ * @param {Object} value The new value for the specified configuration option.
+ *
+ * @returns {void}
+ */
+function updateFullCalendar(option, value) {
+}
