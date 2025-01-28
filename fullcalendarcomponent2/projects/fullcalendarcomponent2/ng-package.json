@@ -17,9 +17,11 @@
         "@fullcalendar/resource-timegrid",
         "@fullcalendar/resource-timeline",
         "@fullcalendar/timegrid",
-        "@fullcalendar/timeline", 
+        "@fullcalendar/timeline",
+        "@fullcalendar/rrule", 
         "bootstrap" , 
         "bootstrap-icons",
-        "ical.js"
+        "ical.js",
+        "rrule"
         ]
   }

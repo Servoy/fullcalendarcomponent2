@@ -21,6 +21,8 @@
     "@fullcalendar/resource-timeline": "<6.2",
     "@fullcalendar/timegrid": "<6.2",
     "@fullcalendar/timeline": "<6.2",
+    "@fullcalendar/rrule": "<6.2",
+    "rrule": "2.7.1",
      "ical.js": "<1.6",
       "bootstrap": "<6",
       "bootstrap-icons": "<2",
