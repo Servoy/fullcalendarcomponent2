@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, SimpleChanges, ViewChild } from '@angular/core';
 import { LoggerFactory, LoggerService, ServoyBaseComponent, ServoyPublicService, ICustomObjectValue, TooltipService } from '@servoy/public';
 import { FullCalendarComponent} from '@fullcalendar/angular';
 import { Input } from '@angular/core';
@@ -77,6 +77,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     @Input() styleClass: string;
     @Input() calendarOptions: CalendarOptions;
     @Input() view: ViewApi;
+    @Output() viewChange = new EventEmitter();
     @Input() events: EventInput[];
     @Input() eventSources: EventSource[];
     @Input() arrayEventSources: ArrayEventSource[];
@@ -140,17 +141,17 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
 
     svyOnInit() {
         super.svyOnInit();
-        this.initFullCalendar();
+        this.initFullCalendar(true);
     }
 
-    initFullCalendar() {
+    initFullCalendar(restoreView?: boolean) {
         this.fullCalendarOptions = this.calendarOptions ? this.calendarOptions : {} as CalendarOptions;
 
         this.fullCalendarOptions.eventDidMount = this.eventDidMount;
 
         this.initializeCallbacks();
 
-        if ((!this.hasToDraw || this.renderOnCurrentView) && this.view) {
+        if ((!this.hasToDraw || this.renderOnCurrentView || restoreView) && this.view) {
             this.fullCalendarOptions.initialView = this.view.type;
             this.fullCalendarOptions.initialDate = new Date(this.view.currentStart);
         }
@@ -198,6 +199,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
 
     viewDidMount = (viewDidMount: ViewMountArg) => {
         this.view = viewDidMount.view;
+        this.viewChange.emit(viewDidMount.view);
         if (this.onViewDidMountMethodID) {
             this.onViewDidMountMethodID(this.stringifyView(viewDidMount.view));
         }
