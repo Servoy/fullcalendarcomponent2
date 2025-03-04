@@ -3,6 +3,343 @@ Note that some features require a premium FullCalendar license.<br/><br/>
 
 See <a href="https://fullcalendar.io/docs">https://fullcalendar.io/docs</a> for more details.*/
 
+var styleClass;
+
+var themeSystem;
+
+/**
+ * The text expression to be shown as tooltip when hovering over the calendar events.<br/>Use double curly brackets to evaluate {{propertyName}} the event's properties.<br/>For non-standard properties, use {{extendedProps.yourPropertyName}}.<br/><b>Example</b><br/><pre text>
+This is the event title:{{title}}. The event starts at: {{start}}. Description: {{extendedPropsdata.data.description}}
+</pre>
+ */
+var tooltipExpression;
+
+
+var handlers = {
+    /**
+     * <b>onSelectMethodID</b> will be called when a date/time selection is made.
+     *
+     * @param {Date} start
+     * @param {Date} end
+     * @param {String} startStr
+     * @param {String} endStr
+     * @param {Boolean} allDay
+     * @param {JSEvent} jsEvent
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {CustomType<svy-fullcalendar2.ResourceObject>} [resource]
+     */
+    onSelectMethodID: function() {},
+
+    /**
+     * <b>onUnselectMethodID</b> will be called when the current selection is cleared.
+     *
+     * @param {JSEvent} jsEvent
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     */
+    onUnselectMethodID: function() {},
+
+    /**
+     * <b>onDateClickMethodID</b> will be called when the user clicks on a date or a time.
+     *
+     * @param {Date} date
+     * @param {String} dateStr
+     * @param {Object} dayEl
+     * @param {JSEvent} jsEvent
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {CustomType<svy-fullcalendar2.ResourceObject>} [resource]
+     */
+    onDateClickMethodID: function() {},
+
+    /**
+     * <b>onDateClickMethodID</b> will be called when the user double clicks on a date or a time.
+     *
+     * @param {Date} date
+     * @param {String} dateStr
+     * @param {Object} dayEl
+     * @param {JSEvent} jsEvent
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {CustomType<svy-fullcalendar2.ResourceObject>} [resource]
+     */
+    onDateDblClickMethodID: function() {},
+
+    /**
+     * <b>onNavLinkDayClickMethodID</b> when navLinks setting is true, will be called when the user clicks on a day. onDateClickMethodID will not be called in this scenario.
+     *
+     * @param {Date} date
+     * @param {JSEvent} jsEvent
+     */
+    onNavLinkDayClickMethodID: function() {},
+
+    /**
+     * <b>onNavLinkWeekClickMethodID</b> when navLinks setting is true, will be called when the user clicks on a week.
+     *
+     * @param {Date} date
+     * @param {JSEvent} jsEvent
+     */
+    onNavLinkWeekClickMethodID: function() {},
+
+    /**
+     * <b>onEventClickMethodID</b> will be called when the user clicks an event.
+     *
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event
+     * @param {JSEvent} jsEvent
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     */
+    onEventClickMethodID: function() {},
+
+    /**
+     * <b>onEventDblClickMethodID</b> will be called when the user dbl click an event.
+     *
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event
+     * @param {JSEvent} jsEvent
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     */
+    onEventDblClickMethodID: function() {},
+
+    /**
+     * <b>onEventAddMethodID</b> will be called after an event has been added to the calendar.
+     *
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event
+     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents
+     *
+     * @returns {Boolean} if it returns false, the event add action will be reverted, otherwise (true) the action is considered valid
+     */
+    onEventAddMethodID: function() {},
+
+    /**
+     * <b>onEventRemoveMethodID</b> will be called after an event has been removed from the calendar.
+     *
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event
+     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents
+     *
+     * @returns {Boolean} if it returns false, the event remove action will be reverted, otherwise (true) the action is considered valid
+     */
+    onEventRemoveMethodID: function() {},
+
+    /**
+     * <b>onEventChangeMethodID</b> will be called after an event has been modified in some way.
+     *
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event
+     * @param {CustomType<svy-fullcalendar2.EventObject>} oldEvent
+     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents
+     *
+     * @returns {Boolean} if it returns false, the event change action will be reverted, otherwise (true) the action is considered valid
+     */
+    onEventChangeMethodID: function() {},
+
+    /**
+     * <b>onEventsSetMethodID</b> will be called after event data is initialized OR changed in any way.
+     *
+     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} events
+     */
+    onEventsSetMethodID: function() {},
+
+    /**
+     * <b>onWindowResizeMethodID</b> will be called after the calendar’s dimensions have been changed due to the browser window being resized.
+     *
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     */
+    onWindowResizeMethodID: function() {},
+
+    /**
+     * <b>onViewDidMountMethodID</b> will be called right after the view has been added to the DOM.
+     *
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     */
+    onViewDidMountMethodID: function() {},
+
+    /**
+     * <b>onViewWillUnmountMethodID</b> will be called right before the view will be removed from the DOM.
+     *
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     */
+    onViewWillUnmountMethodID: function() {},
+
+    /**
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event
+     * @param {JSEvent} jsEvent
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     */
+    onEventRightClickMethodID: function() {},
+
+    /**
+     * <b>onEventResizeMethodID</b> will be called when resizing stops and the event has changed in duration.
+     *
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event
+     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents
+     * @param {CustomType<svy-fullcalendar2.EventObject>} oldEvent
+     * @param {Number} endDateDelta
+     * @param {Number} startDateDelta
+     * @param {JSEvent} jsEvent
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     *
+     * @returns {Boolean} if it returns false, the event resize action will be reverted, otherwise (true) the action is considered valid
+     */
+    onEventResizeMethodID: function() {},
+
+    /**
+     * <b>onEventDropMethodID</b> will be called when dragging stops and the event has moved to a different day/time.
+     *
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event
+     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents
+     * @param {CustomType<svy-fullcalendar2.EventObject>} oldEvent
+     * @param {CustomType<svy-fullcalendar2.ResourceObject>} oldResource
+     * @param {CustomType<svy-fullcalendar2.ResourceObject>} newResource
+     * @param {Number} delta
+     * @param {JSEvent} jsEvent
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     *
+     * @returns {Boolean} if it returns false, the event drop action will be reverted, otherwise (true) the action is considered valid
+     */
+    onEventDropMethodID: function() {},
+
+    /**
+     * <b>onDropMethodID</b> will be called when an external draggable element or an event from another calendar has been dropped onto the calendar.
+     *
+     * @param {Boolean} allDay
+     * @param {Date} date
+     * @param {String} dateStr
+     * @param {Object} draggedElement
+     * @param {JSEvent} jsEvent
+     * @param {CustomType<svy-fullcalendar2.ResourceObject>} resource
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     */
+    onDropMethodID: function() {},
+
+    /**
+     * <b>onEventDragStartMethodID</b> will be called when event dragging begins.
+     *
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event
+     * @param {JSEvent} jsEvent
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     */
+    onEventDragStartMethodID: function() {},
+
+    /**
+     * <b>onEventResizeStartMethodID</b> will be called when event resizing begins.
+     *
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event
+     * @param {JSEvent} jsEvent
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     */
+    onEventResizeStartMethodID: function() {},
+
+    /**
+     * <b>onEventDragStopMethodID</b> will be called when event dragging stops.
+     *
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event
+     * @param {JSEvent} jsEvent
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     */
+    onEventDragStopMethodID: function() {},
+
+    /**
+     * <b>onEventResizeStopMethodID</b> will be called when event resizing stops.
+     *
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event
+     * @param {JSEvent} jsEvent
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     */
+    onEventResizeStopMethodID: function() {},
+
+    /**
+     * <b>onMouseEnter</b> will be called when the user mouses over an event. Similar to the native mouseenter.
+     *
+     * @param {CustomType<svy-fullcalendar2.EventObject>} eventObject
+     * @param {JSEvent} jsEvent
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     */
+    onMouseEnter: function() {},
+
+    /**
+     * <b>onMouseLeave</b> will be called when the user mouses out of an event. Similar to the native mouseleave.
+     *
+     * @param {CustomType<svy-fullcalendar2.EventObject>} eventObject
+     * @param {JSEvent} jsEvent
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     */
+    onMouseLeave: function() {},
+
+    /**
+     * <b>onLoadingMethodID</b> will be called when event or resource fetching starts/stops.
+     *
+     * @param {Boolean} isLoading
+     */
+    onLoadingMethodID: function() {},
+
+    /**
+     * <b>onDatesSetMethodID</b> will be called after the calendar’s date range has been initially set or changed in some way and the DOM has been updated.
+     *
+     * @param {Date} start
+     * @param {Date} end
+     * @param {String} startStr
+     * @param {String} endStr
+     * @param {String} timeZone
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     */
+    onDatesSetMethodID: function() {},
+
+    /**
+     * <b>onEventReceiveMethodID</b> will be called when an external draggable element with associated event data was dropped onto the calendar. Or an event from another calendar.
+     *
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event
+     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents
+     * @param {Object} draggedElement
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     *
+     * @returns {Boolean} if it returns false, the event receive action will be reverted, otherwise (true) the action is considered valid
+     */
+    onEventReceiveMethodID: function() {},
+
+    /**
+     * <b>onEventLeaveMethodID</b> will be called when on a calendar when one if its events is about to be dropped onto another calendar.
+     *
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event
+     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents
+     * @param {Object} draggedElement
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     *
+     * @returns {Boolean} if it returns false, the event leave action will be reverted, otherwise (true) the action is considered valid
+     */
+    onEventLeaveMethodID: function() {},
+
+    /**
+     * <b>onResourceAddMethodID</b> will be called after a resource has been added to the calendar.
+     *
+     * @param {CustomType<svy-fullcalendar2.ResourceObject>} resource
+     *
+     * @returns {Boolean} if it returns false, the resource add action will be reverted, otherwise (true) the action is considered valid
+     */
+    onResourceAddMethodID: function() {},
+
+    /**
+     * <b>onResourceChangeMethodID</b> will be called after a resource has been modified in some way.
+     *
+     * @param {CustomType<svy-fullcalendar2.ResourceObject>} oldResource
+     * @param {Object} newResource
+     *
+     * @returns {Boolean} if it returns false, the resource change action will be reverted, otherwise (true) the action is considered valid
+     */
+    onResourceChangeMethodID: function() {},
+
+    /**
+     * <b>onResourceRemoveMethodID</b> will be called after a resource has been removed from the calendar.
+     *
+     * @param {CustomType<svy-fullcalendar2.ResourceObject>} resource
+     *
+     * @returns {Boolean} if it returns false, the resource remove action will be reverted, otherwise (true) the action is considered valid
+     */
+    onResourceRemoveMethodID: function() {},
+
+    /**
+     * <b>onResourcesSetMethodID</b> will be called after resource data is initialized OR changed in any way.
+     *
+     * @param {Array<CustomType<svy-fullcalendar2.ResourceObject>>} resources
+     */
+    onResourcesSetMethodID: function() {}
+};
+
+
 /**
  * Getter for all calendar events.
  * 
