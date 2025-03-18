@@ -831,3 +831,1280 @@ function getFullCalendarOptions() {
  */
 function updateFullCalendar(option, value) {
 }
+
+var svy_types = {
+
+    EventParsing: {
+
+        id : null,
+
+        title : null,
+
+        start : null,
+
+        end : null,
+
+        allDay : null,
+
+        className : null,
+
+        classNames : null,
+
+        editable : null,
+
+        startEditable : null,
+
+        durationEditable : null,
+
+        overlap : null,
+
+        constraint : null,
+
+        color : null,
+
+        backgroundColor : null,
+
+        borderColor : null,
+
+        textColor : null,
+
+        data : null,
+
+        extendedProps : null,
+
+        date : null,
+
+        display : null,
+
+        allow : null,
+
+        url : null,
+
+        groupId : null,
+
+        daysOfWeek : null,
+
+        startTime : null,
+
+        endTime : null,
+
+        startRecur : null,
+
+        endRecur : null,
+
+        resourceEditable : null,
+
+        resourceId : null,
+
+        resourceIds : null,
+
+        rrule : null,
+
+    },
+
+    EventObject: {
+
+        id : null,
+
+        groupId : null,
+
+        title : null,
+
+        allDay : null,
+
+        start : null,
+
+        end : null,
+
+        startStr : null,
+
+        endStr : null,
+
+        classNames : null,
+
+        editable : null,
+
+        startEditable : null,
+
+        durationEditable : null,
+
+        resourceEditable : null,
+
+        overlap : null,
+
+        constraint : null,
+
+        backgroundColor : null,
+
+        borderColor : null,
+
+        textColor : null,
+
+        extendedProps : null,
+
+        display : null,
+
+        url : null,
+
+        source : null,
+
+        resourceId : null,
+
+        resourceIds : null,
+
+    },
+
+    ResourceObject: {
+
+        id : null,
+
+        title : null,
+
+        children : null,
+
+        parentId : null,
+
+        eventBackgroundColor : null,
+
+        eventBorderColor : null,
+
+        eventTextColor : null,
+
+        eventClassNames : null,
+
+        extendedProps : null,
+
+        eventOverlap : null,
+
+        eventConstraint : null,
+
+        eventAllow : null,
+
+    },
+
+    EventSource: {
+
+        id : null,
+
+        events : null,
+
+        className : null,
+
+        allDayDefault : null,
+
+        editable : null,
+
+        startEditable : null,
+
+        durationEditable : null,
+
+        overlap : null,
+
+        constraint : null,
+
+        color : null,
+
+        backgroundColor : null,
+
+        borderColor : null,
+
+        textColor : null,
+
+        data : null,
+
+        defaultAllDay : null,
+
+        url : null,
+
+        format : null,
+
+        eventDataTransform : null,
+
+        success : null,
+
+        failure : null,
+
+        display : null,
+
+        allow : null,
+
+    },
+
+    ArrayEventSource: {
+
+        id : null,
+
+        events : null,
+
+        className : null,
+
+        allDayDefault : null,
+
+        editable : null,
+
+        startEditable : null,
+
+        durationEditable : null,
+
+        overlap : null,
+
+        constraint : null,
+
+        color : null,
+
+        backgroundColor : null,
+
+        borderColor : null,
+
+        textColor : null,
+
+        data : null,
+
+        defaultAllDay : null,
+
+        url : null,
+
+        format : null,
+
+        eventDataTransform : null,
+
+        success : null,
+
+        failure : null,
+
+        display : null,
+
+        allow : null,
+
+    },
+
+    FunctionEventSource: {
+
+        id : null,
+
+        events : null,
+
+        className : null,
+
+        allDayDefault : null,
+
+        editable : null,
+
+        startEditable : null,
+
+        durationEditable : null,
+
+        overlap : null,
+
+        constraint : null,
+
+        color : null,
+
+        backgroundColor : null,
+
+        borderColor : null,
+
+        textColor : null,
+
+        data : null,
+
+        defaultAllDay : null,
+
+        url : null,
+
+        format : null,
+
+        eventDataTransform : null,
+
+        success : null,
+
+        failure : null,
+
+        display : null,
+
+        allow : null,
+
+    },
+
+    JSONEventSource: {
+
+        id : null,
+
+        className : null,
+
+        allDayDefault : null,
+
+        editable : null,
+
+        startEditable : null,
+
+        durationEditable : null,
+
+        overlap : null,
+
+        constraint : null,
+
+        color : null,
+
+        backgroundColor : null,
+
+        borderColor : null,
+
+        textColor : null,
+
+        data : null,
+
+        defaultAllDay : null,
+
+        url : null,
+
+        format : null,
+
+        eventDataTransform : null,
+
+        success : null,
+
+        failure : null,
+
+        display : null,
+
+        allow : null,
+
+    },
+
+    iCalendarEventSource: {
+
+        id : null,
+
+        className : null,
+
+        allDayDefault : null,
+
+        editable : null,
+
+        startEditable : null,
+
+        durationEditable : null,
+
+        overlap : null,
+
+        constraint : null,
+
+        color : null,
+
+        backgroundColor : null,
+
+        borderColor : null,
+
+        textColor : null,
+
+        data : null,
+
+        defaultAllDay : null,
+
+        url : null,
+
+        format : null,
+
+        eventDataTransform : null,
+
+        success : null,
+
+        failure : null,
+
+        display : null,
+
+        allow : null,
+
+    },
+
+    GoogleCalendarEventSource: {
+
+        id : null,
+
+        googleCalendarId : null,
+
+        googleCalendarApiKey : null,
+
+        className : null,
+
+        allDayDefault : null,
+
+        editable : null,
+
+        startEditable : null,
+
+        durationEditable : null,
+
+        overlap : null,
+
+        constraint : null,
+
+        color : null,
+
+        backgroundColor : null,
+
+        borderColor : null,
+
+        textColor : null,
+
+        data : null,
+
+        defaultAllDay : null,
+
+        url : null,
+
+        format : null,
+
+        eventDataTransform : null,
+
+        success : null,
+
+        failure : null,
+
+        display : null,
+
+        allow : null,
+
+    },
+
+    ViewType: {
+
+        type : null,
+
+        title : null,
+
+        activeStart : null,
+
+        activeEnd : null,
+
+        currentStart : null,
+
+        currentEnd : null,
+
+        dateEnv : null,
+
+    },
+
+    FullCalendar: {
+
+        options : null,
+
+    },
+
+    FullCalendarOptions: {
+
+        /**
+         * The text titling the 'all-day' slot at the top of the calendar.
+         */
+        allDayText : null,
+
+        /**
+         * The width-to-height aspect ratio of the calendar.
+         */
+        aspectRatio : null,
+
+        /**
+         * Text that will be displayed on buttons of the headerToolbar/footerToolbar.
+         */
+        buttonText : null,
+
+        /**
+         * The height of the view area of the calendar. By default, this option is unset and the calendar's height is calculated by aspectRatio.
+         */
+        contentHeight : null,
+
+        /**
+         * A fallback duration for all-day Event Objects without a specified end value.
+         */
+        defaultAllDayEventDuration : null,
+
+        /**
+         * A fallback duration for timed Event Objects without a specified end value.
+         */
+        defaultTimedEventDuration : null,
+
+        /**
+         * Whether or not to display an event's end time.
+         */
+        displayEventEnd : null,
+
+        /**
+         * Whether or not to display the text for an event's date/time.
+         */
+        displayEventTime : null,
+
+        /**
+         * Determines the date format of title of the popover created by the moreLinkClick option.
+         */
+        dayPopoverFormat : null,
+
+        /**
+         * Time it takes for an event to revert to its original position after an unsuccessful drag.
+         */
+        dragRevertDuration : null,
+
+        /**
+         * Whether to automatically scoll the scroll-containers during event drag-and-drop and date selecting.
+         */
+        dragScroll : null,
+
+        /**
+         * Determines whether the events on the calendar can be modified.
+         */
+        editable : null,
+
+        /**
+         * Allow events' durations to be editable through resizing.
+         */
+        eventDurationEditable : null,
+
+        /**
+         * Allow events' start times to be editable through dragging.
+         */
+        eventStartEditable : null,
+
+        /**
+         * Limits event dragging and resizing to certain windows of time.
+         */
+        eventConstraint : null,
+
+        /**
+         * Determines if events being dragged and resized are allowed to overlap each other.
+         */
+        eventOverlap : null,
+
+        /**
+         * A way to specify multiple event sources.
+         */
+        eventSources : null,
+
+        /**
+         * The day that each week begins.
+         */
+        firstDay : null,
+
+        /**
+         * Determines the number of weeks displayed in a month view.
+         */
+        fixedWeekCount : null,
+
+        /**
+         * A flag to force assignment of an event's end if it is unspecified.
+         */
+        forceEventDuration : null,
+
+        /**
+         * Determines when event fetching should occur.
+         */
+        lazyFetching : null,
+
+        /**
+         * Displays the calendar in right-to-left mode.
+         */
+        isRTL : null,
+
+        /**
+         * For touch devices, the amount of time the user must hold down before an event becomes draggable or a date becomes selectable.
+         */
+        longPressDelay : null,
+
+        /**
+         * Whether clicking elsewhere on the page will cause the current selection to be cleared.
+         */
+        unselectAuto : null,
+
+        /**
+         * A way to specify elements that will ignore the unselectAuto option.
+         */
+        unselectCancel : null,
+
+        /**
+         * Determines how far forward the scroll pane is initially scrolled.
+         */
+        scrollTime : null,
+
+        /**
+         * Allows a user to highlight multiple days or timeslots by clicking and dragging.
+         */
+        selectable : null,
+
+        /**
+         * Limits user selection to certain windows of time.
+         */
+        selectConstraint : null,
+
+        /**
+         * Determines whether the user is allowed to select periods of time that are occupied by events.
+         */
+        selectOverlap : null,
+
+        /**
+         * The frequency for displaying time slots.
+         */
+        slotDuration : null,
+
+        /**
+         * Determines the text that will be displayed within a time slot.
+         */
+        slotLabelFormat : null,
+
+        /**
+         * The frequency that the time slots should be labelled with text.
+         */
+        slotLabelInterval : null,
+
+        /**
+         * Determines if timed events in TimeGrid view should visually overlap.
+         */
+        slotEventOverlap : null,
+
+        /**
+         * The time interval at which a dragged event will snap to the time axis. Also affects the granularity at which selections can be made.
+         */
+        snapDuration : null,
+
+        /**
+         * Determines the text that will be displayed in the headerToolbar's title.
+         */
+        titleFormat : null,
+
+        /**
+         * Whether to include Saturday/Sunday columns in any of the calendar views.
+         */
+        weekends : null,
+
+        /**
+         * Determines if week numbers should be displayed on the calendar.
+         */
+        weekNumbers : null,
+
+        /**
+         * The method for calculating week numbers that are displayed with the weekNumbers setting.
+         */
+        weekNumberCalculation : null,
+
+        /**
+         * The available views of this component.
+         */
+        views : null,
+
+        /**
+         * Determines what happens upon a day heading nav-link click.
+         */
+        navLinkDayClick : null,
+
+        /**
+         * Determines what happens upon a week-number nav-link click.
+         */
+        navLinkWeekClick : null,
+
+        /**
+         * Sets the exact duration of a custom view.
+         */
+        duration : null,
+
+        /**
+         * Determines which icons are displayed in buttons of the headerToolbar/footerToolbar when Bootstrap 4 theming is on. This setting does not apply to Bootstrap 5 theming. Use buttonIcons instead.
+         */
+        bootstrapFontAwesome : null,
+
+        /**
+         * Icons that will be displayed in buttons of the headerToolbar/footerToolbar.
+         */
+        buttonIcons : null,
+
+        /**
+         * Defines custom buttons that can be used in the headerToolbar/footerToolbar.
+         */
+        customButtons : null,
+
+        /**
+         * When an event's end time spans into another day, the minimum time it must be in order for it to render as if it were on that day.
+         */
+        nextDayThreshold : null,
+
+        /**
+         * Whether the view should scroll to scrollTime every time the date range changes.
+         */
+        scrollTimeReset : null,
+
+        /**
+         * Determines the first time slot that will be displayed for each day.
+         */
+        slotMinTime : null,
+
+        /**
+         * Determines the last time slot that will be displayed for each day. In line with the discussion about the Event object, it is important to stress that this should be specified as an exclusive end time.
+         */
+        slotMaxTime : null,
+
+        /**
+         * Defines the buttons and title at the top of the calendar.
+         */
+        headerToolbar : null,
+
+        /**
+         * Defines the controls at the bottom of the calendar.
+         */
+        footerToolbar : null,
+
+        /**
+         * The separator text used for date-formatting ranges throughout the API.
+         */
+        defaultRangeSeparator : null,
+
+        /**
+         * Determines the separator text when formatting the date range in the toolbar title.
+         */
+        titleRangeSeparator : null,
+
+        /**
+         * Whether the day headers should appear. For the Month, TimeGrid, and DayGrid views.
+         */
+        dayHeaders : null,
+
+        /**
+         * Determines the text that will be displayed on the calendar's column headings.
+         */
+        dayHeaderFormat : null,
+
+        /**
+         * A ClassName Input for adding classNames to the header &lt;th&gt; cell
+         */
+        dayHeaderClassNames : null,
+
+        /**
+         * A Content Injection Input. Generated content is inserted inside the inner-most wrapper of the header cell. It does not replace the &lt;th&gt; cell.
+         */
+        dayHeaderContent : null,
+
+        /**
+         * Callback called right after the &lt;th&gt; has been added to the DOM.
+         */
+        dayHeaderDidMount : null,
+
+        /**
+         * Callback called right before the &lt;th&gt; will be removed from the DOM.
+         */
+        dayHeaderWillUnmount : null,
+
+        /**
+         * A ClassName Input for adding classNames to the &lt;td&gt; cell
+         */
+        dayCellClassNames : null,
+
+        /**
+         * A Content Injection Input. Generated content is inserted inside the inner-most wrapper of the day cell. It does not replace the &lt;td&gt; cell.
+         */
+        dayCellContent : null,
+
+        /**
+         * Callback called right after the &lt;td&gt; has been added to the DOM
+         */
+        dayCellDidMount : null,
+
+        /**
+         * Callback called right before the &lt;td&gt; will be removed from the DOM
+         */
+        dayCellWillUnmount : null,
+
+        /**
+         * The initial view when the calendar loads. The default value is 'dayGridMonth'
+         */
+        initialView : null,
+
+        /**
+         * A ClassName Input for adding classNames
+         */
+        weekNumberClassNames : null,
+
+        /**
+         * A Content Injection Input.
+         */
+        weekNumberContent : null,
+
+        /**
+         * Callback called right after the week number div has been added to the DOM
+         */
+        weekNumberDidMount : null,
+
+        /**
+         * Callback called right before the week number div will be removed from the DOM
+         */
+        weekNumberWillUnmount : null,
+
+        /**
+         * A ClassName Input for adding classNames to the root view element. called whenever the view changes.
+         */
+        viewClassNames : null,
+
+        /**
+         * Callback called right after the view has been added to the DOM.
+         */
+        viewDidMount : null,
+
+        /**
+         * Callback called right before the view will be removed from the DOM
+         */
+        viewWillUnmount : null,
+
+        /**
+         * Whether or not to display a marker indicating the current time.
+         */
+        nowIndicator : null,
+
+        /**
+         * A ClassName Input for adding classNames.
+         */
+        nowIndicatorClassNames : null,
+
+        /**
+         * A Content Injection Input.
+         */
+        nowIndicatorContent : null,
+
+        /**
+         * Callback called after before the now indicator will be added to the DOM.
+         */
+        nowIndicatorDidMount : null,
+
+        /**
+         * Callback called right before the now indicator will be removed from the DOM.
+         */
+        nowIndicatorWillUnmount : null,
+
+        /**
+         * In month view, whether dates in the previous or next month should be rendered at all.
+         */
+        showNonCurrentDates : null,
+
+        /**
+         * A parameter of this name will be sent to each JSON event feed. It describes the start of the interval being fetched.
+         */
+        startParam : null,
+
+        /**
+         * A parameter of this name will be sent to each JSON event feed. It describes the exclusive end of the interval being fetched.
+         */
+        endParam : null,
+
+        /**
+         * A parameter of this name will be sent to each JSON event feed. It describes the timezone of the startParam and endParam values, as well as the desired timezone of the returned events.
+         */
+        timeZoneParam : null,
+
+        /**
+         * A time zone is a region of the world that serves as a context for displaying dates. It affects a Calendar instance. Default value is browser timezone.
+         */
+        timeZone : null,
+
+        /**
+         * Specify multiple locales with the ability to switch between them after pageload.
+         */
+        locales : null,
+
+        /**
+         * Current component locale (affects texts,formatting and weeknumber/first day of week).
+         */
+        locale : null,
+
+        /**
+         * Renders the calendar with a given theme system. Default: 'standard'
+         */
+        themeSystem : null,
+
+        /**
+         * Determines how an event's duration should be mutated when it is dragged from a timed section to an all-day section and vice versa.
+         */
+        allDayMaintainDuration : null,
+
+        /**
+         * Provides a way to filter which external elements can be dropped onto the calendar.
+         */
+        dropAccept : null,
+
+        /**
+         * Determines the ordering (sort) events within the same day.
+         */
+        eventOrder : null,
+
+        /**
+         * Ensures the eventOrder setting is strictly followed.
+         */
+        eventOrderStrict : null,
+
+        /**
+         * Whether to automatically resize the calendar when the browser window resizes.
+         */
+        handleWindowResize : null,
+
+        /**
+         * How many pixels the user's mouse/touch must move before an event drag activates.
+         */
+        eventDragMinDistance : null,
+
+        /**
+         * If the rows of a given view don't take up the entire height, they will expand to fit.
+         */
+        expandRows : null,
+
+        /**
+         * The time the calendar will wait to adjust its size after a window resize occurs, in milliseconds.
+         */
+        windowResizeDelay : null,
+
+        /**
+         * Sets the height of the entire calendar, including header and footer. By default, this option is unset and the calendar's height is calculated by aspectRatio.
+         */
+        height : null,
+
+        /**
+         * The direction that elements in the calendar are rendered. Either left-to-right or right-to-left.
+         */
+        direction : null,
+
+        /**
+         * If the rows of a given view don't take up the entire height, they will expand to fit.
+         */
+        weekNumberFormat : null,
+
+        /**
+         * Whether the user can resize an event from its starting edge.
+         */
+        eventResizableFromStart : null,
+
+        /**
+         * The heading text for week numbers. Also affects weeks in date formatting.
+         */
+        weekText : null,
+
+        /**
+         * When to render multiple asynchronous event sources in an individual or batched manner.
+         */
+        progressiveEventRendering : null,
+
+        /**
+         * Emphasizes certain time slots on the calendar. By default, Monday-Friday, 9am-5pm.
+         */
+        businessHours : null,
+
+        /**
+         * The initial date displayed when the calendar first loads.
+         */
+        initialDate : null,
+
+        /**
+         * Explicitly sets the 'today' date of the calendar. This is the day that is normally highlighted in yellow.
+         */
+        now : null,
+
+        /**
+         * A hook for transforming custom data into a standard Event object.
+         */
+        eventDataTransform : null,
+
+        /**
+         * Whether to fix the date-headers at the top of the calendar to the viewport while scrolling.
+         */
+        stickyHeaderDates : null,
+
+        /**
+         * Whether to fix the view's horizontal scrollbar to the bottom of the viewport while scrolling.
+         */
+        stickyFooterScrollbar : null,
+
+        /**
+         * View height.
+         */
+        viewHeight : null,
+
+        /**
+         * Determines the default value for each Event Object's allDay property when it is unspecified.
+         */
+        defaultAllDay : null,
+
+        /**
+         * Callback called when any of the event sources fails. Probably because an AJAX request failed.
+         */
+        eventSourceFailure : null,
+
+        /**
+         * A function that gets called when fetching succeeds. It can transform the response. Gets called for any type of Event source.
+         */
+        eventSourceSuccess : null,
+
+        /**
+         * Callback function to have exact programmatic control over where an event can be dropped.
+         */
+        eventAllow : null,
+
+        /**
+         * Controls which preset rendering style events use.
+         */
+        eventDisplay : null,
+
+        /**
+         * Sets the background color for all events on the calendar. Any CSS color format is supported.
+         */
+        eventBackgroundColor : null,
+
+        /**
+         * Sets the border color for all events on the calendar. Any CSS color format is supported.
+         */
+        eventBorderColor : null,
+
+        /**
+         * Sets the text color for all events on the calendar. Any CSS color format is supported.
+         */
+        eventTextColor : null,
+
+        /**
+         * Sets the background and border colors for all events on the calendar. Any CSS color format is supported.
+         */
+        eventColor : null,
+
+        /**
+         * A ClassName Input for adding classNames to the outermost event element. If supplied as a callback function, it is called every time the associated event data changes.
+         */
+        eventClassNames : null,
+
+        /**
+         * A Content Injection Input. Generated content is inserted inside the inner-most wrapper of the event element. If supplied as a callback function, it is called every time the associated event data changes.
+         */
+        eventContent : null,
+
+        /**
+         * Callback called right after the element has been added to the DOM. If the event data changes, this is NOT called again.
+         */
+        eventDidMount : null,
+
+        /**
+         * Callback called right before the element will be removed from the DOM.
+         */
+        eventWillUnmount : null,
+
+        /**
+         * Callback function to have exact programmatic control over where the user can select.
+         */
+        selectAllow : null,
+
+        /**
+         * Determines if external draggable elements or events from other calendars can be dropped onto the calendar.
+         */
+        droppable : null,
+
+        /**
+         * A ClassName Input.
+         */
+        slotLaneClassNames : null,
+
+        /**
+         * A Content Injection Input
+         */
+        slotLaneContent : null,
+
+        /**
+         * Callback called right after the element is added to the DOM.
+         */
+        slotLaneDidMount : null,
+
+        /**
+         * Callback called right before the element will be removed from the DOM.
+         */
+        slotLaneWillUnmount : null,
+
+        /**
+         * Callback called right after the element is added to the DOM.
+         */
+        slotLabelDidMount : null,
+
+        /**
+         * Callback called right before the element will be removed from the DOM.
+         */
+        slotLabelWillUnmount : null,
+
+        /**
+         * In, dayGrid view, the max number of events within a given day, not counting the +more link. The rest will show up in a popover.
+         */
+        dayMaxEvents : null,
+
+        /**
+         * In dayGrid view, the max number of stacked event levels within a given day. This includes the +more link if present. The rest will show up in a popover.
+         */
+        dayMaxEventRows : null,
+
+        /**
+         * If specified, when the calendar gets narrow enough where day cells can no longer meet their dayMinWidth, horizontal scrollbars will appear.
+         */
+        dayMinWidth : null,
+
+        /**
+         * A ClassName Input
+         */
+        allDayClassNames : null,
+
+        /**
+         * A Content Injection Input
+         */
+        allDayContent : null,
+
+        /**
+         * Callback called right after the element was added to the DOM.
+         */
+        allDayDidMount : null,
+
+        /**
+         * Callback called right before the element will be removed from the DOM.
+         */
+        allDayWillUnmount : null,
+
+        /**
+         * Determines how wide each of the time-axis slots will be. Specified as a number of pixels. When not specified, a reasonable value will be automatically computed.
+         */
+        slotMinWidth : null,
+
+        /**
+         * Determines if day names and week names are clickable.
+         */
+        navLinks : null,
+
+        /**
+         * Determines the time-text that will be displayed on each event.
+         */
+        eventTimeFormat : null,
+
+        /**
+         * The amount of milliseconds to wait before rerendering anything on a calendar.
+         */
+        rerenderDelay : null,
+
+        /**
+         * More link text
+         */
+        moreLinkText : null,
+
+        /**
+         * The minimum distance the user's mouse must travel after a mousedown, before a selection is allowed. A non-zero value is useful for differentiating a selection from a dateClick.
+         */
+        selectMinDistance : null,
+
+        /**
+         * For touch devices, the amount of time the user must hold down before a date becomes selectable.
+         */
+        selectLongPressDelay : null,
+
+        /**
+         * For touch devices, the amount of time the user must hold down before an event becomes draggable.
+         */
+        eventLongPressDelay : null,
+
+        /**
+         * Whether to draw a 'placeholder' event while the user is dragging.
+         */
+        selectMirror : null,
+
+        /**
+         * For timeline view, the maximum number of events that stack top-to-bottom. For timeGrid view, the maximum number of events that stack left-to-right.
+         */
+        eventMaxStack : null,
+
+        /**
+         * In timeGrid view, the minimum height an event is allowed to be.
+         */
+        eventMinHeight : null,
+
+        /**
+         * In timeline view, the minimum width an event is allowed to be.
+         */
+        eventMinWidth : null,
+
+        /**
+         * In timeGrid view, the height threshold for when an event has a 'short' style.
+         */
+        eventShortHeight : null,
+
+        /**
+         * Plugins list. Currently this list will be auto filled in Titanium Client.
+         */
+        plugins : null,
+
+        /**
+         * Determines the first visible day of a custom view.
+         */
+        dateAlignment : null,
+
+        /**
+         * How far into the future/past the calendar navigates when prev/next is executed.
+         */
+        dateIncrement : null,
+
+        /**
+         * Exclude certain days-of-the-week from being displayed.
+         */
+        hiddenDays : null,
+
+        monthMode : null,
+
+        /**
+         * Limits which dates the user can navigate to and where events can go.
+         */
+        validRange : null,
+
+        /**
+         * Sets the exact date range that is visible in a view.
+         */
+        visibleRange : null,
+
+        /**
+         * No Events Text
+         */
+        noEventsText : null,
+
+        /**
+         * Determines the action taken when the user clicks on a 'more' link created by the dayMaxEventRows or dayMaxEvents options.
+         */
+        moreLinkClick : null,
+
+        /**
+         * A ClassName Input for adding classNames
+         */
+        moreLinkClassNames : null,
+
+        /**
+         * A Content Injection Input
+         */
+        moreLinkContent : null,
+
+        /**
+         * Callback called right after the link has been added to the DOM
+         */
+        moreLinkDidMount : null,
+
+        /**
+         * Callback called right before the link will be removed from the DOM
+         */
+        moreLinkWillUnmount : null,
+
+        /**
+         * Tells the calendar to display resources from an input.
+         */
+        resources : null,
+
+        /**
+         * An array of Event Objects that will be displayed on the calendar.
+         */
+        events : null,
+
+        /**
+         * The license key you must enter to use premium features.
+         */
+        schedulerLicenseKey : null,
+
+        /**
+         * Determines the width of the area that contains the list of resources.Default: 30%.
+         */
+        resourceAreaWidth : null,
+
+    }
+}
