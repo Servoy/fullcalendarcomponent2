@@ -1,16 +1,22 @@
-/* The FullCalendar component is a Titanium Client wrapper around <a href="https://fullcalendar.io/">https://fullcalendar.io/</a>.<br/>
-Note that some features require a premium FullCalendar license.<br/><br/>
+/**
+ * The FullCalendar component is a Titanium Client wrapper around <a href="https://fullcalendar.io/">https://fullcalendar.io/</a>.<br/>
+ * Note that some features require a premium FullCalendar license.<br/><br/>
+ *
+ * See <a href="https://fullcalendar.io/docs">https://fullcalendar.io/docs</a> for more details.
+ */
 
-See <a href="https://fullcalendar.io/docs">https://fullcalendar.io/docs</a> for more details.*/
-
+/**
+ * CSS class to be applied to the calendar container element.
+ */
 var styleClass;
 
+/**
+ * Determines which theme system to use for styling the calendar.
+ */
 var themeSystem;
 
 /**
- * The text expression to be shown as tooltip when hovering over the calendar events.<br/>Use double curly brackets to evaluate {{propertyName}} the event's properties.<br/>For non-standard properties, use {{extendedProps.yourPropertyName}}.<br/><b>Example</b><br/><pre text>
-This is the event title:{{title}}. The event starts at: {{start}}. Description: {{extendedPropsdata.data.description}}
-</pre>
+ * The text expression to be shown as tooltip when hovering over the calendar events.
  */
 var tooltipExpression;
 
@@ -19,322 +25,324 @@ var handlers = {
     /**
      * <b>onSelectMethodID</b> will be called when a date/time selection is made.
      *
-     * @param {Date} start
-     * @param {Date} end
-     * @param {String} startStr
-     * @param {String} endStr
-     * @param {Boolean} allDay
-     * @param {JSEvent} jsEvent
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
-     * @param {CustomType<svy-fullcalendar2.ResourceObject>} [resource]
+     * @param {Date} start The start date/time of the selection.
+     * @param {Date} end The end date/time of the selection.
+     * @param {String} startStr The string representation of the start date/time.
+     * @param {String} endStr The string representation of the end date/time.
+     * @param {Boolean} allDay Indicates if the selection is for an all-day event.
+     * @param {JSEvent} jsEvent The event object associated with the selection.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
+     * @param {CustomType<svy-fullcalendar2.ResourceObject>} [resource] Optional resource associated with the selection.
      */
     onSelectMethodID: function() {},
 
     /**
      * <b>onUnselectMethodID</b> will be called when the current selection is cleared.
      *
-     * @param {JSEvent} jsEvent
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {JSEvent} jsEvent The event object associated with the unselect action.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
      */
     onUnselectMethodID: function() {},
 
     /**
      * <b>onDateClickMethodID</b> will be called when the user clicks on a date or a time.
      *
-     * @param {Date} date
-     * @param {String} dateStr
-     * @param {Object} dayEl
-     * @param {JSEvent} jsEvent
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
-     * @param {CustomType<svy-fullcalendar2.ResourceObject>} [resource]
+     * @param {Date} date The clicked date.
+     * @param {String} dateStr The string representation of the clicked date.
+     * @param {Object} dayEl The DOM element representing the clicked day.
+     * @param {JSEvent} jsEvent The event object associated with the click.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
+     * @param {CustomType<svy-fullcalendar2.ResourceObject>} [resource] Optional resource associated with the clicked date.
      */
     onDateClickMethodID: function() {},
 
     /**
      * <b>onDateClickMethodID</b> will be called when the user double clicks on a date or a time.
      *
-     * @param {Date} date
-     * @param {String} dateStr
-     * @param {Object} dayEl
-     * @param {JSEvent} jsEvent
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
-     * @param {CustomType<svy-fullcalendar2.ResourceObject>} [resource]
+     * @param {Date} date The double-clicked date.
+     * @param {String} dateStr The string representation of the double-clicked date.
+     * @param {Object} dayEl The DOM element representing the clicked day.
+     * @param {JSEvent} jsEvent The event object associated with the double-click.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
+     * @param {CustomType<svy-fullcalendar2.ResourceObject>} [resource] Optional resource associated with the clicked date.
      */
     onDateDblClickMethodID: function() {},
 
     /**
      * <b>onNavLinkDayClickMethodID</b> when navLinks setting is true, will be called when the user clicks on a day. onDateClickMethodID will not be called in this scenario.
      *
-     * @param {Date} date
-     * @param {JSEvent} jsEvent
+     * @param {Date} date The clicked date.
+     * @param {JSEvent} jsEvent The event object associated with the click.
      */
     onNavLinkDayClickMethodID: function() {},
 
     /**
      * <b>onNavLinkWeekClickMethodID</b> when navLinks setting is true, will be called when the user clicks on a week.
      *
-     * @param {Date} date
-     * @param {JSEvent} jsEvent
+     * @param {Date} date The clicked week date.
+     * @param {JSEvent} jsEvent The event object associated with the click.
      */
     onNavLinkWeekClickMethodID: function() {},
 
     /**
      * <b>onEventClickMethodID</b> will be called when the user clicks an event.
      *
-     * @param {CustomType<svy-fullcalendar2.EventObject>} event
-     * @param {JSEvent} jsEvent
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event The clicked event.
+     * @param {JSEvent} jsEvent The event object associated with the click.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
      */
     onEventClickMethodID: function() {},
 
     /**
      * <b>onEventDblClickMethodID</b> will be called when the user dbl click an event.
      *
-     * @param {CustomType<svy-fullcalendar2.EventObject>} event
-     * @param {JSEvent} jsEvent
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event The double-clicked event.
+     * @param {JSEvent} jsEvent The event object associated with the double-click.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
      */
     onEventDblClickMethodID: function() {},
 
     /**
      * <b>onEventAddMethodID</b> will be called after an event has been added to the calendar.
      *
-     * @param {CustomType<svy-fullcalendar2.EventObject>} event
-     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event The added event.
+     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents Array of related events.
      *
-     * @returns {Boolean} if it returns false, the event add action will be reverted, otherwise (true) the action is considered valid
+     * @return {Boolean} if it returns false, the event add action will be reverted, otherwise (true) the action is considered valid
      */
     onEventAddMethodID: function() {},
 
     /**
      * <b>onEventRemoveMethodID</b> will be called after an event has been removed from the calendar.
      *
-     * @param {CustomType<svy-fullcalendar2.EventObject>} event
-     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event The removed event.
+     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents Array of related events.
      *
-     * @returns {Boolean} if it returns false, the event remove action will be reverted, otherwise (true) the action is considered valid
+     * @return {Boolean} if it returns false, the event remove action will be reverted, otherwise (true) the action is considered valid
      */
     onEventRemoveMethodID: function() {},
 
     /**
      * <b>onEventChangeMethodID</b> will be called after an event has been modified in some way.
      *
-     * @param {CustomType<svy-fullcalendar2.EventObject>} event
-     * @param {CustomType<svy-fullcalendar2.EventObject>} oldEvent
-     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event The modified event.
+     * @param {CustomType<svy-fullcalendar2.EventObject>} oldEvent The event state prior to modification.
+     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents Array of related events.
      *
-     * @returns {Boolean} if it returns false, the event change action will be reverted, otherwise (true) the action is considered valid
+     * @return {Boolean} If it returns false, the event change action will be reverted, otherwise (true) the action is considered valid
      */
     onEventChangeMethodID: function() {},
 
     /**
      * <b>onEventsSetMethodID</b> will be called after event data is initialized OR changed in any way.
      *
-     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} events
+    * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} events Array of current events.
      */
     onEventsSetMethodID: function() {},
 
     /**
      * <b>onWindowResizeMethodID</b> will be called after the calendar’s dimensions have been changed due to the browser window being resized.
      *
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
-     */
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
+ */
     onWindowResizeMethodID: function() {},
 
     /**
      * <b>onViewDidMountMethodID</b> will be called right after the view has been added to the DOM.
      *
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
      */
     onViewDidMountMethodID: function() {},
 
     /**
      * <b>onViewWillUnmountMethodID</b> will be called right before the view will be removed from the DOM.
      *
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
      */
     onViewWillUnmountMethodID: function() {},
 
     /**
-     * @param {CustomType<svy-fullcalendar2.EventObject>} event
-     * @param {JSEvent} jsEvent
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * <b>onEventRightClickMethodID</b> will be called when the user right-clicks an event.
+     *
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event The event object that was right-clicked.
+     * @param {JSEvent} jsEvent The JavaScript event object associated with the right-click.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current view object of the calendar.
      */
     onEventRightClickMethodID: function() {},
 
     /**
      * <b>onEventResizeMethodID</b> will be called when resizing stops and the event has changed in duration.
      *
-     * @param {CustomType<svy-fullcalendar2.EventObject>} event
-     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents
-     * @param {CustomType<svy-fullcalendar2.EventObject>} oldEvent
-     * @param {Number} endDateDelta
-     * @param {Number} startDateDelta
-     * @param {JSEvent} jsEvent
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event The resized event.
+     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents Array of related events.
+     * @param {CustomType<svy-fullcalendar2.EventObject>} oldEvent The event state before resizing.
+     * @param {Number} endDateDelta The change in the event's end date.
+     * @param {Number} startDateDelta The change in the event's start date.
+     * @param {JSEvent} jsEvent The event object associated with the resize.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
      *
-     * @returns {Boolean} if it returns false, the event resize action will be reverted, otherwise (true) the action is considered valid
+     * @return {Boolean} if it returns false, the event resize action will be reverted, otherwise (true) the action is considered valid
      */
     onEventResizeMethodID: function() {},
 
     /**
      * <b>onEventDropMethodID</b> will be called when dragging stops and the event has moved to a different day/time.
      *
-     * @param {CustomType<svy-fullcalendar2.EventObject>} event
-     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents
-     * @param {CustomType<svy-fullcalendar2.EventObject>} oldEvent
-     * @param {CustomType<svy-fullcalendar2.ResourceObject>} oldResource
-     * @param {CustomType<svy-fullcalendar2.ResourceObject>} newResource
-     * @param {Number} delta
-     * @param {JSEvent} jsEvent
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event The event that was dropped.
+     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents Array of related events.
+     * @param {CustomType<svy-fullcalendar2.EventObject>} oldEvent The event state before the drop.
+     * @param {CustomType<svy-fullcalendar2.ResourceObject>} oldResource The resource before the drop.
+     * @param {CustomType<svy-fullcalendar2.ResourceObject>} newResource The resource after the drop.
+     * @param {Number} delta The time change due to the drop.
+     * @param {JSEvent} jsEvent The event object associated with the drop.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
      *
-     * @returns {Boolean} if it returns false, the event drop action will be reverted, otherwise (true) the action is considered valid
+     * @return {Boolean} if it returns false, the event drop action will be reverted, otherwise (true) the action is considered valid
      */
     onEventDropMethodID: function() {},
 
     /**
      * <b>onDropMethodID</b> will be called when an external draggable element or an event from another calendar has been dropped onto the calendar.
      *
-     * @param {Boolean} allDay
-     * @param {Date} date
-     * @param {String} dateStr
-     * @param {Object} draggedElement
-     * @param {JSEvent} jsEvent
-     * @param {CustomType<svy-fullcalendar2.ResourceObject>} resource
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {Boolean} allDay Indicates if the drop is for an all-day event.
+     * @param {Date} date The date where the drop occurred.
+     * @param {String} dateStr The string representation of the drop date.
+     * @param {Object} draggedElement The DOM element that was dragged.
+     * @param {JSEvent} jsEvent The event object associated with the drop.
+     * @param {CustomType<svy-fullcalendar2.ResourceObject>} resource Optional resource associated with the drop.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
      */
     onDropMethodID: function() {},
 
     /**
      * <b>onEventDragStartMethodID</b> will be called when event dragging begins.
      *
-     * @param {CustomType<svy-fullcalendar2.EventObject>} event
-     * @param {JSEvent} jsEvent
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event The event being dragged.
+     * @param {JSEvent} jsEvent The event object associated with the drag start.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
      */
     onEventDragStartMethodID: function() {},
 
     /**
      * <b>onEventResizeStartMethodID</b> will be called when event resizing begins.
      *
-     * @param {CustomType<svy-fullcalendar2.EventObject>} event
-     * @param {JSEvent} jsEvent
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event The event being resized.
+     * @param {JSEvent} jsEvent The event object associated with the resize start.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
      */
     onEventResizeStartMethodID: function() {},
 
     /**
      * <b>onEventDragStopMethodID</b> will be called when event dragging stops.
      *
-     * @param {CustomType<svy-fullcalendar2.EventObject>} event
-     * @param {JSEvent} jsEvent
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event The event that was dragged.
+     * @param {JSEvent} jsEvent The event object associated with the drag stop.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
      */
     onEventDragStopMethodID: function() {},
 
     /**
      * <b>onEventResizeStopMethodID</b> will be called when event resizing stops.
      *
-     * @param {CustomType<svy-fullcalendar2.EventObject>} event
-     * @param {JSEvent} jsEvent
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event The event that was resized.
+     * @param {JSEvent} jsEvent The event object associated with the resize stop.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
      */
     onEventResizeStopMethodID: function() {},
 
     /**
      * <b>onMouseEnter</b> will be called when the user mouses over an event. Similar to the native mouseenter.
      *
-     * @param {CustomType<svy-fullcalendar2.EventObject>} eventObject
-     * @param {JSEvent} jsEvent
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {CustomType<svy-fullcalendar2.EventObject>} eventObject The event object being hovered.
+     * @param {JSEvent} jsEvent The event object associated with the hover.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
      */
     onMouseEnter: function() {},
 
     /**
      * <b>onMouseLeave</b> will be called when the user mouses out of an event. Similar to the native mouseleave.
      *
-     * @param {CustomType<svy-fullcalendar2.EventObject>} eventObject
-     * @param {JSEvent} jsEvent
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {CustomType<svy-fullcalendar2.EventObject>} eventObject The event object being hovered.
+     * @param {JSEvent} jsEvent The event object associated with the hover.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
      */
     onMouseLeave: function() {},
 
     /**
      * <b>onLoadingMethodID</b> will be called when event or resource fetching starts/stops.
      *
-     * @param {Boolean} isLoading
+     * @param {Boolean} isLoading Indicates if the calendar is currently loading data.
      */
     onLoadingMethodID: function() {},
 
     /**
      * <b>onDatesSetMethodID</b> will be called after the calendar’s date range has been initially set or changed in some way and the DOM has been updated.
      *
-     * @param {Date} start
-     * @param {Date} end
-     * @param {String} startStr
-     * @param {String} endStr
-     * @param {String} timeZone
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {Date} start The start date of the current view.
+     * @param {Date} end The end date of the current view.
+     * @param {String} startStr The string representation of the start date.
+     * @param {String} endStr The string representation of the end date.
+     * @param {String} timeZone The time zone used by the calendar.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
      */
     onDatesSetMethodID: function() {},
 
     /**
      * <b>onEventReceiveMethodID</b> will be called when an external draggable element with associated event data was dropped onto the calendar. Or an event from another calendar.
      *
-     * @param {CustomType<svy-fullcalendar2.EventObject>} event
-     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents
-     * @param {Object} draggedElement
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event The dropped event.
+     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents Array of related events.
+     * @param {Object} draggedElement The DOM element that was dragged.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
      *
-     * @returns {Boolean} if it returns false, the event receive action will be reverted, otherwise (true) the action is considered valid
+     * @return {Boolean} if it returns false, the event receive action will be reverted, otherwise (true) the action is considered valid
      */
     onEventReceiveMethodID: function() {},
 
     /**
      * <b>onEventLeaveMethodID</b> will be called when on a calendar when one if its events is about to be dropped onto another calendar.
      *
-     * @param {CustomType<svy-fullcalendar2.EventObject>} event
-     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents
-     * @param {Object} draggedElement
-     * @param {CustomType<svy-fullcalendar2.ViewType>} view
+     * @param {CustomType<svy-fullcalendar2.EventObject>} event The event that is leaving.
+     * @param {Array<CustomType<svy-fullcalendar2.EventObject>>} relatedEvents Array of related events.
+     * @param {Object} draggedElement The DOM element being dragged.
+     * @param {CustomType<svy-fullcalendar2.ViewType>} view The current calendar view.
      *
-     * @returns {Boolean} if it returns false, the event leave action will be reverted, otherwise (true) the action is considered valid
+     * @return {Boolean} if it returns false, the event leave action will be reverted, otherwise (true) the action is considered valid
      */
     onEventLeaveMethodID: function() {},
 
     /**
      * <b>onResourceAddMethodID</b> will be called after a resource has been added to the calendar.
      *
-     * @param {CustomType<svy-fullcalendar2.ResourceObject>} resource
+     * @param {CustomType<svy-fullcalendar2.ResourceObject>} resource The added resource.
      *
-     * @returns {Boolean} if it returns false, the resource add action will be reverted, otherwise (true) the action is considered valid
+     * @return {Boolean} if it returns false, the resource add action will be reverted, otherwise (true) the action is considered valid
      */
     onResourceAddMethodID: function() {},
 
     /**
      * <b>onResourceChangeMethodID</b> will be called after a resource has been modified in some way.
      *
-     * @param {CustomType<svy-fullcalendar2.ResourceObject>} oldResource
-     * @param {Object} newResource
+     * @param {CustomType<svy-fullcalendar2.ResourceObject>} oldResource The resource before modification.
+     * @param {Object} newResource The new resource data.
      *
-     * @returns {Boolean} if it returns false, the resource change action will be reverted, otherwise (true) the action is considered valid
+     * @return {Boolean} if it returns false, the resource change action will be reverted, otherwise (true) the action is considered valid
      */
     onResourceChangeMethodID: function() {},
 
     /**
      * <b>onResourceRemoveMethodID</b> will be called after a resource has been removed from the calendar.
      *
-     * @param {CustomType<svy-fullcalendar2.ResourceObject>} resource
+     * @param {CustomType<svy-fullcalendar2.ResourceObject>} resource The removed resource.
      *
-     * @returns {Boolean} if it returns false, the resource remove action will be reverted, otherwise (true) the action is considered valid
+     * @return {Boolean} if it returns false, the resource remove action will be reverted, otherwise (true) the action is considered valid
      */
     onResourceRemoveMethodID: function() {},
 
     /**
      * <b>onResourcesSetMethodID</b> will be called after resource data is initialized OR changed in any way.
      *
-     * @param {Array<CustomType<svy-fullcalendar2.ResourceObject>>} resources
+     * @param {Array<CustomType<svy-fullcalendar2.ResourceObject>>} resources Array of current resources.
      */
     onResourcesSetMethodID: function() {}
 };
@@ -827,470 +835,957 @@ function getFullCalendarOptions() {
  * @param {string} option The name of the configuration option to update (e.g., 'scrollTime', 'editable').
  * @param {Object} value The new value for the specified configuration option.
  *
- * @returns {void}
  */
 function updateFullCalendar(option, value) {
 }
 
 var svy_types = {
 
-    EventParsing: {
-
-        id : null,
-
-        title : null,
-
-        start : null,
-
-        end : null,
-
-        allDay : null,
-
-        className : null,
-
-        classNames : null,
-
-        editable : null,
-
-        startEditable : null,
-
-        durationEditable : null,
-
-        overlap : null,
-
-        constraint : null,
-
-        color : null,
-
-        backgroundColor : null,
-
-        borderColor : null,
-
-        textColor : null,
-
-        data : null,
-
-        extendedProps : null,
-
-        date : null,
-
-        display : null,
-
-        allow : null,
-
-        url : null,
-
-        groupId : null,
-
-        daysOfWeek : null,
-
-        startTime : null,
-
-        endTime : null,
-
-        startRecur : null,
-
-        endRecur : null,
-
-        resourceEditable : null,
-
-        resourceId : null,
-
-        resourceIds : null,
-
-        rrule : null,
-
-    },
-
+   /**
+     * Represents an event parsed for addition to the calendar.
+     */
+   EventParsing: {
+    /**
+     * Unique identifier of the event.
+     */
+    id: null,
+    /**
+     * The title of the event.
+     */
+    title: null,
+    /**
+     * The start date/time of the event.
+     */
+    start: null,
+    /**
+     * The end date/time of the event.
+     */
+    end: null,
+    /**
+     * Indicates if the event is an all-day event.
+     */
+    allDay: null,
+    /**
+     * CSS class name(s) to be applied to the event.
+     */
+    className: null,
+    /**
+     * Array of CSS class names for the event.
+     */
+    classNames: null,
+    /**
+     * Indicates if the event is editable.
+     */
+    editable: null,
+    /**
+     * Indicates if the event's start time is editable.
+     */
+    startEditable: null,
+    /**
+     * Indicates if the event's duration is editable.
+     */
+    durationEditable: null,
+    /**
+     * Determines if the event can overlap with others.
+     */
+    overlap: null,
+    /**
+     * Constraint for dragging or resizing the event.
+     */
+    constraint: null,
+    /**
+     * The color assigned to the event.
+     */
+    color: null,
+    /**
+     * The background color of the event.
+     */
+    backgroundColor: null,
+    /**
+     * The border color of the event.
+     */
+    borderColor: null,
+    /**
+     * The text color of the event.
+     */
+    textColor: null,
+    /**
+     * Additional data associated with the event.
+     */
+    data: null,
+    /**
+     * Extended properties for the event.
+     */
+    extendedProps: null,
+    /**
+     * The event's date (alternative to start).
+     */
+    date: null,
+    /**
+     * Display mode for the event.
+     */
+    display: null,
+    /**
+     * Flag or value allowing/disallowing specific behaviors.
+     */
+    allow: null,
+    /**
+     * URL associated with the event.
+     */
+    url: null,
+    /**
+     * Identifier for grouping related events.
+     */
+    groupId: null,
+    /**
+     * Array representing the days of the week for recurring events.
+     */
+    daysOfWeek: null,
+    /**
+     * The start time for recurring events.
+     */
+    startTime: null,
+    /**
+     * The end time for recurring events.
+     */
+    endTime: null,
+    /**
+     * Start recurrence date for repeating events.
+     */
+    startRecur: null,
+    /**
+     * End recurrence date for repeating events.
+     */
+    endRecur: null,
+    /**
+     * Indicates if the event's resource is editable.
+     */
+    resourceEditable: null,
+    /**
+     * The resource identifier associated with the event.
+     */
+    resourceId: null,
+    /**
+     * Array of resource identifiers if the event is associated with multiple resources.
+     */
+    resourceIds: null,
+    /**
+     * Recurrence rule for the event.
+     */
+    rrule: null,
+},
+    /**
+     * Represents an event object in the calendar.
+     */
     EventObject: {
-
-        id : null,
-
-        groupId : null,
-
-        title : null,
-
-        allDay : null,
-
-        start : null,
-
-        end : null,
-
-        startStr : null,
-
-        endStr : null,
-
-        classNames : null,
-
-        editable : null,
-
-        startEditable : null,
-
-        durationEditable : null,
-
-        resourceEditable : null,
-
-        overlap : null,
-
-        constraint : null,
-
-        backgroundColor : null,
-
-        borderColor : null,
-
-        textColor : null,
-
-        extendedProps : null,
-
-        display : null,
-
-        url : null,
-
-        source : null,
-
-        resourceId : null,
-
-        resourceIds : null,
-
+        /**
+         * Unique identifier of the event.
+         */
+        id: null,
+        /**
+         * Identifier used to group related events.
+         */
+        groupId: null,
+        /**
+         * The title of the event.
+         */
+        title: null,
+        /**
+         * Indicates if the event is an all-day event.
+         */
+        allDay: null,
+        /**
+         * The start date/time of the event.
+         */
+        start: null,
+        /**
+         * The end date/time of the event.
+         */
+        end: null,
+        /**
+         * String representation of the start date/time.
+         */
+        startStr: null,
+        /**
+         * String representation of the end date/time.
+         */
+        endStr: null,
+        /**
+         * Array of CSS class names for the event.
+         */
+        classNames: null,
+        /**
+         * Indicates if the event is editable.
+         */
+        editable: null,
+        /**
+         * Indicates if the event's start time is editable.
+         */
+        startEditable: null,
+        /**
+         * Indicates if the event's duration is editable.
+         */
+        durationEditable: null,
+        /**
+         * Indicates if the event's resource is editable.
+         */
+        resourceEditable: null,
+        /**
+         * Determines if the event can overlap with others.
+         */
+        overlap: null,
+        /**
+         * Constraint applied to the event.
+         */
+        constraint: null,
+        /**
+         * The background color of the event.
+         */
+        backgroundColor: null,
+        /**
+         * The border color of the event.
+         */
+        borderColor: null,
+        /**
+         * The text color of the event.
+         */
+        textColor: null,
+        /**
+         * Extended properties for the event.
+         */
+        extendedProps: null,
+        /**
+         * Display mode for the event.
+         */
+        display: null,
+        /**
+         * URL associated with the event.
+         */
+        url: null,
+        /**
+         * Source information for the event.
+         */
+        source: null,
+        /**
+         * The resource identifier associated with the event.
+         */
+        resourceId: null,
+        /**
+         * Array of resource identifiers for the event.
+         */
+        resourceIds: null,
     },
 
-    ResourceObject: {
 
-        id : null,
-
-        title : null,
-
-        children : null,
-
-        parentId : null,
-
-        eventBackgroundColor : null,
-
-        eventBorderColor : null,
-
-        eventTextColor : null,
-
-        eventClassNames : null,
-
-        extendedProps : null,
-
-        eventOverlap : null,
-
-        eventConstraint : null,
-
-        eventAllow : null,
-
+    /**
+     * Represents an event object in the calendar.
+     */
+    EventObject: {
+        /**
+         * Unique identifier of the event.
+         */
+        id: null,
+        /**
+         * Identifier used to group related events.
+         */
+        groupId: null,
+        /**
+         * The title of the event.
+         */
+        title: null,
+        /**
+         * Indicates if the event is an all-day event.
+         */
+        allDay: null,
+        /**
+         * The start date/time of the event.
+         */
+        start: null,
+        /**
+         * The end date/time of the event.
+         */
+        end: null,
+        /**
+         * String representation of the start date/time.
+         */
+        startStr: null,
+        /**
+         * String representation of the end date/time.
+         */
+        endStr: null,
+        /**
+         * Array of CSS class names for the event.
+         */
+        classNames: null,
+        /**
+         * Indicates if the event is editable.
+         */
+        editable: null,
+        /**
+         * Indicates if the event's start time is editable.
+         */
+        startEditable: null,
+        /**
+         * Indicates if the event's duration is editable.
+         */
+        durationEditable: null,
+        /**
+         * Indicates if the event's resource is editable.
+         */
+        resourceEditable: null,
+        /**
+         * Determines if the event can overlap with others.
+         */
+        overlap: null,
+        /**
+         * Constraint applied to the event.
+         */
+        constraint: null,
+        /**
+         * The background color of the event.
+         */
+        backgroundColor: null,
+        /**
+         * The border color of the event.
+         */
+        borderColor: null,
+        /**
+         * The text color of the event.
+         */
+        textColor: null,
+        /**
+         * Extended properties for the event.
+         */
+        extendedProps: null,
+        /**
+         * Display mode for the event.
+         */
+        display: null,
+        /**
+         * URL associated with the event.
+         */
+        url: null,
+        /**
+         * Source information for the event.
+         */
+        source: null,
+        /**
+         * The resource identifier associated with the event.
+         */
+        resourceId: null,
+        /**
+         * Array of resource identifiers for the event.
+         */
+        resourceIds: null,
     },
 
+
+   /**
+     * Represents an event source for the calendar.
+     */
     EventSource: {
-
-        id : null,
-
-        events : null,
-
-        className : null,
-
-        allDayDefault : null,
-
-        editable : null,
-
-        startEditable : null,
-
-        durationEditable : null,
-
-        overlap : null,
-
-        constraint : null,
-
-        color : null,
-
-        backgroundColor : null,
-
-        borderColor : null,
-
-        textColor : null,
-
-        data : null,
-
-        defaultAllDay : null,
-
-        url : null,
-
-        format : null,
-
-        eventDataTransform : null,
-
-        success : null,
-
-        failure : null,
-
-        display : null,
-
-        allow : null,
-
+        /**
+         * Unique identifier for the event source.
+         */
+        id: null,
+        /**
+         * The events provided by the source.
+         */
+        events: null,
+        /**
+         * CSS class names for events from this source.
+         */
+        className: null,
+        /**
+         * Default all-day event setting for events from this source.
+         */
+        allDayDefault: null,
+        /**
+         * Indicates if events from this source are editable.
+         */
+        editable: null,
+        /**
+         * Indicates if event start times are editable.
+         */
+        startEditable: null,
+        /**
+         * Indicates if event durations are editable.
+         */
+        durationEditable: null,
+        /**
+         * Determines if events can overlap.
+         */
+        overlap: null,
+        /**
+         * Constraint applied to events from this source.
+         */
+        constraint: null,
+        /**
+         * The primary color for events.
+         */
+        color: null,
+        /**
+         * The background color for events.
+         */
+        backgroundColor: null,
+        /**
+         * The border color for events.
+         */
+        borderColor: null,
+        /**
+         * The text color for events.
+         */
+        textColor: null,
+        /**
+         * Additional data for events from this source.
+         */
+        data: null,
+        /**
+         * Default all-day value for events.
+         */
+        defaultAllDay: null,
+        /**
+         * URL for fetching events.
+         */
+        url: null,
+        /**
+         * Format string used for event dates.
+         */
+        format: null,
+        /**
+         * Function to transform event data.
+         */
+        eventDataTransform: null,
+        /**
+         * Success callback for event fetching.
+         */
+        success: null,
+        /**
+         * Failure callback for event fetching.
+         */
+        failure: null,
+        /**
+         * Display mode for events.
+         */
+        display: null,
+        /**
+         * Allowance property for events.
+         */
+        allow: null,
     },
 
+    /**
+     * Represents an event source that is an array of events.
+     */
     ArrayEventSource: {
-
-        id : null,
-
-        events : null,
-
-        className : null,
-
-        allDayDefault : null,
-
-        editable : null,
-
-        startEditable : null,
-
-        durationEditable : null,
-
-        overlap : null,
-
-        constraint : null,
-
-        color : null,
-
-        backgroundColor : null,
-
-        borderColor : null,
-
-        textColor : null,
-
-        data : null,
-
-        defaultAllDay : null,
-
-        url : null,
-
-        format : null,
-
-        eventDataTransform : null,
-
-        success : null,
-
-        failure : null,
-
-        display : null,
-
-        allow : null,
-
+        /**
+         * Unique identifier for the event source.
+         */
+        id: null,
+        /**
+         * Array of event objects provided by the source.
+         */
+        events: null,
+        /**
+         * CSS class names for events from this source.
+         */
+        className: null,
+        /**
+         * Default all-day event setting for events from this source.
+         */
+        allDayDefault: null,
+        /**
+         * Indicates if events from this source are editable.
+         */
+        editable: null,
+        /**
+         * Indicates if event start times are editable.
+         */
+        startEditable: null,
+        /**
+         * Indicates if event durations are editable.
+         */
+        durationEditable: null,
+        /**
+         * Determines if events can overlap.
+         */
+        overlap: null,
+        /**
+         * Constraint applied to events from this source.
+         */
+        constraint: null,
+        /**
+         * The primary color for events.
+         */
+        color: null,
+        /**
+         * The background color for events.
+         */
+        backgroundColor: null,
+        /**
+         * The border color for events.
+         */
+        borderColor: null,
+        /**
+         * The text color for events.
+         */
+        textColor: null,
+        /**
+         * Additional data for events from this source.
+         */
+        data: null,
+        /**
+         * Default all-day value for events.
+         */
+        defaultAllDay: null,
+        /**
+         * URL for fetching events.
+         */
+        url: null,
+        /**
+         * Format string used for event dates.
+         */
+        format: null,
+        /**
+         * Function to transform event data.
+         */
+        eventDataTransform: null,
+        /**
+         * Success callback for event fetching.
+         */
+        success: null,
+        /**
+         * Failure callback for event fetching.
+         */
+        failure: null,
+        /**
+         * Display mode for events.
+         */
+        display: null,
+        /**
+         * Allowance property for events.
+         */
+        allow: null,
     },
 
+
+    /**
+     * Represents an event source provided by a function.
+     */
     FunctionEventSource: {
-
-        id : null,
-
-        events : null,
-
-        className : null,
-
-        allDayDefault : null,
-
-        editable : null,
-
-        startEditable : null,
-
-        durationEditable : null,
-
-        overlap : null,
-
-        constraint : null,
-
-        color : null,
-
-        backgroundColor : null,
-
-        borderColor : null,
-
-        textColor : null,
-
-        data : null,
-
-        defaultAllDay : null,
-
-        url : null,
-
-        format : null,
-
-        eventDataTransform : null,
-
-        success : null,
-
-        failure : null,
-
-        display : null,
-
-        allow : null,
-
+        /**
+         * Unique identifier for the event source.
+         */
+        id: null,
+        /**
+         * Function that returns events for this source.
+         */
+        events: null,
+        /**
+         * CSS class names for events from this source.
+         */
+        className: null,
+        /**
+         * Default all-day event setting for events from this source.
+         */
+        allDayDefault: null,
+        /**
+         * Indicates if events from this source are editable.
+         */
+        editable: null,
+        /**
+         * Indicates if event start times are editable.
+         */
+        startEditable: null,
+        /**
+         * Indicates if event durations are editable.
+         */
+        durationEditable: null,
+        /**
+         * Determines if events can overlap.
+         */
+        overlap: null,
+        /**
+         * Constraint applied to events from this source.
+         */
+        constraint: null,
+        /**
+         * The primary color for events.
+         */
+        color: null,
+        /**
+         * The background color for events.
+         */
+        backgroundColor: null,
+        /**
+         * The border color for events.
+         */
+        borderColor: null,
+        /**
+         * The text color for events.
+         */
+        textColor: null,
+        /**
+         * Additional data for events from this source.
+         */
+        data: null,
+        /**
+         * Default all-day value for events.
+         */
+        defaultAllDay: null,
+        /**
+         * URL for fetching events.
+         */
+        url: null,
+        /**
+         * Format string used for event dates.
+         */
+        format: null,
+        /**
+         * Function to transform event data.
+         */
+        eventDataTransform: null,
+        /**
+         * Success callback for event fetching.
+         */
+        success: null,
+        /**
+         * Failure callback for event fetching.
+         */
+        failure: null,
+        /**
+         * Display mode for events.
+         */
+        display: null,
+        /**
+         * Allowance property for events.
+         */
+        allow: null,
     },
 
+
+    /**
+     * Represents an event source provided as a JSON feed.
+     */
     JSONEventSource: {
-
-        id : null,
-
-        className : null,
-
-        allDayDefault : null,
-
-        editable : null,
-
-        startEditable : null,
-
-        durationEditable : null,
-
-        overlap : null,
-
-        constraint : null,
-
-        color : null,
-
-        backgroundColor : null,
-
-        borderColor : null,
-
-        textColor : null,
-
-        data : null,
-
-        defaultAllDay : null,
-
-        url : null,
-
-        format : null,
-
-        eventDataTransform : null,
-
-        success : null,
-
-        failure : null,
-
-        display : null,
-
-        allow : null,
-
+        /**
+         * Unique identifier for the event source.
+         */
+        id: null,
+        /**
+         * CSS class names for events from this source.
+         */
+        className: null,
+        /**
+         * Default all-day event setting for events from this source.
+         */
+        allDayDefault: null,
+        /**
+         * Indicates if events from this source are editable.
+         */
+        editable: null,
+        /**
+         * Indicates if event start times are editable.
+         */
+        startEditable: null,
+        /**
+         * Indicates if event durations are editable.
+         */
+        durationEditable: null,
+        /**
+         * Determines if events can overlap.
+         */
+        overlap: null,
+        /**
+         * Constraint applied to events from this source.
+         */
+        constraint: null,
+        /**
+         * The primary color for events.
+         */
+        color: null,
+        /**
+         * The background color for events.
+         */
+        backgroundColor: null,
+        /**
+         * The border color for events.
+         */
+        borderColor: null,
+        /**
+         * The text color for events.
+         */
+        textColor: null,
+        /**
+         * Additional data for events from this source.
+         */
+        data: null,
+        /**
+         * Default all-day value for events.
+         */
+        defaultAllDay: null,
+        /**
+         * URL for fetching events.
+         */
+        url: null,
+        /**
+         * Format string used for event dates.
+         */
+        format: null,
+        /**
+         * Function to transform event data.
+         */
+        eventDataTransform: null,
+        /**
+         * Success callback for event fetching.
+         */
+        success: null,
+        /**
+         * Failure callback for event fetching.
+         */
+        failure: null,
+        /**
+         * Display mode for events.
+         */
+        display: null,
+        /**
+         * Allowance property for events.
+         */
+        allow: null,
     },
 
+    /**
+     * Represents an event source provided by an iCalendar feed.
+     */
     iCalendarEventSource: {
-
-        id : null,
-
-        className : null,
-
-        allDayDefault : null,
-
-        editable : null,
-
-        startEditable : null,
-
-        durationEditable : null,
-
-        overlap : null,
-
-        constraint : null,
-
-        color : null,
-
-        backgroundColor : null,
-
-        borderColor : null,
-
-        textColor : null,
-
-        data : null,
-
-        defaultAllDay : null,
-
-        url : null,
-
-        format : null,
-
-        eventDataTransform : null,
-
-        success : null,
-
-        failure : null,
-
-        display : null,
-
-        allow : null,
-
+        /**
+         * Unique identifier for the event source.
+         */
+        id: null,
+        /**
+         * CSS class names for events from this source.
+         */
+        className: null,
+        /**
+         * Default all-day event setting for events from this source.
+         */
+        allDayDefault: null,
+        /**
+         * Indicates if events from this source are editable.
+         */
+        editable: null,
+        /**
+         * Indicates if event start times are editable.
+         */
+        startEditable: null,
+        /**
+         * Indicates if event durations are editable.
+         */
+        durationEditable: null,
+        /**
+         * Determines if events can overlap.
+         */
+        overlap: null,
+        /**
+         * Constraint applied to events from this source.
+         */
+        constraint: null,
+        /**
+         * The primary color for events.
+         */
+        color: null,
+        /**
+         * The background color for events.
+         */
+        backgroundColor: null,
+        /**
+         * The border color for events.
+         */
+        borderColor: null,
+        /**
+         * The text color for events.
+         */
+        textColor: null,
+        /**
+         * Additional data for events from this source.
+         */
+        data: null,
+        /**
+         * Default all-day value for events.
+         */
+        defaultAllDay: null,
+        /**
+         * URL for fetching events.
+         */
+        url: null,
+        /**
+         * Format string used for event dates.
+         */
+        format: null,
+        /**
+         * Function to transform event data.
+         */
+        eventDataTransform: null,
+        /**
+         * Success callback for event fetching.
+         */
+        success: null,
+        /**
+         * Failure callback for event fetching.
+         */
+        failure: null,
+        /**
+         * Display mode for events.
+         */
+        display: null,
+        /**
+         * Allowance property for events.
+         */
+        allow: null,
     },
 
+    /**
+     * Represents an event source provided by Google Calendar.
+     */
     GoogleCalendarEventSource: {
-
-        id : null,
-
-        googleCalendarId : null,
-
-        googleCalendarApiKey : null,
-
-        className : null,
-
-        allDayDefault : null,
-
-        editable : null,
-
-        startEditable : null,
-
-        durationEditable : null,
-
-        overlap : null,
-
-        constraint : null,
-
-        color : null,
-
-        backgroundColor : null,
-
-        borderColor : null,
-
-        textColor : null,
-
-        data : null,
-
-        defaultAllDay : null,
-
-        url : null,
-
-        format : null,
-
-        eventDataTransform : null,
-
-        success : null,
-
-        failure : null,
-
-        display : null,
-
-        allow : null,
-
+        /**
+         * Unique identifier for the event source.
+         */
+        id: null,
+        /**
+         * The Google Calendar ID.
+         */
+        googleCalendarId: null,
+        /**
+         * The Google Calendar API key.
+         */
+        googleCalendarApiKey: null,
+        /**
+         * CSS class names for events from this source.
+         */
+        className: null,
+        /**
+         * Default all-day event setting for events from this source.
+         */
+        allDayDefault: null,
+        /**
+         * Indicates if events from this source are editable.
+         */
+        editable: null,
+        /**
+         * Indicates if event start times are editable.
+         */
+        startEditable: null,
+        /**
+         * Indicates if event durations are editable.
+         */
+        durationEditable: null,
+        /**
+         * Determines if events can overlap.
+         */
+        overlap: null,
+        /**
+         * Constraint applied to events from this source.
+         */
+        constraint: null,
+        /**
+         * The primary color for events.
+         */
+        color: null,
+        /**
+         * The background color for events.
+         */
+        backgroundColor: null,
+        /**
+         * The border color for events.
+         */
+        borderColor: null,
+        /**
+         * The text color for events.
+         */
+        textColor: null,
+        /**
+         * Additional data for events from this source.
+         */
+        data: null,
+        /**
+         * Default all-day value for events.
+         */
+        defaultAllDay: null,
+        /**
+         * URL for fetching events.
+         */
+        url: null,
+        /**
+         * Format string used for event dates.
+         */
+        format: null,
+        /**
+         * Function to transform event data.
+         */
+        eventDataTransform: null,
+        /**
+         * Success callback for event fetching.
+         */
+        success: null,
+        /**
+         * Failure callback for event fetching.
+         */
+        failure: null,
+        /**
+         * Display mode for events.
+         */
+        display: null,
+        /**
+         * Allowance property for events.
+         */
+        allow: null,
     },
 
+    /**
+     * Represents the view type of the calendar.
+     */
     ViewType: {
-
-        type : null,
-
-        title : null,
-
-        activeStart : null,
-
-        activeEnd : null,
-
-        currentStart : null,
-
-        currentEnd : null,
-
-        dateEnv : null,
-
+        /**
+         * The type of the current view (e.g. 'month', 'week', 'day').
+         */
+        type: null,
+        /**
+         * The title of the view.
+         */
+        title: null,
+        /**
+         * The start date of the active range.
+         */
+        activeStart: null,
+        /**
+         * The end date of the active range.
+         */
+        activeEnd: null,
+        /**
+         * The start date of the current view.
+         */
+        currentStart: null,
+        /**
+         * The end date of the current view.
+         */
+        currentEnd: null,
+        /**
+         * The date environment object containing locale and timezone information.
+         */
+        dateEnv: null,
     },
 
+    /**
+     * Represents the FullCalendar instance.
+     */
     FullCalendar: {
-
-        options : null,
-
+        /**
+         * The configuration options for the FullCalendar instance.
+         */
+        options: null,
     },
+
 
     FullCalendarOptions: {
 
