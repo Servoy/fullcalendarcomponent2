@@ -974,108 +974,6 @@ var svy_types = {
      */
     rrule: null,
 },
-    /**
-     * Represents an event object in the calendar.
-     */
-    EventObject: {
-        /**
-         * Unique identifier of the event.
-         */
-        id: null,
-        /**
-         * Identifier used to group related events.
-         */
-        groupId: null,
-        /**
-         * The title of the event.
-         */
-        title: null,
-        /**
-         * Indicates if the event is an all-day event.
-         */
-        allDay: null,
-        /**
-         * The start date/time of the event.
-         */
-        start: null,
-        /**
-         * The end date/time of the event.
-         */
-        end: null,
-        /**
-         * String representation of the start date/time.
-         */
-        startStr: null,
-        /**
-         * String representation of the end date/time.
-         */
-        endStr: null,
-        /**
-         * Array of CSS class names for the event.
-         */
-        classNames: null,
-        /**
-         * Indicates if the event is editable.
-         */
-        editable: null,
-        /**
-         * Indicates if the event's start time is editable.
-         */
-        startEditable: null,
-        /**
-         * Indicates if the event's duration is editable.
-         */
-        durationEditable: null,
-        /**
-         * Indicates if the event's resource is editable.
-         */
-        resourceEditable: null,
-        /**
-         * Determines if the event can overlap with others.
-         */
-        overlap: null,
-        /**
-         * Constraint applied to the event.
-         */
-        constraint: null,
-        /**
-         * The background color of the event.
-         */
-        backgroundColor: null,
-        /**
-         * The border color of the event.
-         */
-        borderColor: null,
-        /**
-         * The text color of the event.
-         */
-        textColor: null,
-        /**
-         * Extended properties for the event.
-         */
-        extendedProps: null,
-        /**
-         * Display mode for the event.
-         */
-        display: null,
-        /**
-         * URL associated with the event.
-         */
-        url: null,
-        /**
-         * Source information for the event.
-         */
-        source: null,
-        /**
-         * The resource identifier associated with the event.
-         */
-        resourceId: null,
-        /**
-         * Array of resource identifiers for the event.
-         */
-        resourceIds: null,
-    },
-
 
     /**
      * Represents an event object in the calendar.
@@ -1179,6 +1077,59 @@ var svy_types = {
         resourceIds: null,
     },
 
+    /**
+     * Represents a resource used in the calendar.
+     */
+    ResourceObject: {
+        /**
+         * Unique identifier of the resource.
+         */
+        id: null,
+        /**
+         * The display title of the resource.
+         */
+        title: null,
+        /**
+         * An array of child resources.
+         */
+        children: null,
+        /**
+         * Identifier of the parent resource.
+         */
+        parentId: null,
+        /**
+         * Background color for events associated with the resource.
+         */
+        eventBackgroundColor: null,
+        /**
+         * Border color for events associated with the resource.
+         */
+        eventBorderColor: null,
+        /**
+         * Text color for events associated with the resource.
+         */
+        eventTextColor: null,
+        /**
+         * CSS class names applied to events associated with the resource.
+         */
+        eventClassNames: null,
+        /**
+         * Additional extended properties for the resource.
+         */
+        extendedProps: null,
+        /**
+         * Settings controlling event overlap behavior related to this resource.
+         */
+        eventOverlap: null,
+        /**
+         * Constraints applied to events for this resource.
+         */
+        eventConstraint: null,
+        /**
+         * Rules determining whether events are allowed for this resource.
+         */
+        eventAllow: null
+    },
 
    /**
      * Represents an event source for the calendar.
@@ -2539,6 +2490,11 @@ var svy_types = {
          */
         hiddenDays : null,
 
+        /**
+         * Specifies whether the month view should render in a fixed mode.
+         * When enabled, the calendar displays a consistent number of weeks in the month view,
+         * even if the month starts or ends mid-week.
+         */
         monthMode : null,
 
         /**
