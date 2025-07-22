@@ -12,6 +12,7 @@ import listPlugin from '@fullcalendar/list';
 import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
 import resourceDayGridPlugin from '@fullcalendar/resource-daygrid';
 import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
+import scrollGridPlugin  from '@fullcalendar/scrollgrid';
 import rrulePlugin from '@fullcalendar/rrule'
 import timeline from '@fullcalendar/timeline';
 import luxonPlugin from '@fullcalendar/luxon3';
@@ -180,7 +181,8 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
             googleCalendarPlugin,
             iCalendarPlugin,
             bootstrap5Plugin,
-            rrulePlugin
+            rrulePlugin,
+            scrollGridPlugin 
         ];
         if (this.fullCalendarOptions.schedulerLicenseKey) {
             this.fullCalendarOptions.plugins.push(timeline, resourceTimelinePlugin, resourceTimeGridPlugin, resourceDayGridPlugin);
