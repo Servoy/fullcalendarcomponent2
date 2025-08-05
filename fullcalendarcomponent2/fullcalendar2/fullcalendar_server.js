@@ -176,7 +176,9 @@ $scope.api.getFullCalendarOptions = function() {
  * */
 $scope.api.updateFullCalendar = function(option, value) {
 	var options = $scope.api.getFullCalendarOptions();
-
+	if (!options) { 
+		options = {}; 
+	}
 	// delete options[option];	// TODO is this necessary ?
 	
 	options[option] = value;
