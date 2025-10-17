@@ -1,4 +1,4 @@
-/**
+/*
  * The FullCalendar component is a Titanium Client wrapper around <a href="https://fullcalendar.io/">https://fullcalendar.io/</a>.<br/>
  * Note that some features require a premium FullCalendar license.<br/><br/>
  *
