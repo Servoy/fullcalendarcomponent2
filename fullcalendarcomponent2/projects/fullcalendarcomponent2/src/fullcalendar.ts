@@ -182,11 +182,10 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
             googleCalendarPlugin,
             iCalendarPlugin,
             bootstrap5Plugin,
-            rrulePlugin,
-            scrollGridPlugin 
+            rrulePlugin             
         ];
         if (this.fullCalendarOptions.schedulerLicenseKey) {
-            this.fullCalendarOptions.plugins.push(timeline, resourceTimelinePlugin, resourceTimeGridPlugin, resourceDayGridPlugin);
+            this.fullCalendarOptions.plugins.push(timeline, resourceTimelinePlugin, resourceTimeGridPlugin, resourceDayGridPlugin, scrollGridPlugin);
         }
 
         if (this.themeSystem) {
