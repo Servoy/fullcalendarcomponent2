@@ -3,7 +3,7 @@
 	"displayName": "FullCalendar2",
 	"categoryName": "Visualization",
 	"doc": "fullcalendarcomponent2/fullcalendar2/fullcalendar_doc.js",
-	"icon" : "fullcalendarcomponent2/fullcalendar2/fullcalendar.png",
+	"icon" : "fullcalendarcomponent2/fullcalendar2/fullcalendar.svg",
 	"definition": "fullcalendarcomponent2/fullcalendar2/fullcalendar.js",
 	"serverscript": "fullcalendarcomponent2/fullcalendar2/fullcalendar_server.js",
 	"version": 1,
