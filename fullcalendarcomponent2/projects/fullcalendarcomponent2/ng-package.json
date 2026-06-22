@@ -4,22 +4,17 @@
     "lib": {
       "entryFile": "src/public-api.ts"
     },
-    "allowedNonPeerDependencies": [  
+    "allowedNonPeerDependencies": [
+        "fullcalendar",
+        "fullcalendar-scheduler",
         "@fullcalendar/angular",
-        "@fullcalendar/bootstrap5", 
-        "@fullcalendar/core", 
+        "@fullcalendar/angular-scheduler",
+        "@fullcalendar/format-luxon3",
         "@fullcalendar/google-calendar",
         "@fullcalendar/icalendar",
-        "@fullcalendar/interaction",
-        "@fullcalendar/list",
-        "@fullcalendar/luxon3",
-        "@fullcalendar/resource",
-        "@fullcalendar/resource-timegrid",
-        "@fullcalendar/resource-timeline",
-        "@fullcalendar/timegrid",
-        "@fullcalendar/timeline",
-        "@fullcalendar/rrule", 
-        "bootstrap" , 
+        "@fullcalendar/rrule",
+        "bootstrap",
+		"temporal-polyfill",
         "bootstrap-icons",
         "ical.js",
         "rrule"

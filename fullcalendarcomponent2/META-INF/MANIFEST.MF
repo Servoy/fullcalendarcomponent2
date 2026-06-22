@@ -5,7 +5,8 @@ Bundle-Version: 2025.3.1
 Entry-Point: dist/servoy/fullcalendarcomponent2
 NPM-PackageName: @servoy/fullcalendarcomponent2
 NG2-CSS-ClientLibs: ~bootstrap/dist/css/bootstrap.min.css,
- ~bootstrap-icons/font/bootstrap-icons.css
+ ~bootstrap-icons/font/bootstrap-icons.css,
+ ~@servoy/fullcalendarcomponent2/assets/fullcalendar.css
 NG2-Module: FullCalendarComponentModule
 Package-Type: Web-Component
 

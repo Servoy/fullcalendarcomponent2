@@ -3,29 +3,29 @@ import { LoggerFactory, LoggerService, ServoyBaseComponent, ServoyPublicService,
 import { FullCalendarComponent} from '@fullcalendar/angular';
 import { Input } from '@angular/core';
 import { FullCalendarModule } from '@fullcalendar/angular'; // must go before plugins
-import { DateClickArg, DropArg, EventDragStartArg, EventDragStopArg, EventLeaveArg, EventReceiveArg, EventResizeDoneArg, EventResizeStartArg, EventResizeStopArg } from '@fullcalendar/interaction';
+import { DateClickInfo, DropInfo, EventDragStartInfo, EventDragStopInfo, EventLeaveInfo, EventReceiveInfo, EventResizeDoneInfo, EventResizeStartInfo, EventResizeStopInfo, MountInfo, ViewDisplayInfo } from '@fullcalendar/angular';
+import { DatesSetInfo } from '@fullcalendar/angular';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import interactionPlugin from '@fullcalendar/interaction';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
-import resourceTimeGridPlugin from '@fullcalendar/resource-timegrid';
-import resourceDayGridPlugin from '@fullcalendar/resource-daygrid';
-import resourceTimelinePlugin from '@fullcalendar/resource-timeline';
-import scrollGridPlugin  from '@fullcalendar/scrollgrid';
+import interactionPlugin from '@fullcalendar/angular/interaction';
+import dayGridPlugin from '@fullcalendar/angular/daygrid';
+import timeGridPlugin from '@fullcalendar/angular/timegrid';
+import listPlugin from '@fullcalendar/angular/list';
+import resourceTimeGridPlugin from '@fullcalendar/angular-scheduler/resource-timegrid';
+import resourceDayGridPlugin from '@fullcalendar/angular-scheduler/resource-daygrid';
+import resourceTimelinePlugin from '@fullcalendar/angular-scheduler/resource-timeline';
+import scrollGridPlugin  from '@fullcalendar/angular-scheduler/scrollgrid';
 import rrulePlugin from '@fullcalendar/rrule'
-import timeline from '@fullcalendar/timeline';
-import luxonPlugin from '@fullcalendar/luxon3';
+import timeline from '@fullcalendar/angular-scheduler/timeline';
+import luxonPlugin from '@fullcalendar/format-luxon3';
 import iCalendarPlugin from '@fullcalendar/icalendar';
 import googleCalendarPlugin from '@fullcalendar/google-calendar';
-import bootstrap5Plugin from '@fullcalendar/bootstrap5';
 import { CommonModule } from '@angular/common';
 import { ServoyPublicModule, SpecTypesService } from '@servoy/public';
-import { ResourceAddArg, ResourceApi, ResourceChangeArg, ResourceRemoveArg } from '@fullcalendar/resource';
-import { CalendarOptions, ConstraintInput, DateInput, DateRangeInput, DateSelectArg, DatesSetArg,
-    DateUnselectArg, Duration, DurationInput, EventAddArg, EventApi, EventChangeArg, EventClickArg,
-    EventDropArg, EventHoveringArg, EventInput, EventRemoveArg, EventSourceApi, FormatterInput, ViewApi, ViewMountArg } from '@fullcalendar/core';
-import { PointerDragEvent } from '@fullcalendar/core/internal';
+import { ResourceAddInfo, ResourceApi, ResourceChangeInfo, ResourceRemoveInfo } from '@fullcalendar/angular-scheduler';
+import { CalendarOptions, ConstraintInput, DateInput, DateRangeInput, DateSelectInfo,
+    DateUnselectInfo, Duration, DurationInput, EventAddInfo, EventApi, EventChangeInfo, EventClickInfo,
+    EventDropInfo, EventHoveringInfo, EventInput, EventRemoveInfo, EventSourceApi, FormatterInput, ViewApi } from 'fullcalendar';
+import { PointerDragEvent } from 'fullcalendar/protected-api';
 
 @Component({
     selector: 'svy-fullcalendar2',
@@ -154,7 +154,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
 
         if ((!this.hasToDraw || this.renderOnCurrentView || restoreView) && this.view) {
             this.fullCalendarOptions.initialView = this.view.type;
-            const initialDate = this.view.currentStart ? new Date(this.view.currentStart) : this.calendarOptions.initialDate || new Date();
+            const initialDate = this.view.currentStart ? new Date(this.view.currentStart) : this.calendarOptions?.initialDate || new Date();
             this.fullCalendarOptions.initialDate = initialDate;
         }
         if (this.events && this.events.length) {
@@ -166,7 +166,9 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
 
         const eventSources = this.getES();
         if (eventSources) {
-            this.fullCalendarOptions.eventSources = eventSources;
+            this.fullCalendarOptions.eventSources = eventSources.map(({ className, ...rest }) =>
+                className ? { ...rest, classNames: className } : rest
+            ) as any;
         }
 
         if (this.functionResources) {
@@ -181,25 +183,32 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
             luxonPlugin,
             googleCalendarPlugin,
             iCalendarPlugin,
-            bootstrap5Plugin,
             rrulePlugin             
         ];
         if (this.fullCalendarOptions.schedulerLicenseKey) {
             this.fullCalendarOptions.plugins.push(timeline, resourceTimelinePlugin, resourceTimeGridPlugin, resourceDayGridPlugin, scrollGridPlugin);
         }
 
-        if (this.themeSystem) {
-            this.fullCalendarOptions.themeSystem = this.themeSystem;
-        }
-
-        this.isReadyForRendering = true;
+        const themeMap = {
+            classic: () => import('@fullcalendar/angular/themes/classic'),
+            breezy: () => import('@fullcalendar/angular/themes/breezy'),
+            forma: () => import('@fullcalendar/angular/themes/forma'),
+            monarch: () => import('@fullcalendar/angular/themes/monarch'),
+            pulse: () => import('@fullcalendar/angular/themes/pulse'),
+        };
+        const themeLoader = themeMap[this.themeSystem] || themeMap['classic'];
+        themeLoader().then(theme => {
+            this.fullCalendarOptions.plugins.push(theme.default);
+            this.isReadyForRendering = true;
+            this.cdRef.detectChanges();
+        });
     }
 
     /***********************************************************************************************************
     * CALLBACKS
     * **********************************************************************************************************/
 
-    viewDidMount = (viewDidMount: ViewMountArg) => {
+    viewDidMount = (viewDidMount: MountInfo<ViewDisplayInfo>) => {
         this.view = viewDidMount.view;
         this.viewChange.emit(viewDidMount.view);
         if (this.onViewDidMountMethodID) {
@@ -207,13 +216,13 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         }
     }
 
-    viewWillUnmount = (viewWillUnmount: ViewMountArg) => {
+    viewWillUnmount = (viewWillUnmount: MountInfo<ViewDisplayInfo>) => {
         if (this.onViewWillUnmountMethodID) {
             this.onViewWillUnmountMethodID(this.stringifyView(viewWillUnmount.view));
         }
     }
 
-    resourceAdd = (resAdd: ResourceAddArg) => {
+    resourceAdd = (resAdd: ResourceAddInfo) => {
         if (this.onResourceAddMethodID) {
             this.onResourceAddMethodID(resAdd.resource).then(success => {
                 if (!success) {
@@ -226,7 +235,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         }
 
     }
-    resourceChange = (resChange: ResourceChangeArg) => {
+    resourceChange = (resChange: ResourceChangeInfo) => {
         if (this.onResourceChangeMethodID) {
             this.onResourceChangeMethodID(resChange.oldResource, resChange.resource).then(success => {
                 if (!success) {
@@ -238,7 +247,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
             });
         }
     }
-    resourceRemove = (resRemove: ResourceRemoveArg) => {
+    resourceRemove = (resRemove: ResourceRemoveInfo) => {
         if (this.onResourceRemoveMethodID) {
             this.onResourceRemoveMethodID(resRemove.resource).then(success => {
                 if (!success) {
@@ -262,13 +271,13 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         }
     }
 
-    datesSet = (arg: DatesSetArg) => {
+    datesSet = (arg: DatesSetInfo) => {
         if (this.onDatesSetMethodID) {
             this.onDatesSetMethodID(arg.start, arg.end, arg.startStr, arg.endStr, arg.timeZone, this.stringifyView(arg.view));
         }
     }
 
-    selectCallback = (selectionInfo: DateSelectArg) => {
+    selectCallback = (selectionInfo: DateSelectInfo) => {
         if (this.onSelectMethodID) {
             const _resources = selectionInfo.resource?._resource;
             this.onSelectMethodID(selectionInfo.start, selectionInfo.end, selectionInfo.startStr, selectionInfo.endStr,
@@ -276,13 +285,13 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         }
     }
 
-    unselectCallback = (selectionInfo: DateUnselectArg) => {
+    unselectCallback = (selectionInfo: DateUnselectInfo) => {
         if (this.onUnselectMethodID) {
             this.onUnselectMethodID(selectionInfo.jsEvent, this.stringifyView(selectionInfo.view));
         }
     }
 
-    dateClick = (arg: DateClickArg) => {
+    dateClick = (arg: DateClickInfo) => {
         if (this.clickTimeout) {
             clearTimeout(this.clickTimeout);
             this.clickTimeout = null;
@@ -318,7 +327,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         }
     }
     
-    eventClick = (eventClickArg: EventClickArg) => {
+    eventClick = (eventClickArg: EventClickInfo) => {
         if (this.clickTimeout) {
             clearTimeout(this.clickTimeout);
             this.clickTimeout = null;
@@ -343,7 +352,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         }
     }
 
-    eventMouseEnter = (eventHovering: EventHoveringArg) => {
+    eventMouseEnter = (eventHovering: EventHoveringInfo) => {
         if (this.onEventMouseEnterMethodID) {
             this.onEventMouseEnterMethodID(null, this.stringifyEvent(eventHovering.event), eventHovering.jsEvent, eventHovering.view);
         }
@@ -352,7 +361,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
 		}
     }
 
-    eventMouseLeave = (eventHovering: EventHoveringArg) => {
+    eventMouseLeave = (eventHovering: EventHoveringInfo) => {
         if (this.onEventMouseLeaveMethodID) {
             this.onEventMouseLeaveMethodID(null, this.stringifyEvent(eventHovering.event), eventHovering.jsEvent, eventHovering.view);
         }
@@ -361,7 +370,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
 		}
     }
 
-    eventAdd = (eventAdd: EventAddArg) => {
+    eventAdd = (eventAdd: EventAddInfo) => {
         if (this.onEventAddMethodID) {
             const stringifyedRelatedEvents = [];
             eventAdd.relatedEvents.forEach((e) => {
@@ -378,7 +387,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         }
     }
 
-    eventRemove = (eventRemove: EventRemoveArg) => {
+    eventRemove = (eventRemove: EventRemoveInfo) => {
         if (this.onEventRemoveMethodID) {
             const stringifyedRelatedEvents = [];
             eventRemove.relatedEvents.forEach((e) => {
@@ -395,7 +404,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         }
     }
 
-    eventChange = (eventChange: EventChangeArg) => {
+    eventChange = (eventChange: EventChangeInfo) => {
         if (this.onEventChangeMethodID) {
             const stringifyedRelatedEvents = [];
             eventChange.relatedEvents.forEach((e) => {
@@ -413,7 +422,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         }
     }
 
-    eventResize = (resizeArg: EventResizeDoneArg) => {
+    eventResize = (resizeArg: EventResizeDoneInfo) => {
         if (this.onEventResizeMethodID) {
             const stringifyedRelatedEvents = [];
             resizeArg.relatedEvents.forEach((e) => {
@@ -432,7 +441,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         }
     }
 
-    eventDrop = (dropArg: EventDropArg) => {
+    eventDrop = (dropArg: EventDropInfo) => {
         if (this.onEventDropMethodID) {
             const stringifyedRelatedEvents = [];
             dropArg.relatedEvents.forEach((e) => {
@@ -451,38 +460,38 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         }
     }
 
-    drop = (dropArg: DropArg) => {
+    drop = (dropArg: DropInfo) => {
         if (this.onDropMethodID) {
             this.onDropMethodID(dropArg.allDay, dropArg.date, dropArg.dateStr, dropArg.draggedEl,
                 dropArg.jsEvent, this.stringifyResource(dropArg.resource), this.stringifyView(dropArg.view));
         }
     }
 
-    eventResizeStart = (resizeStart: EventResizeStartArg) => {
+    eventResizeStart = (resizeStart: EventResizeStartInfo) => {
         if (this.onEventResizeStartMethodID) {
             this.onEventResizeStartMethodID(this.stringifyEvent(resizeStart.event), resizeStart.jsEvent, this.stringifyView(resizeStart.view));
         }
     }
 
-    eventResizeStop = (resizeStop: EventResizeStopArg) => {
+    eventResizeStop = (resizeStop: EventResizeStopInfo) => {
         if (this.onEventResizeStopMethodID) {
             this.onEventResizeStopMethodID(this.stringifyEvent(resizeStop.event), resizeStop.jsEvent, this.stringifyView(resizeStop.view));
         }
     }
 
-    eventDragStart = (dragStart: EventDragStartArg) => {
+    eventDragStart = (dragStart: EventDragStartInfo) => {
         if (this.onEventDragStartMethodID) {
             this.onEventDragStartMethodID(this.stringifyEvent(dragStart.event), dragStart.jsEvent, this.stringifyView(dragStart.view));
         }
     }
 
-    eventDragStop = (dragStop: EventDragStopArg) => {
+    eventDragStop = (dragStop: EventDragStopInfo) => {
         if (this.onEventDragStopMethodID) {
             this.onEventDragStopMethodID(this.stringifyEvent(dragStop.event), dragStop.jsEvent, this.stringifyView(dragStop.view));
         }
     }
 
-    eventReceive = (receiveArg: EventReceiveArg) => {
+    eventReceive = (receiveArg: EventReceiveInfo) => {
         if (this.onEventReceiveMethodID) {
             const stringifyedRelatedEvents = [];
             receiveArg.relatedEvents.forEach((e) => {
@@ -500,7 +509,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         }
     }
 
-    eventLeave = (leaveArg: EventLeaveArg) => {
+    eventLeave = (leaveArg: EventLeaveInfo) => {
         if (this.onEventLeaveMethodID) {
             const stringifyedRelatedEvents = [];
             leaveArg.relatedEvents.forEach((e) => {
@@ -681,12 +690,16 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     }
 
     addEventSourceToCalendar(eventSource: EventSource) : EventSource{
-        return this.stringifyEventSource(this.calendarComponent.getApi().addEventSource(eventSource));
+        const { className, ...rest } = eventSource as any;
+        const input = className ? { ...rest, classNames: className } : rest;
+        return this.stringifyEventSource(this.calendarComponent.getApi().addEventSource(input));
     }
 
     addFunctionEventSourceToCalendar(eventSource: EventSource, callback: (...args: unknown[]) => any) {
         if (callback) eventSource = this.transformFunctionEventSource(eventSource, callback);
-        return this.stringifyEventSource(this.calendarComponent.getApi().addEventSource(eventSource));
+        const { className, ...rest } = eventSource as any;
+        const input = className ? { ...rest, classNames: className } : rest;
+        return this.stringifyEventSource(this.calendarComponent.getApi().addEventSource(input));
     }
 
     refetchEvents() {
@@ -964,10 +977,10 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
             durationEditable: event?.durationEditable,
             constraint: event?.constraint,
             overlap: event?.overlap,
-            backgroundColor: event?.backgroundColor,
-            borderColor: event?.borderColor,
-            textColor: event?.textColor,
-            classNames: event?.classNames,
+            backgroundColor: event?.color,
+            borderColor: event?.color,
+            textColor: event?.contrastColor,
+            classNames: event?.className ? event.className.split(' ') : [],
             extendedProps: event?.extendedProps,
             resourceId : event ? event['resourceId'] : null,
             resourceIds : event ? event['resourceIds'] : null
@@ -1026,7 +1039,8 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
         if (this.onEventChangeMethodID) {this.fullCalendarOptions.eventChange = this.eventChange; }
         if (this.onEventRemoveMethodID) { this.fullCalendarOptions.eventRemove = this.eventRemove; }
         if (this.onEventsSetMethodID) {this.fullCalendarOptions.eventsSet = this.eventsSet; }
-        if (this.onWindowResizeMethodID) {this.fullCalendarOptions.windowResize = this.windowResize;}
+		// gone now
+        //if (this.onWindowResizeMethodID) {this.fullCalendarOptions.windowResize = this.windowResize;}
         if (this.onDatesSetMethodID) { this.fullCalendarOptions.datesSet = this.datesSet; }
         if (this.onLoadingMethodID) { this.fullCalendarOptions.loading = this.loading; }
         if (this.onDateClickMethodID || this.onDateDblClickMethodID) {this.fullCalendarOptions.dateClick = this.dateClick; }
