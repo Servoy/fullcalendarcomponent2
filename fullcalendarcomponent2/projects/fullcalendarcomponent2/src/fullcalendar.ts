@@ -129,12 +129,6 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
                         }
                         break;
                     }
-					case 'calendarOptions': {
-						if (this.calendarComponent) {
-							this.initFullCalendar();
-						}
-						break;
-					}
                 }
             }
         }
@@ -744,6 +738,12 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     getOption<OptionName extends keyof CalendarOptions>(name: OptionName) {
         const option = this.calendarComponent.getApi().getOption(name);
         return option;
+    }
+
+    setCalendarOption(name: string, value: any) {
+        if (this.calendarComponent) {
+            this.calendarComponent.getApi().setOption(name as any, value);
+        }
     }
 
     next() {

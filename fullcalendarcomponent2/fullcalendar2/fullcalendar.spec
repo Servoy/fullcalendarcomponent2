@@ -1051,7 +1051,13 @@
         			"type": "int"
         		}],
         		"returns" : "EventParsing[]"
-        }
+        },
+		"setCalendarOption": {
+			"parameters" : [
+				{"name": "name", "type": "string"},
+				{"name": "value", "type": "object"}
+			]
+		}
 	},
 	"types": {
 		"EventParsing": {

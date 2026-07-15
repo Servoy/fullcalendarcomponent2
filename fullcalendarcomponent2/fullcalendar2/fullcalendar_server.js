@@ -182,7 +182,8 @@ $scope.api.updateFullCalendar = function(option, value) {
 	// delete options[option];	// TODO is this necessary ?
 	
 	options[option] = value;
-	$scope.api.fullCalendar(options, true);
+	$scope.model.calendarOptions = options;
+	$scope.api.setCalendarOption(option, value);
 }
 
 /**
