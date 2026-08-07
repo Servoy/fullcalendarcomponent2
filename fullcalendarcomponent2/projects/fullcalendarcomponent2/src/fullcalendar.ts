@@ -98,7 +98,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> implements
     isReadyForRendering = false;
     tooltipService: TooltipService;
 
-    clickTimeout: number | null = null;
+    clickTimeout: any = null;
     clickDelay = 300; //ms
 
     private initialDelay = 750;
