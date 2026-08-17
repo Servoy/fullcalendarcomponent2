@@ -1,3 +1,5 @@
-<div #element style="height:100%; width:100%; overflow:auto;" [ngClass]="styleClass">
-    <full-calendar *ngIf="isReadyForRendering" #calendar [options]="fullCalendarOptions" [deepChangeDetection]="true"></full-calendar> 
+<div #element style="height:100%; width:100%; overflow:auto;" [ngClass]="styleClass()">
+  @if (isReadyForRendering) {
+    <full-calendar #calendar [options]="fullCalendarOptions" [deepChangeDetection]="true"></full-calendar>
+  }
 </div>
