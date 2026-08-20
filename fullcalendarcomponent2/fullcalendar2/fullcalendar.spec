@@ -9,6 +9,7 @@
 	"version": 1,
 	"model":
 	{
+	    "designsize" : {"type" :"dimension", "tags": {"serveronly": true}, "default" : {"width":400, "height":300}},
 		"hasToDraw": {"type":"boolean", "pushToServer" : "shallow", "tags": {"scope": "private"}},
 		"renderOnCurrentView": {"type":"boolean", "pushToServer" : "allow", "tags": {"scope": "private"}},
 		"calendarOptions" : {"type":"FullCalendarOptions", "pushToServer" : "allow", "tags": {"scope": "private"}},
