@@ -91,7 +91,7 @@ var calendarOptions = {
 	height: "100%",
 	allDayText: '',
 	allDaySlot: true,
-	stickyHeaderDates: 'auto',
+	tableHeaderSticky: 'auto',
 	locale: 'en',
 	businessHours: {
 		start: '09:00',
@@ -103,7 +103,6 @@ var calendarOptions = {
 	editable: true,
 	eventSources: [],
 	eventConstraint: 'businessHours',
-	handleWindowResize: true,
 	firstDay: 1,
 	headerToolbar: {
 		left: 'title',
@@ -118,10 +117,10 @@ var calendarOptions = {
 	weekends: true,
 	views: {
 		timeGridWeek: {
-			slotLabelFormat: { hour: 'numeric', minute: '2-digit', omitZeroMinute: true, meridiem: false, hour12: false}
+			slotHeaderFormat: { hour: 'numeric', minute: '2-digit', omitZeroMinute: true, meridiem: false, hour12: false}
 		},
 		timeGridDay: {
-			slotLabelFormat: { hour: 'numeric', minute: '2-digit', omitZeroMinute: true, meridiem: false, hour12: false}
+			slotHeaderFormat: { hour: 'numeric', minute: '2-digit', omitZeroMinute: true, meridiem: false, hour12: false}
 		}
 	},
 	schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives'

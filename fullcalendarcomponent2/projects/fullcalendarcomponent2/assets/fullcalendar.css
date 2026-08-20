@@ -1,3 +1,11 @@
 @import 'fullcalendar/skeleton.css';
 @import 'fullcalendar/themes/classic/theme.css';
 @import 'fullcalendar/themes/classic/palette.css';
+@import 'fullcalendar/themes/breezy/theme.css';
+@import 'fullcalendar/themes/breezy/palettes/indigo.css';
+@import 'fullcalendar/themes/forma/theme.css';
+@import 'fullcalendar/themes/forma/palettes/blue.css';
+@import 'fullcalendar/themes/monarch/theme.css';
+@import 'fullcalendar/themes/monarch/palettes/blue.css';
+@import 'fullcalendar/themes/pulse/theme.css';
+@import 'fullcalendar/themes/pulse/palettes/blue.css';
