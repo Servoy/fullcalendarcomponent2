@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, viewChild, NgModule, CUSTOM_ELEMENTS_SCHEMA, linkedSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, viewChild, linkedSignal, signal } from '@angular/core';
 import { LoggerFactory, LoggerService, ServoyBaseComponent, ServoyPublicService, ICustomObjectValue, TooltipService, ServoyPublicModule } from '@servoy/public';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { input, output } from '@angular/core';
@@ -90,10 +90,10 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> {
 
     readonly calendarComponent = viewChild<FullCalendarComponent>('calendar');
 
-    fullCalendarOptions: CalendarOptions = {};
+    readonly fullCalendarOptions = signal<CalendarOptions>({} as CalendarOptions);
     TIMEZONE_DEFAULT = 'local';
     log: LoggerService;
-    isReadyForRendering = false;
+    readonly isReadyForRendering = signal(false);
     tooltipService: TooltipService;
 
     clickTimeout: any = null;
@@ -138,39 +138,39 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> {
 
     initFullCalendar(restoreView?: boolean) {
         const calOpts = this.calendarOptions();
-        this.fullCalendarOptions = calOpts ? { ...calOpts } : {} as CalendarOptions;
+        const opts = calOpts ? { ...calOpts } : {} as CalendarOptions;
 
-        this.fullCalendarOptions.eventDidMount = this.eventDidMount;
+        opts.eventDidMount = this.eventDidMount;
 
-        this.initializeCallbacks();
+        this.initializeCallbacks(opts);
 
         const currentView = this._view();
         if ((!this.hasToDraw() || this.renderOnCurrentView() || restoreView) && currentView) {
-            this.fullCalendarOptions.initialView = currentView.type;
+            opts.initialView = currentView.type;
             const initialDate = currentView.currentStart ? new Date(currentView.currentStart) : calOpts?.initialDate || new Date();
-            this.fullCalendarOptions.initialDate = initialDate;
+            opts.initialDate = initialDate;
         }
         const evts = this.events();
         if (evts && evts.length) {
-            this.fullCalendarOptions.events = evts;
+            opts.events = evts;
         }
-        if (!this.fullCalendarOptions.timeZone) {
-            this.fullCalendarOptions.timeZone = this.TIMEZONE_DEFAULT;
+        if (!opts.timeZone) {
+            opts.timeZone = this.TIMEZONE_DEFAULT;
         }
 
         const eventSources = this.getES();
         if (eventSources) {
-            this.fullCalendarOptions.eventSources = eventSources.map(({ className, ...rest }) =>
+            opts.eventSources = eventSources.map(({ className, ...rest }) =>
                 className ? { ...rest, classNames: className } : rest
             ) as any;
         }
 
         const funcRes = this.functionResources();
         if (funcRes) {
-            this.fullCalendarOptions.resources = this.transformFunctionResource(funcRes) as any;
+            opts.resources = this.transformFunctionResource(funcRes) as any;
         }
 
-        this.fullCalendarOptions.plugins = [
+        opts.plugins = [
             dayGridPlugin,
             interactionPlugin,
             timeGridPlugin,
@@ -180,8 +180,8 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> {
             iCalendarPlugin as any,
             rrulePlugin
         ];
-        if (this.fullCalendarOptions.schedulerLicenseKey) {
-            this.fullCalendarOptions.plugins!.push(timeline, resourceTimelinePlugin, resourceTimeGridPlugin, resourceDayGridPlugin, scrollGridPlugin);
+        if (opts.schedulerLicenseKey) {
+            opts.plugins!.push(timeline, resourceTimelinePlugin, resourceTimeGridPlugin, resourceDayGridPlugin, scrollGridPlugin);
         }
 
         const themeMap = {
@@ -193,8 +193,9 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> {
         };
         const themeLoader = (themeMap as any)[this.themeSystem()] || themeMap['classic'];
         themeLoader().then((theme: any) => {
-            this.fullCalendarOptions.plugins!.push(theme.default);
-            this.isReadyForRendering = true;
+            opts.plugins!.push(theme.default);
+            this.fullCalendarOptions.set(opts);
+            this.isReadyForRendering.set(true);
             this.detectChanges();
         });
     }
@@ -981,39 +982,39 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> {
         };
     }
 
-    private initializeCallbacks() {
-        if (this.onSelectMethodID()) { this.fullCalendarOptions.select = this.selectCallback; }
-        if (this.onUnselectMethodID()) { this.fullCalendarOptions.unselect = this.unselectCallback; }
-        if (this.onEventDblClickMethodID() || this.onEventClickMethodID()) this.fullCalendarOptions.eventClick = this.eventClick;
-        if (this.onEventResizeMethodID()) { this.fullCalendarOptions.eventResize = this.eventResize; }
-        if (this.onEventDragStartMethodID()) { this.fullCalendarOptions.eventResizeStart = this.eventDragStart; }
-        if (this.onEventResizeStopMethodID()) { this.fullCalendarOptions.eventResizeStop = this.eventResizeStop; }
-        if (this.onEventDropMethodID()) { this.fullCalendarOptions.eventDrop = this.eventDrop; }
-        if (this.onEventDragStartMethodID()) { this.fullCalendarOptions.eventDragStart = this.eventDragStart; }
-        if (this.onEventDragStopMethodID()) { this.fullCalendarOptions.eventDragStop = this.eventDragStop; }
-        if (this.onEventReceiveMethodID()) { this.fullCalendarOptions.eventReceive = this.eventReceive; }
-        if (this.onEventLeaveMethodID()) { this.fullCalendarOptions.eventLeave = this.eventLeave; }
-        if (this.onDropMethodID()) { this.fullCalendarOptions.drop = this.drop; }
-        if (this.onEventMouseEnterMethodID() || this.onMouseEnter()) { this.fullCalendarOptions.eventMouseEnter = this.eventMouseEnter; }
-        if (this.onEventMouseLeaveMethodID() || this.onMouseLeave()) { this.fullCalendarOptions.eventMouseLeave = this.eventMouseLeave; }
-        if (this.onEventAddMethodID()) { this.fullCalendarOptions.eventAdd = this.eventAdd; }
-        if (this.onEventChangeMethodID()) { this.fullCalendarOptions.eventChange = this.eventChange; }
-        if (this.onEventRemoveMethodID()) { this.fullCalendarOptions.eventRemove = this.eventRemove; }
-        if (this.onEventsSetMethodID()) { this.fullCalendarOptions.eventsSet = this.eventsSet; }
-        if (this.onDatesSetMethodID()) { this.fullCalendarOptions.datesSet = this.datesSet; }
-        if (this.onLoadingMethodID()) { this.fullCalendarOptions.loading = this.loading; }
-        if (this.onDateClickMethodID() || this.onDateDblClickMethodID()) { this.fullCalendarOptions.dateClick = this.dateClick; }
-        if (this.onResourceAddMethodID()) { this.fullCalendarOptions.resourceAdd = this.resourceAdd; }
-        if (this.onResourceChangeMethodID()) { this.fullCalendarOptions.resourceChange = this.resourceChange; }
-        if (this.onResourceRemoveMethodID()) { this.fullCalendarOptions.resourceRemove = this.resourceRemove; }
-        if (this.onResourcesSetMethodID()) { this.fullCalendarOptions.resourcesSet = this.resourcesSet; }
-        this.fullCalendarOptions.viewDidMount = this.viewDidMount;
-        if (this.onViewWillUnmountMethodID()) { this.fullCalendarOptions.viewWillUnmount = this.viewWillUnmount; }
-        if (!this.fullCalendarOptions.navLinkDayClick) {
-            this.fullCalendarOptions.navLinkDayClick = this.navLinkDayClick as any;
+    private initializeCallbacks(opts: CalendarOptions) {
+        if (this.onSelectMethodID()) { opts.select = this.selectCallback; }
+        if (this.onUnselectMethodID()) { opts.unselect = this.unselectCallback; }
+        if (this.onEventDblClickMethodID() || this.onEventClickMethodID()) opts.eventClick = this.eventClick;
+        if (this.onEventResizeMethodID()) { opts.eventResize = this.eventResize; }
+        if (this.onEventDragStartMethodID()) { opts.eventResizeStart = this.eventDragStart; }
+        if (this.onEventResizeStopMethodID()) { opts.eventResizeStop = this.eventResizeStop; }
+        if (this.onEventDropMethodID()) { opts.eventDrop = this.eventDrop; }
+        if (this.onEventDragStartMethodID()) { opts.eventDragStart = this.eventDragStart; }
+        if (this.onEventDragStopMethodID()) { opts.eventDragStop = this.eventDragStop; }
+        if (this.onEventReceiveMethodID()) { opts.eventReceive = this.eventReceive; }
+        if (this.onEventLeaveMethodID()) { opts.eventLeave = this.eventLeave; }
+        if (this.onDropMethodID()) { opts.drop = this.drop; }
+        if (this.onEventMouseEnterMethodID() || this.onMouseEnter()) { opts.eventMouseEnter = this.eventMouseEnter; }
+        if (this.onEventMouseLeaveMethodID() || this.onMouseLeave()) { opts.eventMouseLeave = this.eventMouseLeave; }
+        if (this.onEventAddMethodID()) { opts.eventAdd = this.eventAdd; }
+        if (this.onEventChangeMethodID()) { opts.eventChange = this.eventChange; }
+        if (this.onEventRemoveMethodID()) { opts.eventRemove = this.eventRemove; }
+        if (this.onEventsSetMethodID()) { opts.eventsSet = this.eventsSet; }
+        if (this.onDatesSetMethodID()) { opts.datesSet = this.datesSet; }
+        if (this.onLoadingMethodID()) { opts.loading = this.loading; }
+        if (this.onDateClickMethodID() || this.onDateDblClickMethodID()) { opts.dateClick = this.dateClick; }
+        if (this.onResourceAddMethodID()) { opts.resourceAdd = this.resourceAdd; }
+        if (this.onResourceChangeMethodID()) { opts.resourceChange = this.resourceChange; }
+        if (this.onResourceRemoveMethodID()) { opts.resourceRemove = this.resourceRemove; }
+        if (this.onResourcesSetMethodID()) { opts.resourcesSet = this.resourcesSet; }
+        opts.viewDidMount = this.viewDidMount;
+        if (this.onViewWillUnmountMethodID()) { opts.viewWillUnmount = this.viewWillUnmount; }
+        if (!opts.navLinkDayClick) {
+            opts.navLinkDayClick = this.navLinkDayClick as any;
         }
-        if (!this.fullCalendarOptions.navLinkWeekClick) {
-            this.fullCalendarOptions.navLinkWeekClick = this.navLinkWeekClick as any;
+        if (!opts.navLinkWeekClick) {
+            opts.navLinkWeekClick = this.navLinkWeekClick as any;
         }
     }
 }
@@ -1116,18 +1117,4 @@ export class ResourceObject implements ICustomObjectValue {
 class ServerFunction {
     public formname?: string;
     public script?: string;
-}
-
-@NgModule({
-    imports: [
-        FullCalendar
-    ],
-    exports: [
-        FullCalendar
-    ],
-    schemas: [
-        CUSTOM_ELEMENTS_SCHEMA
-    ]
-})
-export class FullCalendarComponentModule {
 }

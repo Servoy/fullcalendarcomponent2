@@ -7,7 +7,7 @@ NPM-PackageName: @servoy/fullcalendarcomponent2
 NG2-CSS-ClientLibs: ~bootstrap/dist/css/bootstrap.min.css,
  ~bootstrap-icons/font/bootstrap-icons.css,
  ~@servoy/fullcalendarcomponent2/assets/fullcalendar.css
-NG2-Module: FullCalendarComponentModule
+NG2-Components: FullCalendar
 Package-Type: Web-Component
 
 Name: fullcalendar2/fullcalendar.spec
