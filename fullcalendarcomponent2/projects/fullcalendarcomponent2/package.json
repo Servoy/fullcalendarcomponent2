@@ -1,6 +1,6 @@
 {
     "name": "@servoy/fullcalendarcomponent2",
-    "version": "2026.9.0",
+    "version": "2026.9.1",
     "dependencies": {
       "fullcalendar": "7.0.0",
       "fullcalendar-scheduler": "7.0.0",
