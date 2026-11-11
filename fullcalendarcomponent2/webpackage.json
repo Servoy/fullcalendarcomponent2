@@ -18,6 +18,7 @@
         {"version":"2025.3.0","url":"https://github.com/Servoy/fullcalendarcomponent2/releases/download/v2025.3.0/fullcalendarcomponent2.zip", "servoy-version":"2025.3.0"},
 		{"version":"2026.6.0","url":"https://github.com/Servoy/fullcalendarcomponent2/releases/download/v2026.6.0/fullcalendarcomponent2.zip", "servoy-version":"2026.3.0"},
         {"version":"2026.6.1","url":"https://github.com/Servoy/fullcalendarcomponent2/releases/download/v2026.6.1/fullcalendarcomponent2.zip", "servoy-version":"2026.3.0 - 2026.6.x"},
+        {"version":"2026.6.2","url":"https://github.com/Servoy/fullcalendarcomponent2/releases/download/v2026.6.2/fullcalendarcomponent2.zip", "servoy-version":"2026.3.0 - 2026.6.x"},
         {"version":"2026.9.0","url":"https://github.com/Servoy/fullcalendarcomponent2/releases/download/v2026.9.0/fullcalendarcomponent2.zip", "servoy-version":"2026.9.0"}
         
     ]
