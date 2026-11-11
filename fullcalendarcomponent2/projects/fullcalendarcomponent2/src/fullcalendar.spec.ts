@@ -55,7 +55,7 @@ describe('FullCalendar', () => {
 
     it('should render the calendar after theme loads', async () => {
         await waitForCalendar();
-        expect(component.isReadyForRendering).toBe(true);
+        expect(component.isReadyForRendering()).toBe(true);
         const cal = fixture.nativeElement.querySelector('full-calendar');
         expect(cal).not.toBeNull();
     });
@@ -70,105 +70,105 @@ describe('FullCalendar', () => {
 
     it('should initialize fullCalendarOptions with default timezone', async () => {
         await waitForCalendar();
-        expect(component.fullCalendarOptions.timeZone).toBe('local');
+        expect(component.fullCalendarOptions().timeZone).toBe('local');
     });
 
     it('should include plugins', async () => {
         await waitForCalendar();
-        expect(component.fullCalendarOptions.plugins!.length).toBeGreaterThan(0);
+        expect(component.fullCalendarOptions().plugins!.length).toBeGreaterThan(0);
     });
 
     it('should register select callback when handler is provided', async () => {
         const onSelectMethodID = vi.fn();
         await createComponent({ onSelectMethodID });
         await waitForCalendar();
-        expect(component.fullCalendarOptions.select).toBeDefined();
+        expect(component.fullCalendarOptions().select).toBeDefined();
     });
 
     it('should not register select callback when handler is not provided', async () => {
         await createComponent({});
         await waitForCalendar();
-        expect(component.fullCalendarOptions.select).toBeUndefined();
+        expect(component.fullCalendarOptions().select).toBeUndefined();
     });
 
     it('should register eventClick callback when click handler is provided', async () => {
         const onEventClickMethodID = vi.fn();
         await createComponent({ onEventClickMethodID });
         await waitForCalendar();
-        expect(component.fullCalendarOptions.eventClick).toBeDefined();
+        expect(component.fullCalendarOptions().eventClick).toBeDefined();
     });
 
     it('should register eventClick callback when dblclick handler is provided', async () => {
         const onEventDblClickMethodID = vi.fn();
         await createComponent({ onEventDblClickMethodID });
         await waitForCalendar();
-        expect(component.fullCalendarOptions.eventClick).toBeDefined();
+        expect(component.fullCalendarOptions().eventClick).toBeDefined();
     });
 
     it('should register dateClick callback when handler is provided', async () => {
         const onDateClickMethodID = vi.fn();
         await createComponent({ onDateClickMethodID });
         await waitForCalendar();
-        expect(component.fullCalendarOptions.dateClick).toBeDefined();
+        expect(component.fullCalendarOptions().dateClick).toBeDefined();
     });
 
     it('should register eventDrop callback when handler is provided', async () => {
         const onEventDropMethodID = vi.fn();
         await createComponent({ onEventDropMethodID });
         await waitForCalendar();
-        expect(component.fullCalendarOptions.eventDrop).toBeDefined();
+        expect(component.fullCalendarOptions().eventDrop).toBeDefined();
     });
 
     it('should register eventResize callback when handler is provided', async () => {
         const onEventResizeMethodID = vi.fn();
         await createComponent({ onEventResizeMethodID });
         await waitForCalendar();
-        expect(component.fullCalendarOptions.eventResize).toBeDefined();
+        expect(component.fullCalendarOptions().eventResize).toBeDefined();
     });
 
     it('should register loading callback when handler is provided', async () => {
         const onLoadingMethodID = vi.fn();
         await createComponent({ onLoadingMethodID });
         await waitForCalendar();
-        expect(component.fullCalendarOptions.loading).toBeDefined();
+        expect(component.fullCalendarOptions().loading).toBeDefined();
     });
 
     it('should register datesSet callback when handler is provided', async () => {
         const onDatesSetMethodID = vi.fn();
         await createComponent({ onDatesSetMethodID });
         await waitForCalendar();
-        expect(component.fullCalendarOptions.datesSet).toBeDefined();
+        expect(component.fullCalendarOptions().datesSet).toBeDefined();
     });
 
     it('should always register viewDidMount', async () => {
         await waitForCalendar();
-        expect(component.fullCalendarOptions.viewDidMount).toBeDefined();
+        expect(component.fullCalendarOptions().viewDidMount).toBeDefined();
     });
 
     it('should use provided calendarOptions', async () => {
         await createComponent({ calendarOptions: { initialView: 'dayGridMonth', weekends: false } });
         await waitForCalendar();
-        expect(component.fullCalendarOptions.weekends).toBe(false);
+        expect(component.fullCalendarOptions().weekends).toBe(false);
     });
 
     it('should set initial events when provided', async () => {
         const events = [{ title: 'Test Event', start: '2026-01-01' }];
         await createComponent({ events });
         await waitForCalendar();
-        expect(component.fullCalendarOptions.events).toEqual(events);
+        expect(component.fullCalendarOptions().events).toEqual(events);
     });
 
     it('should add scheduler plugins when license key is provided', async () => {
         await createComponent({ calendarOptions: { schedulerLicenseKey: 'test-key' } });
         await waitForCalendar();
-        expect(component.fullCalendarOptions.plugins!.length).toBeGreaterThan(8);
+        expect(component.fullCalendarOptions().plugins!.length).toBeGreaterThan(8);
     });
 
     it('should restore view when view input is provided', async () => {
         const view = { type: 'dayGridMonth', currentStart: new Date(2026, 5, 1) } as any;
         await createComponent({ view });
         await waitForCalendar();
-        expect(component.fullCalendarOptions.initialView).toBe('dayGridMonth');
+        expect(component.fullCalendarOptions().initialView).toBe('dayGridMonth');
     });
 
     it('should evaluate tooltip expression', () => {

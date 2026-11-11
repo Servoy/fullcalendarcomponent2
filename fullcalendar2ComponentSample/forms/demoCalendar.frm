@@ -138,6 +138,7 @@ foundsetSelector:"mem:event_objects",
 loadAllRecords:"true"
 },
 onCellDoubleClick:"A4A13AF2-52D5-4447-97D0-F4AEDA1164B4",
+onCellRightClick:null,
 onColumnDataChange:"818C2F1D-CBDA-48EF-BC5B-839A2D33987A",
 readOnly:true
 },
@@ -245,6 +246,7 @@ width:"57%"
 formIndex:0,
 onEventClickMethodID:"A5E343E1-FF71-41DC-AD61-795A9CC48510",
 onEventMouseEnterMethodID:null,
+onEventRightClickMethodID:"63C7173D-A0DC-4FE9-BD90-D80BADE65B02",
 onSelectMethodID:null,
 themeSystem:"bootstrap5",
 tooltipExpression:"This is an expression <i>{{title}}<\/i><br>{{extendedProps.data.description}}"

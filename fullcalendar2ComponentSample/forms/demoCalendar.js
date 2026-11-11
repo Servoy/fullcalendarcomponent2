@@ -164,6 +164,35 @@ function onLoad(event) {
 }
 
 /**
+ * @param {CustomType<svy-fullcalendar2.EventObject>} event
+ * @param {JSEvent} jsEvent
+ * @param {CustomType<svy-fullcalendar2.ViewType>} view
+ *
+ * @properties={typeid:24,uuid:"63C7173D-A0DC-4FE9-BD90-D80BADE65B02"}
+ */
+function onEventRightClick(event, jsEvent, view) {
+ var vEventId = event.id;
+ var vPopupMenu = plugins.window.createPopupMenu();
+ var vMenuItem;
+ vMenuItem = vPopupMenu.addMenuItem('Open job',onActionOpen);
+ vMenuItem.methodArguments = [vEventId];
+ vPopupMenu.show(jsEvent.getX(), jsEvent.getY());
+
+application.output("showing popup EVENT:" + event + ", JSEVENT:" + jsEvent + " , VIEW:" + view);
+
+}
+
+/**
+ * TODO generated, please specify type and doc for the params
+ * @param event
+ *
+ * @properties={typeid:24,uuid:"96851C4B-F770-47DB-B3A3-C18A19A648EA"}
+ */
+function onActionOpen(event) {
+	application.output(event);
+}
+
+/**
  * @properties={typeid:24,uuid:"7E945AEB-61B2-484B-9ECC-D678015D6DCE"}
  */
 function getEventSources() {

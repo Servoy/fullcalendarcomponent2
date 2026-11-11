@@ -3,3 +3,5 @@
 /dist/
 /fullcalendarcomponent2.zip
 /.angular/
+/coverage/
+/coverage-report.md

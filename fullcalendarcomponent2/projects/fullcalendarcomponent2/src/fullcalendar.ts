@@ -549,7 +549,7 @@ export class FullCalendar extends ServoyBaseComponent<HTMLDivElement> {
         if (this.onEventRightClickMethodID()) {
             info.el.addEventListener('contextmenu', (event: any) => {
                 event.preventDefault();
-                this.onEventRightClickMethodID()!(this.stringifyEvent(info.event), event, info.view);
+                this.onEventRightClickMethodID()!(this.stringifyEvent(info.event), event, this.stringifyView(info.view));
             });
         }
     }

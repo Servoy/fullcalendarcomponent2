@@ -10,6 +10,8 @@
     "make_release": "ng build @servoy/fullcalendarcomponent2 --configuration production && node scripts/build.js",
     "test": "ng test @servoy/fullcalendarcomponent2 --no-watch",
     "test:watch": "ng test @servoy/fullcalendarcomponent2",
+    "test:coverage": "ng test @servoy/fullcalendarcomponent2 --no-watch --coverage --coverage-include \"projects/fullcalendarcomponent2/src/**/*.ts\" --coverage-exclude \"**/*.spec.ts\" --coverage-exclude \"**/*.d.ts\" --coverage-exclude \"**/testingutils.ts\" --coverage-exclude \"**/public-api.ts\"",
+    "coverage:summary": "node scripts/coverage-summary.js",
     "lint": "ng lint"
   },
   "private": true,
@@ -48,6 +50,7 @@
     "@angular/platform-browser": "22.1.4",
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/luxon": "3.7.5",
+    "@vitest/coverage-v8": "4.1.11",
     "adm-zip": "0.6.0",
     "angular-eslint": "^22.1.0",
     "eslint": "10.9.1",
